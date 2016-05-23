@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{83483D08-3924-469E-8BE1-FA2C49C88663}</ProjectGuid>
+    <ProjectGuid>{D041F154-A02C-429A-B73A-F6165C0A75CA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MathTicTac.Core</RootNamespace>
-    <AssemblyName>MathTicTac.Core</AssemblyName>
+    <RootNamespace>Config</RootNamespace>
+    <AssemblyName>Config</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,18 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Config\Config.csproj">
-      <Project>{d041f154-a02c-429a-b73a-f6165c0a75ca}</Project>
-      <Name>Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MathTicTac.Entities\MathTicTac.Entities.csproj">
-      <Project>{018fca23-9549-46c0-beac-864754ec00cc}</Project>
-      <Name>MathTicTac.Entities</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

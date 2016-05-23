@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MathTicTac.Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -9,8 +10,13 @@ namespace MathTicTac.PL.Monogame
 	/// </summary>
 	public class Game : Microsoft.Xna.Framework.Game
 	{
-		private GraphicsDeviceManager graphics;
+		private readonly GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
+		private World world;
+		private Texture2D crossCellTexture;
+		private Texture2D zeroCellTexture;
+		private Texture2D noneCellTexture;
+		private Texture2D borderAllCellTexture;
 
 		public Game()
 		{
@@ -28,6 +34,8 @@ namespace MathTicTac.PL.Monogame
 		{
 			// TODO: Add your initialization logic here
 
+			this.world = new World();
+
 			base.Initialize();
 		}
 
@@ -40,7 +48,17 @@ namespace MathTicTac.PL.Monogame
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
+			LoadTexture();
+
 			// TODO: use this.Content to load your game content here
+		}
+
+		private void LoadTexture()
+		{
+			crossCellTexture = this.Content.Load<Texture2D>("Textures/Cross");
+			zeroCellTexture = this.Content.Load<Texture2D>("Textures/Zero");
+			noneCellTexture = this.Content.Load<Texture2D>("Textures/None");
+			borderAllCellTexture = this.Content.Load<Texture2D>("Textures/BorderAll");
 		}
 
 		/// <summary>
@@ -73,7 +91,12 @@ namespace MathTicTac.PL.Monogame
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
+			//	spriteBatch.Begin();
+			//foreach (var item in this.world.BigCells)
+			//{
+			//	//spriteBatch.Draw();
+			//}
+			//	spriteBatch.End();
 
 			// TODO: Add your drawing code here
 

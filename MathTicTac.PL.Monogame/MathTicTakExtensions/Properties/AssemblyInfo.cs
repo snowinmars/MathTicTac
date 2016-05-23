@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MathTicTac.PL.Monogame")]
-[assembly: AssemblyProduct("MathTicTac.PL.Monogame")]
-[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyTitle("MathTicTakExtensions")]
 [assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("EPAM Systems")]
+[assembly: AssemblyProduct("MathTicTakExtensions")]
 [assembly: AssemblyCopyright("Copyright © EPAM Systems 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("47322b66-93ac-48af-9784-75746c4da06d")]
+[assembly: Guid("cd5a863f-c6e4-46cf-95f2-810b844b0ca7")]
 
 // Version information for an assembly consists of the following four values:
 //
