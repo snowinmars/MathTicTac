@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MathTicTac.Entities
+﻿namespace MathTicTac.Entities
 {
 	public class Coord
 	{
@@ -17,12 +11,12 @@ namespace MathTicTac.Entities
 			this.Y = y;
 		}
 
-		public Coord() : this(0,0)
+		public Coord() : this(0, 0)
 		{
-
 		}
 
 		#region equals
+
 		public override bool Equals(object obj)
 		{
 			if (obj == null)
@@ -39,7 +33,7 @@ namespace MathTicTac.Entities
 			return this.Equals(p);
 		}
 
-		public bool Equals (Coord obj)
+		public bool Equals(Coord obj)
 		{
 			if ((object)obj == null)
 			{
@@ -49,7 +43,7 @@ namespace MathTicTac.Entities
 			return this == obj;
 		}
 
-		public static bool operator==(Coord lhs, Coord rhs)
+		public static bool operator ==(Coord lhs, Coord rhs)
 			=> lhs.X == rhs.X &&
 				lhs.Y == rhs.Y;
 

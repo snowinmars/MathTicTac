@@ -1,5 +1,4 @@
-﻿using System;
-using Config;
+﻿using Config;
 using MathTicTac.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

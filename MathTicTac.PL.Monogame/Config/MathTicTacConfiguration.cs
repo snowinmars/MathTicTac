@@ -37,6 +37,5 @@ namespace Config
 
 		public const int CELLHEIGHT = 50;
 		public const int CELLWIDTH = 50;
-
 	}
 }

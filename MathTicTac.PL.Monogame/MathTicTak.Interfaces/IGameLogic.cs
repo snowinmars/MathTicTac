@@ -28,6 +28,6 @@ namespace MathTicTak.Interfaces
 		/// <returns></returns>
 		World GetCurrentState(string token, int gameId);
 
-        IEnumerable<GameInfo> GetAllActiveGames(string token);
+		IEnumerable<GameInfo> GetAllActiveGames(string token);
 	}
 }

@@ -6,7 +6,7 @@ namespace MathTicTac.Entities
 	public class Move
 	{
 		public string Token { get; set; }
-        public string IP { get; set; }
+		public string IP { get; set; }
 		public int GameId { get; set; }
 		public Coord BigCellCoord { get; set; }
 		public Coord CellCoord { get; set; }
@@ -22,7 +22,7 @@ namespace MathTicTac.Entities
 			this.GameId = gameid;
 			this.CellCoord = CellCoord;
 			this.BigCellCoord = bigCellCoord;
-            this.IP = ip;
+			this.IP = ip;
 		}
 	}
 }
