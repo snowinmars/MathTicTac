@@ -25,7 +25,7 @@ namespace MathTicTac.Entities
 		{
 			if (cells == null)
 			{
-				this.Cells = new Cell[5, 5]; // TODO to consts
+				this.Cells = new Cell[CellRowCount, CellColumnCount];
 			}
 			else
 			{

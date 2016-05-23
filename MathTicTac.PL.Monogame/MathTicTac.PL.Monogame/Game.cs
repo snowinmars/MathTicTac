@@ -141,9 +141,9 @@ namespace MathTicTac.PL.Monogame
 
 				coord.X += MathTicTacConfiguration.CELLWIDTH;
 
-				if (coord.X + MathTicTacConfiguration.CELLWIDTH > MathTicTacConfiguration.BIGCELLWIDTH)
+				if (coord.X + MathTicTacConfiguration.CELLWIDTH > bigCellCoord.X + MathTicTacConfiguration.BIGCELLWIDTH)
 				{
-					coord.X = 0;
+					coord.X = bigCellCoord.X;
 					coord.Y += MathTicTacConfiguration.CELLHEIGHT;
 				}
 			}
