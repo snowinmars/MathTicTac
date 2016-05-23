@@ -63,7 +63,6 @@ namespace MathTicTac.PL.Monogame
 			noneCellTexture = this.Content.Load<Texture2D>("Textures/None");
 			borderAllCellTexture = this.Content.Load<Texture2D>("Textures/BorderCellAll");
 			borderAllBigCellTexture = this.Content.Load<Texture2D>("Textures/BorderBigCellAll");
-
 		}
 
 		/// <summary>
@@ -100,14 +99,18 @@ namespace MathTicTac.PL.Monogame
 
 			spriteBatch.Begin();
 
-			DrawBigCells();
+			DrawWorld();
 
 			spriteBatch.End();
-
 
 			// TODO: Add your drawing code here
 
 			base.Draw(gameTime);
+		}
+
+		private void DrawWorld()
+		{
+			DrawBigCells();
 		}
 
 		private void DrawBigCells()
@@ -137,7 +140,15 @@ namespace MathTicTac.PL.Monogame
 			foreach (var item in bigCell.Cells)
 			{
 				spriteBatch.Draw(this.borderAllCellTexture, new Vector2(coord.X, coord.Y));
-				spriteBatch.Draw(this.crossCellTexture, new Vector2(coord.X, coord.Y));
+
+				if (MathTicTacConfiguration.Random.Next() % 2 == 0)
+				{
+					spriteBatch.Draw(this.crossCellTexture, new Vector2(coord.X, coord.Y));
+				}
+				else
+				{
+					spriteBatch.Draw(this.zeroCellTexture, new Vector2(coord.X, coord.Y));
+				}
 
 				coord.X += MathTicTacConfiguration.CELLWIDTH;
 

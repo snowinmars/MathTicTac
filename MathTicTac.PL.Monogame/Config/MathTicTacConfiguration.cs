@@ -9,6 +9,8 @@ namespace Config
 		{
 			try
 			{
+				Random = new Random();
+
 				BigCellRowCount = Int32.Parse(ConfigurationManager.AppSettings["BigCellRowCount"]);
 				BigCellColumnCount = Int32.Parse(ConfigurationManager.AppSettings["BigCellColumnCount"]);
 				CellRowCount = Int32.Parse(ConfigurationManager.AppSettings["CellRowCount"]);
@@ -19,6 +21,8 @@ namespace Config
 				throw new InvalidOperationException($"Error in cctor {nameof(MathTicTacConfiguration)} class.", ex);
 			}
 		}
+
+		public static Random Random;
 
 		public static readonly int BigCellRowCount;
 		public static readonly int BigCellColumnCount;
