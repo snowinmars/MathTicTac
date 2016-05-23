@@ -37,7 +37,7 @@ namespace MathTicTac.PL.Monogame
 		{
 			// TODO: Add your initialization logic here
 
-			this.world = new World();
+			this.world = new World(0);
 
 			base.Initialize();
 		}

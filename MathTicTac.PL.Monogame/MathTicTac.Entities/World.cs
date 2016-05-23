@@ -13,14 +13,15 @@ namespace MathTicTac.Entities
 			BigCellRowCount = MathTicTacConfiguration.BigCellRowCount;
 		}
 
+		public int Id { get; set; }
 		public BigCell[,] BigCells { get; private set; }
 		public CurrentPlayer Turn { get; set; }
 
-		public World() : this(null)
+		public World(int id) : this(id, null)
 		{
 		}
 
-		public World(BigCell[,] bigCells)
+		public World(int id, BigCell[,] bigCells)
 		{
 			if (bigCells == null)
 			{
@@ -28,7 +29,7 @@ namespace MathTicTac.Entities
 				for (int i = 0; i < this.BigCells.GetLength(0); i++)
 					for (int j = 0; j < this.BigCells.GetLength(1); j++)
 					{
-						this.BigCells[i,j] = new BigCell();
+						this.BigCells[i, j] = new BigCell();
 					}
 			}
 			else
@@ -36,6 +37,7 @@ namespace MathTicTac.Entities
 				this.BigCells = bigCells;
 			}
 
+			this.Id = id;
 			this.Turn = CurrentPlayer.Player2;
 		}
 	}
