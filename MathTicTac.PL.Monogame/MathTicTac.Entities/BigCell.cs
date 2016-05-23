@@ -2,7 +2,6 @@
 
 namespace MathTicTac.Entities
 {
-	[]
 	public class BigCell
 	{
 		public State State { get; set; }

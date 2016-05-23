@@ -1,4 +1,6 @@
-﻿using MathTicTac.Entities;
+﻿using System;
+using Config;
+using MathTicTac.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -17,6 +19,7 @@ namespace MathTicTac.PL.Monogame
 		private Texture2D zeroCellTexture;
 		private Texture2D noneCellTexture;
 		private Texture2D borderAllCellTexture;
+		private Texture2D borderAllBigCellTexture;
 
 		public Game()
 		{
@@ -58,7 +61,9 @@ namespace MathTicTac.PL.Monogame
 			crossCellTexture = this.Content.Load<Texture2D>("Textures/Cross");
 			zeroCellTexture = this.Content.Load<Texture2D>("Textures/Zero");
 			noneCellTexture = this.Content.Load<Texture2D>("Textures/None");
-			borderAllCellTexture = this.Content.Load<Texture2D>("Textures/BorderAll");
+			borderAllCellTexture = this.Content.Load<Texture2D>("Textures/BorderCellAll");
+			borderAllBigCellTexture = this.Content.Load<Texture2D>("Textures/BorderBigCellAll");
+
 		}
 
 		/// <summary>
@@ -91,16 +96,57 @@ namespace MathTicTac.PL.Monogame
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			//	spriteBatch.Begin();
-			//foreach (var item in this.world.BigCells)
-			//{
-			//	//spriteBatch.Draw();
-			//}
-			//	spriteBatch.End();
+			GraphicsDevice.Clear(Color.CornflowerBlue);
+
+			spriteBatch.Begin();
+
+			DrawBigCells();
+
+			spriteBatch.End();
+
 
 			// TODO: Add your drawing code here
 
 			base.Draw(gameTime);
+		}
+
+		private void DrawBigCells()
+		{
+			Coord coord = new Coord();
+
+			foreach (var item in this.world.BigCells)
+			{
+				spriteBatch.Draw(this.borderAllBigCellTexture, new Vector2(coord.X, coord.Y));
+
+				DrawCells(item, coord);
+
+				coord.X += MathTicTacConfiguration.BIGCELLWIDTH;
+
+				if (coord.X + MathTicTacConfiguration.BIGCELLWIDTH > MathTicTacConfiguration.WORLDWIDTH)
+				{
+					coord.X = 0;
+					coord.Y += MathTicTacConfiguration.BIGCELLHEIGHT;
+				}
+			}
+		}
+
+		private void DrawCells(BigCell bigCell, Coord bigCellCoord)
+		{
+			Coord coord = new Coord(bigCellCoord.X, bigCellCoord.Y);
+
+			foreach (var item in bigCell.Cells)
+			{
+				spriteBatch.Draw(this.borderAllCellTexture, new Vector2(coord.X, coord.Y));
+				spriteBatch.Draw(this.crossCellTexture, new Vector2(coord.X, coord.Y));
+
+				coord.X += MathTicTacConfiguration.CELLWIDTH;
+
+				if (coord.X + MathTicTacConfiguration.CELLWIDTH > MathTicTacConfiguration.BIGCELLWIDTH)
+				{
+					coord.X = 0;
+					coord.Y += MathTicTacConfiguration.CELLHEIGHT;
+				}
+			}
 		}
 	}
 }

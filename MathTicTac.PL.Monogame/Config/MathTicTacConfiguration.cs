@@ -25,7 +25,14 @@ namespace Config
 		public static readonly int CellColumnCount;
 		public static readonly int CellRowCount;
 
-		public const int HEIGHT = 200;
-		public const int WIDTH = 200;
+		public const int WORLDHEIGHT = 500;
+		public const int WORLDWIDTH = 500;
+
+		public const int BIGCELLHEIGHT = 160;
+		public const int BIGCELLWIDTH = 160;
+
+		public const int CELLHEIGHT = 50;
+		public const int CELLWIDTH = 50;
+
 	}
 }

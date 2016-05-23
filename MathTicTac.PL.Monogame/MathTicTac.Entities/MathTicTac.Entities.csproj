@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="BigCell.cs" />
     <Compile Include="Cell.cs" />
+    <Compile Include="Coord.cs" />
     <Compile Include="Enum\State.cs" />
     <Compile Include="Enum\Turn.cs" />
     <Compile Include="World.cs" />
@@ -53,10 +54,6 @@
     <ProjectReference Include="..\Config\Config.csproj">
       <Project>{D041F154-A02C-429A-B73A-F6165C0A75CA}</Project>
       <Name>Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MathTicTakExtensions\MathTicTak.Extensions.csproj">
-      <Project>{cd5a863f-c6e4-46cf-95f2-810b844b0ca7}</Project>
-      <Name>MathTicTak.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

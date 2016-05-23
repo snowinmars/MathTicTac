@@ -67,6 +67,14 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Config\Config.csproj">
+      <Project>{D041F154-A02C-429A-B73A-F6165C0A75CA}</Project>
+      <Name>Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.Core\MathTicTac.Core.csproj">
+      <Project>{83483D08-3924-469E-8BE1-FA2C49C88663}</Project>
+      <Name>MathTicTac.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MathTicTac.Entities\MathTicTac.Entities.csproj">
       <Project>{018fca23-9549-46c0-beac-864754ec00cc}</Project>
       <Name>MathTicTac.Entities</Name>
