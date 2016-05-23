@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAccountDao.cs" />
     <Compile Include="IAccountLogic.cs" />
     <Compile Include="IGameLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

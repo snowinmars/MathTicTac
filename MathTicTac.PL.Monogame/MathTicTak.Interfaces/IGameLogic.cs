@@ -1,5 +1,6 @@
 ﻿using MathTicTac.Entities;
 using MathTicTac.Entities.Enum;
+using System.Collections.Generic;
 
 namespace MathTicTak.Interfaces
 {
@@ -26,5 +27,7 @@ namespace MathTicTak.Interfaces
 		/// </summary>
 		/// <returns></returns>
 		World GetCurrentState(string token, int gameId);
+
+        IEnumerable<GameInfo> GetAllActiveGames(string token);
 	}
 }

@@ -49,6 +49,7 @@
     <Compile Include="Enum\GameResult.cs" />
     <Compile Include="Enum\State.cs" />
     <Compile Include="Enum\Turn.cs" />
+    <Compile Include="GameInfo.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

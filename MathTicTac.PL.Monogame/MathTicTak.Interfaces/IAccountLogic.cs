@@ -12,7 +12,7 @@ namespace MathTicTak.Interfaces
 		/// <returns></returns>
 		bool AcceptToken(int id, string token);
 
-		bool Add(Account item, string passsword);
+		bool Add(Account item, string password);
 
 		Account Get(int id);
 
