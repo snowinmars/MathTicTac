@@ -10,17 +10,17 @@ namespace MathTicTak.Interfaces
 		/// If return true, server and client have to make this move.
 		/// </summary>
 		/// <param name="move"></param>
-		/// <returns></returns>
+		/// <returns>true if move has been accepted, false if not (because of unknown error) or Auth exception if token and ip pair is invalid</returns>
 		bool MakeMove(Move move);
 
-		bool CreateNew(string player1Token, State selectedState, int player2Id);
+		bool CreateNew(string player1Token, string player1Ip, string player2Identifier);
 
 		/// <summary>
 		/// Returns world copy from server for user with token token
 		/// </summary>
 		/// <returns></returns>
-		World GetCurrentWorld(string token, int gameId);
+		World GetCurrentWorld(string token, string ip, int gameId);
 
-		IEnumerable<GameInfo> GetAllActiveGames(string token);
+		IEnumerable<GameInfo> GetAllActiveGames(string token, string ip);
 	}
 }

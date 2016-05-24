@@ -6,9 +6,9 @@
 	public enum GameStatus
 	{
 		None = 0,
-		Accepted = 1,
-		Dismissed = 2,
-		Turn = 3,
+        Active = 1,
+        Ended = 2,
+        Turn = 3,
 		Awaiting = 4,
 		Won = 5,
 		Lose = 6,
