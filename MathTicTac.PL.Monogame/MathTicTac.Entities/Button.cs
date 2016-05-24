@@ -6,8 +6,6 @@
 	using System;
 	using System.Collections.Generic;
 
-	
-
 	public class Button
 	{
 		private readonly string _buttonText;
@@ -48,7 +46,7 @@
 
 		public void Draw(SpriteBatch bath)
 		{
-			 bath.Draw(_textures[_currentState], _rectangle, Color.White);
+			bath.Draw(_textures[_currentState], _rectangle, Color.White);
 			//bath.DrawString(Font, _buttonText, _position, Microsoft.Xna.Framework.Color.Black);
 		}
 

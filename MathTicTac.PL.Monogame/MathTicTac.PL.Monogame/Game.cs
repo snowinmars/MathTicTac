@@ -16,12 +16,14 @@ namespace MathTicTac.PL.Monogame
 		private Texture2D borderAllBigCellTexture;
 		private Texture2D borderAllCellTexture;
 		private Texture2D crossCellHoverTexture;
+		private Texture2D crossCellNormalTexture;
 		private Texture2D crossCellPressedTexture;
-		private Texture2D crossCellTexture;
 		private Texture2D noneCellTexture;
 		private SpriteBatch spriteBatch;
 		private World world;
-		private Texture2D zeroCellTexture;
+		private Texture2D zeroCellHoverTexture;
+		private Texture2D zeroCellNormalTexture;
+		private Texture2D zeroCellPressedTexture;
 
 		public Game()
 		{
@@ -115,19 +117,15 @@ namespace MathTicTac.PL.Monogame
 
 			LoadTexture();
 
-			MonogameStock.cellsTextures = new Dictionary<VisibleState, Texture2D>
-					{
-						{ VisibleState.Hover, this.crossCellHoverTexture},
-						{ VisibleState.Normal, this.crossCellTexture},
-						{ VisibleState.Pressed, this.crossCellPressedTexture},
+			MonogameStockLoad();
 
-					};
+			//Dictionary<VisibleState, Texture2D> cellstextures = new Dictionary<VisibleState, Texture2D>();
 
 			foreach (var bigcell in this.world.BigCells)
 			{
 				foreach (var cell in bigcell.Cells)
 				{
-					cell.SetTextures(MonogameStock.cellsTextures);
+					cell.SetTextures(MonogameStock.cellsZeroTextures);
 				}
 			}
 
@@ -168,13 +166,35 @@ namespace MathTicTac.PL.Monogame
 
 		private void LoadTexture()
 		{
-			crossCellTexture = this.Content.Load<Texture2D>("Textures/Cross");
-			zeroCellTexture = this.Content.Load<Texture2D>("Textures/Zero");
-			noneCellTexture = this.Content.Load<Texture2D>("Textures/None");
-			borderAllCellTexture = this.Content.Load<Texture2D>("Textures/BorderCellAll");
-			borderAllBigCellTexture = this.Content.Load<Texture2D>("Textures/BorderBigCellAll");
+			zeroCellNormalTexture = this.Content.Load<Texture2D>("Textures/ZeroNormal");
+			zeroCellHoverTexture = this.Content.Load<Texture2D>("Textures/ZeroHover");
+			zeroCellPressedTexture = this.Content.Load<Texture2D>("Textures/ZeroPressed");
+
+			crossCellNormalTexture = this.Content.Load<Texture2D>("Textures/CrossNormal");
 			crossCellHoverTexture = this.Content.Load<Texture2D>("Textures/CrossHover");
 			crossCellPressedTexture = this.Content.Load<Texture2D>("Textures/CrossPressed");
+
+			noneCellTexture = this.Content.Load<Texture2D>("Textures/None");
+
+			borderAllCellTexture = this.Content.Load<Texture2D>("Textures/BorderCellAll");
+			borderAllBigCellTexture = this.Content.Load<Texture2D>("Textures/BorderBigCellAll");
+		}
+
+		private void MonogameStockLoad()
+		{
+			MonogameStock.cellsCrossTextures = new Dictionary<VisibleState, Texture2D>
+			{
+				{ VisibleState.Hover, this.crossCellHoverTexture},
+				{ VisibleState.Normal, this.crossCellNormalTexture},
+				{ VisibleState.Pressed, this.crossCellPressedTexture},
+			};
+
+			MonogameStock.cellsZeroTextures = new Dictionary<VisibleState, Texture2D>
+			{
+				{ VisibleState.Hover, this.zeroCellHoverTexture },
+				{ VisibleState.Normal, this.zeroCellNormalTexture},
+				{ VisibleState.Pressed, this.zeroCellPressedTexture},
+			};
 		}
 	}
 }

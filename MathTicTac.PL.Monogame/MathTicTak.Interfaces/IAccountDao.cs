@@ -1,6 +1,4 @@
-﻿
-
-using MathTicTac.Entities;
+﻿using MathTicTac.Entities;
 using System;
 
 namespace MathTicTak.Interfaces
@@ -25,8 +23,8 @@ namespace MathTicTak.Interfaces
 
 		int GetUserIdByToken(string token);
 
-        bool TokenIpIsTrusted(string token, string ip);
+		bool TokenIpIsTrusted(string token, string ip);
 
-        bool UpdateTokenDate(string token);
+		bool UpdateTokenDate(string token);
 	}
 }
