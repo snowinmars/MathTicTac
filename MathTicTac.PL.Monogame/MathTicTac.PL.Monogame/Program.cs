@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace MathTicTac.PL.Monogame
+﻿namespace MathTicTac.PL.Monogame
 {
+	using System;
+
 	/// <summary>
 	/// The main class.
 	/// </summary>

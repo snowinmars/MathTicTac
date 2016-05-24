@@ -46,15 +46,11 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="BigCell.cs" />
-    <Compile Include="Button.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="Coord.cs" />
     <Compile Include="Enum\GameStatus.cs" />
-    <Compile Include="Enum\GameResult.cs" />
-    <Compile Include="Enum\MouseState.cs" />
     <Compile Include="Enum\State.cs" />
-    <Compile Include="Enum\Turn.cs" />
-    <Compile Include="Enum\VisibleState.cs" />
+    <Compile Include="Enum\CurrentPlayer.cs" />
     <Compile Include="GameInfo.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="World.cs" />

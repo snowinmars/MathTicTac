@@ -1,9 +1,11 @@
-﻿namespace MathTicTac.Entities
+﻿namespace MathTicTac.PL.Monogame.DTO
 {
-	public class World
+	using Entities;
+
+	internal class WorldDTO
 	{
 		public int Id { get; set; }
-		public BigCell[,] BigCells { get; private set; }
+		public BigCellDTO[,] BigCells { get; private set; }
 
 		/// <summary>
 		/// Coordinates of allowed bigcell
@@ -12,11 +14,11 @@
 
 		public GameStatus Status { get; set; }
 
-		public World(int id) : this(id, null)
+		public WorldDTO(int id) : this(id, null)
 		{
 		}
 
-		public World(int id, BigCell[,] bigCells)
+		public WorldDTO(int id, BigCellDTO[,] bigCells)
 		{
 			this.BigCells = bigCells;
 

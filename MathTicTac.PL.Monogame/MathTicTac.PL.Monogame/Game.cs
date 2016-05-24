@@ -1,29 +1,22 @@
-﻿using Config;
-using MathTicTac.Entities;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-
-namespace MathTicTac.PL.Monogame
+﻿namespace MathTicTac.PL.Monogame
 {
+	using Config;
+	using DTO;
+	using Entities;
+	using Microsoft.Xna.Framework;
+	using Microsoft.Xna.Framework.Graphics;
+	using Microsoft.Xna.Framework.Input;
+
 	/// <summary>
 	/// This is the main type for your game.
 	/// </summary>
 	public class Game : Microsoft.Xna.Framework.Game
 	{
+		private static SpriteBatch spriteBatch;
 		private readonly GraphicsDeviceManager graphics;
-		private Texture2D borderAllBigCellTexture;
-		private Texture2D borderAllCellTexture;
-		private Texture2D crossCellHoverTexture;
-		private Texture2D crossCellNormalTexture;
-		private Texture2D crossCellPressedTexture;
-		private Texture2D noneCellTexture;
-		private SpriteBatch spriteBatch;
-		private World world;
-		private Texture2D zeroCellHoverTexture;
-		private Texture2D zeroCellNormalTexture;
-		private Texture2D zeroCellPressedTexture;
+		private GameHelper gameHelper;
+
+		private WorldDTO world;
 
 		public Game()
 		{
@@ -37,21 +30,21 @@ namespace MathTicTac.PL.Monogame
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
+			//GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			spriteBatch.Begin();
+			Game.spriteBatch.Begin();
 
 			foreach (var bigcell in this.world.BigCells)
 			{
-				spriteBatch.Draw(this.borderAllBigCellTexture, bigcell.position, Color.White);
+				Game.spriteBatch.Draw(MonogameStock.borderAllBigCellTexture, bigcell.Position, Color.White);
 
 				foreach (var cell in bigcell.Cells)
 				{
-					cell.Draw(spriteBatch);
+					cell.Draw(Game.spriteBatch);
 				}
 			}
 
-			spriteBatch.End();
+			Game.spriteBatch.End();
 
 			// TODO: Add your drawing code here
 
@@ -67,42 +60,12 @@ namespace MathTicTac.PL.Monogame
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
+			this.gameHelper = new GameHelper();
 
-			this.world = new World(0, new BigCell[MathTicTacConfiguration.BigCellRowCount, MathTicTacConfiguration.BigCellColumnCount]);
+			this.world = new WorldDTO(0, new BigCellDTO[MathTicTacConfiguration.BigCellRowCount, MathTicTacConfiguration.BigCellColumnCount]); // TODO map from logic
 			this.IsMouseVisible = true;
 
-			Coord bigCellCoord = new Coord();
-
-			for (int i = 0; i < this.world.BigCells.GetLength(0); i++)
-				for (int j = 0; j < this.world.BigCells.GetLength(1); j++)
-				{
-					this.world.BigCells[i, j] = new BigCell(State.None, false, new Cell[MathTicTacConfiguration.CellRowCount, MathTicTacConfiguration.CellColumnCount], new Vector2(bigCellCoord.X, bigCellCoord.Y));
-
-					Coord cellCoord = new Coord(bigCellCoord.X + MathTicTacConfiguration.BIGCELLSPRITEOFFSET, bigCellCoord.Y + MathTicTacConfiguration.BIGCELLSPRITEOFFSET);
-
-					for (int e = 0; e < this.world.BigCells[i, j].Cells.GetLength(0); e++)
-						for (int k = 0; k < this.world.BigCells[i, j].Cells.GetLength(1); k++)
-						{
-							this.world.BigCells[i, j].Cells[e, k] = new Cell(State.None, new Vector2(cellCoord.X, cellCoord.Y), MathTicTacConfiguration.CELLWIDTH, MathTicTacConfiguration.CELLHEIGHT);
-
-							cellCoord.X += MathTicTacConfiguration.CELLWIDTH;
-
-							if (cellCoord.X + MathTicTacConfiguration.CELLWIDTH > bigCellCoord.X + MathTicTacConfiguration.BIGCELLWIDTH)
-							{
-								cellCoord.X = bigCellCoord.X + MathTicTacConfiguration.BIGCELLSPRITEOFFSET;
-								cellCoord.Y += MathTicTacConfiguration.CELLHEIGHT;
-							}
-						}
-
-					bigCellCoord.X += MathTicTacConfiguration.BIGCELLWIDTH;
-
-					if (bigCellCoord.X + MathTicTacConfiguration.BIGCELLWIDTH > MathTicTacConfiguration.WORLDWIDTH)
-					{
-						bigCellCoord.X = 0;
-						bigCellCoord.Y += MathTicTacConfiguration.BIGCELLHEIGHT;
-					}
-				}
-
+			this.gameHelper.SetCellsCoords(this.world);
 			base.Initialize();
 		}
 
@@ -113,19 +76,27 @@ namespace MathTicTac.PL.Monogame
 		protected override void LoadContent()
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
-			spriteBatch = new SpriteBatch(GraphicsDevice);
+			Game.spriteBatch = new SpriteBatch(this.GraphicsDevice);
 
-			LoadTexture();
-
-			MonogameStockLoad();
-
-			//Dictionary<VisibleState, Texture2D> cellstextures = new Dictionary<VisibleState, Texture2D>();
+			this.gameHelper.MonogameStockLoad(this);
 
 			foreach (var bigcell in this.world.BigCells)
 			{
 				foreach (var cell in bigcell.Cells)
 				{
 					cell.SetTextures(MonogameStock.cellsZeroTextures);
+
+					cell.MouseClick += (e, s) =>
+					{
+						if (MathTicTacConfiguration.Random.Next() % 2 == 0)
+						{
+							cell.State = State.Client;
+						}
+						else
+						{
+							cell.State = State.Enemy;
+						}
+					};
 				}
 			}
 
@@ -148,8 +119,10 @@ namespace MathTicTac.PL.Monogame
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+			{
 				Exit();
+			}
 
 			foreach (var bigcell in this.world.BigCells)
 			{
@@ -162,39 +135,6 @@ namespace MathTicTac.PL.Monogame
 			// TODO: Add your update logic here
 
 			base.Update(gameTime);
-		}
-
-		private void LoadTexture()
-		{
-			zeroCellNormalTexture = this.Content.Load<Texture2D>("Textures/ZeroNormal");
-			zeroCellHoverTexture = this.Content.Load<Texture2D>("Textures/ZeroHover");
-			zeroCellPressedTexture = this.Content.Load<Texture2D>("Textures/ZeroPressed");
-
-			crossCellNormalTexture = this.Content.Load<Texture2D>("Textures/CrossNormal");
-			crossCellHoverTexture = this.Content.Load<Texture2D>("Textures/CrossHover");
-			crossCellPressedTexture = this.Content.Load<Texture2D>("Textures/CrossPressed");
-
-			noneCellTexture = this.Content.Load<Texture2D>("Textures/None");
-
-			borderAllCellTexture = this.Content.Load<Texture2D>("Textures/BorderCellAll");
-			borderAllBigCellTexture = this.Content.Load<Texture2D>("Textures/BorderBigCellAll");
-		}
-
-		private void MonogameStockLoad()
-		{
-			MonogameStock.cellsCrossTextures = new Dictionary<VisibleState, Texture2D>
-			{
-				{ VisibleState.Hover, this.crossCellHoverTexture},
-				{ VisibleState.Normal, this.crossCellNormalTexture},
-				{ VisibleState.Pressed, this.crossCellPressedTexture},
-			};
-
-			MonogameStock.cellsZeroTextures = new Dictionary<VisibleState, Texture2D>
-			{
-				{ VisibleState.Hover, this.zeroCellHoverTexture },
-				{ VisibleState.Normal, this.zeroCellNormalTexture},
-				{ VisibleState.Pressed, this.zeroCellPressedTexture},
-			};
 		}
 	}
 }

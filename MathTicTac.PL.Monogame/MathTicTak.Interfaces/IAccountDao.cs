@@ -11,7 +11,7 @@ namespace MathTicTak.Interfaces
 
 		Account Get(int id);
 
-		void AddStatus(int id, GameResult result);
+		void AddStatus(int id, GameStatus status);
 
 		string CreateToken(int id);
 

@@ -40,7 +40,14 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DTO\BigCellDTO.cs" />
+    <Compile Include="DTO\Button.cs" />
+    <Compile Include="DTO\CellDTO.cs" />
+    <Compile Include="DTO\Enum\MouseState.cs" />
+    <Compile Include="DTO\Enum\VisibleState.cs" />
+    <Compile Include="DTO\WorldDTO.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GameHelper.cs" />
     <Compile Include="MonogameStock.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

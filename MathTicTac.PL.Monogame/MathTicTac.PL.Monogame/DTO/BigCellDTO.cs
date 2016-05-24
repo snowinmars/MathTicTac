@@ -1,23 +1,28 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-
-namespace MathTicTac.Entities
+﻿namespace MathTicTac.PL.Monogame.DTO
 {
-	public class BigCell
+	using Entities;
+	using Microsoft.Xna.Framework;
+
+	internal class BigCellDTO
 	{
 		public State State { get; set; }
 		public bool IsFocus { get; set; }
-		public Cell[,] Cells { get; private set; }
+		public CellDTO[,] Cells { get; private set; }
+		public Vector2 Position { get; set; }
 
-		public BigCell() : this(State.None, false, null)
+		public BigCellDTO() : this(State.None,
+						false,
+						null,
+						new Vector2(0, 0))
 		{
 		}
 
-		public BigCell(State state, bool isFocus, Cell[,] cells)
+		public BigCellDTO(State state, bool isFocus, CellDTO[,] cells, Vector2 position)
 		{
 			this.Cells = cells;
 			this.State = state;
 			this.IsFocus = isFocus;
+			this.Position = position;
 		}
 
 		public bool IsFilled()
@@ -58,7 +63,7 @@ namespace MathTicTac.Entities
 				return false;
 			}
 
-			BigCell p = obj as BigCell;
+			BigCellDTO p = obj as BigCellDTO;
 			if ((object)p == null)
 			{
 				return false;
@@ -67,7 +72,7 @@ namespace MathTicTac.Entities
 			return this.Equals(p);
 		}
 
-		public bool Equals(BigCell obj)
+		public bool Equals(BigCellDTO obj)
 		{
 			if ((object)obj == null)
 			{
@@ -77,7 +82,7 @@ namespace MathTicTac.Entities
 			return this == obj;
 		}
 
-		public static bool operator ==(BigCell lhs, BigCell rhs)
+		public static bool operator ==(BigCellDTO lhs, BigCellDTO rhs)
 		{
 			if ((lhs == null) && (rhs == null))
 			{
@@ -124,7 +129,7 @@ namespace MathTicTac.Entities
 			return output && isCellsEquals;
 		}
 
-		public static bool operator !=(BigCell lhs, BigCell rhs)
+		public static bool operator !=(BigCellDTO lhs, BigCellDTO rhs)
 		    => !(lhs == rhs);
 
 		#endregion equals

@@ -1,15 +1,18 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MathTicTac.Entities
 {
-	public class Cell : Button
+	public class Cell
 	{
 		public State State { get; set; }
+		public bool IsFocus { get; set; }
 
-		public Cell(State state, Vector2 position, int width, int height, string buttonText = "") : base(position, width, height, buttonText)
+		public Cell(State state, bool isFocus)
 		{
 			this.State = state;
+			this.IsFocus = isFocus;
 		}
 
 		#region equals

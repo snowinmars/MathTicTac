@@ -2,7 +2,6 @@
 
 namespace MathTicTac.Entities
 {
-	[Serializable]
 	public class Move
 	{
 		public string Token { get; set; }
