@@ -14,17 +14,19 @@ namespace MathTicTak.Interfaces
 
 		void AddStatus(int id, GameResult result);
 
-		string CreateToken(int id);
+		string CreateToken(int id, string ip);
 
 		bool DeleteToken(string token);
 
 		string GetUserPassword(int id);
 
-		int GetUserIdByName(string name);
+		int GetUserIdByIdentifier(string identifier);
 
 		int GetUserIdByToken(string token);
 
-        bool TokenIpIsTrusted(string token, string ip);
+        string GetUserTokenById(int id);
+
+        bool IsTokenIpTrusted(string token, string ip);
 
         bool UpdateTokenDate(string token);
 	}
