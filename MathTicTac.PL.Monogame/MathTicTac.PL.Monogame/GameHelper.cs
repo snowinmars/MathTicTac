@@ -89,7 +89,8 @@
 
 			if (bigcell.IsFocus)
 			{
-				bigcell.IsFocus = false;
+				world.SetAllBigCellsToState(false);
+				world.BigCells[cellCoord.X, cellCoord.Y].IsFocus = true;
 
 				if (MathTicTacConfiguration.Random.Next() % 2 == 0)
 				{
