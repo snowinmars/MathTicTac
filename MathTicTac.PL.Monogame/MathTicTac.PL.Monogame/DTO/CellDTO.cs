@@ -4,7 +4,7 @@
 	using Microsoft.Xna.Framework;
 	using Microsoft.Xna.Framework.Graphics;
 
-	public class CellDTO : Button
+	internal class CellDTO : Button
 	{
 		public State State { get; set; }
 

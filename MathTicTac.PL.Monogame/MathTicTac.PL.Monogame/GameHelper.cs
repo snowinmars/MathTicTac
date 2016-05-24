@@ -5,6 +5,7 @@
 	using Entities;
 	using Microsoft.Xna.Framework;
 	using Microsoft.Xna.Framework.Graphics;
+	using System;
 	using System.Collections.Generic;
 
 	internal class GameHelper
@@ -47,7 +48,7 @@
 				for (int j = 0; j < world.BigCells.GetLength(1); j++)
 				{
 					world.BigCells[i, j] = new BigCellDTO(State.None,
-										false,
+										true,
 										new CellDTO[MathTicTacConfiguration.CellRowCount, MathTicTacConfiguration.CellColumnCount],
 										new Vector2(bigCellCoord.X, bigCellCoord.Y));
 
@@ -79,6 +80,26 @@
 						bigCellCoord.Y += MathTicTacConfiguration.BIGCELLHEIGHT;
 					}
 				}
+		}
+
+		internal void OnMouseClickCrunch(WorldDTO world, Coord bigCellCoord, Coord cellCoord)
+		{
+			BigCellDTO bigcell = world.BigCells[bigCellCoord.X, bigCellCoord.Y];
+			CellDTO cell = world.BigCells[bigCellCoord.X, bigCellCoord.Y].Cells[cellCoord.X, cellCoord.Y];
+
+			if (bigcell.IsFocus)
+			{
+				bigcell.IsFocus = false;
+
+				if (MathTicTacConfiguration.Random.Next() % 2 == 0)
+				{
+					cell.State = State.Client;
+				}
+				else
+				{
+					cell.State = State.Enemy;
+				}
+			}
 		}
 	}
 }

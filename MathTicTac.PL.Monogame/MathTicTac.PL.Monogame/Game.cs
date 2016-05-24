@@ -6,11 +6,11 @@
 	using Microsoft.Xna.Framework;
 	using Microsoft.Xna.Framework.Graphics;
 	using Microsoft.Xna.Framework.Input;
-
+	using System;
 	/// <summary>
 	/// This is the main type for your game.
 	/// </summary>
-	public class Game : Microsoft.Xna.Framework.Game
+	internal class Game : Microsoft.Xna.Framework.Game
 	{
 		private static SpriteBatch spriteBatch;
 		private readonly GraphicsDeviceManager graphics;
@@ -66,6 +66,7 @@
 			this.IsMouseVisible = true;
 
 			this.gameHelper.SetCellsCoords(this.world);
+
 			base.Initialize();
 		}
 
@@ -80,27 +81,31 @@
 
 			this.gameHelper.MonogameStockLoad(this);
 
-			foreach (var bigcell in this.world.BigCells)
-			{
-				foreach (var cell in bigcell.Cells)
-				{
-					cell.SetTextures(MonogameStock.cellsZeroTextures);
-
-					cell.MouseClick += (e, s) =>
-					{
-						if (MathTicTacConfiguration.Random.Next() % 2 == 0)
+			for (int i = 0; i < this.world.BigCells.GetLength(0); i++)
+				for (int j = 0; j < this.world.BigCells.GetLength(1); j++)
+					for (int e = 0; e < this.world.BigCells[i, j].Cells.GetLength(0); e++)
+						for (int k = 0; k < this.world.BigCells[i, j].Cells.GetLength(1); k++)
 						{
-							cell.State = State.Client;
-						}
-						else
-						{
-							cell.State = State.Enemy;
-						}
-					};
-				}
-			}
+							var cell = this.world.BigCells[i, j].Cells[e, k];
+							var bigcell = this.world.BigCells[i, j];
 
+							cell.SetTextures(MonogameStock.cellsZeroTextures);
+							int NonClosure_i = i;
+							int NonClosure_j = j;
+							int NonClosure_e = e;
+							int NonClosure_k = k;
+
+
+							cell.MouseClick += (o, s) =>
+							{
+
+								this.gameHelper.OnMouseClickCrunch(this.world,
+													new Coord(NonClosure_i, NonClosure_j),
+													new Coord(NonClosure_e, NonClosure_k));
+							};
+						}
 			// TODO: use this.Content to load your game content here
+			base.LoadContent();
 		}
 
 		/// <summary>

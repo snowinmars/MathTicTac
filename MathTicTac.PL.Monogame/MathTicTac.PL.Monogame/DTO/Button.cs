@@ -6,7 +6,7 @@
 	using System;
 	using System.Collections.Generic;
 
-	public class Button
+	internal class Button
 	{
 		protected readonly string buttonText;
 		protected readonly Vector2 position;
@@ -78,7 +78,7 @@
 				{
 					if (this.previousVisibleState == VisibleState.Pressed)
 					{
-						this.OnMouseClick(EventArgs.Empty);
+						this.OnMouseClick(null);
 					}
 
 					this.currentVisibleState = VisibleState.Hover;
