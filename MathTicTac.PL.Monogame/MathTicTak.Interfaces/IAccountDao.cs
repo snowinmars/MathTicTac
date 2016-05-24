@@ -1,11 +1,12 @@
 ﻿using MathTicTac.Entities;
 using MathTicTac.Entities.Enum;
+using System;
 
 namespace MathTicTak.Interfaces
 {
 	public interface IAccountDao
 	{
-		bool AcceptToken(int id, string token);
+		DateTime? AcceptToken(string token);
 
 		bool Add(Account item, string password);
 
@@ -15,14 +16,16 @@ namespace MathTicTak.Interfaces
 
 		string CreateToken(int id);
 
-		bool DeactivateToken(int id);
-
-		bool TokenIsValid(string token);
+		bool DeleteToken(string token);
 
 		string GetUserPassword(int id);
 
 		int GetUserIdByName(string name);
 
 		int GetUserIdByToken(string token);
+
+        bool TokenIpIsTrusted(string token, string ip);
+
+        bool UpdateTokenDate(string token);
 	}
 }
