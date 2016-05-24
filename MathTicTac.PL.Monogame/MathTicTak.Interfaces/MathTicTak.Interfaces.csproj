@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IAccountDao.cs" />
     <Compile Include="IAccountLogic.cs" />
+    <Compile Include="IGameDao.cs" />
     <Compile Include="IGameLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

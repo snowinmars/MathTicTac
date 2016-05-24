@@ -46,6 +46,7 @@
     <Compile Include="BigCell.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="Coord.cs" />
+    <Compile Include="Enum\GameStatus.cs" />
     <Compile Include="Enum\GameResult.cs" />
     <Compile Include="Enum\State.cs" />
     <Compile Include="Enum\Turn.cs" />

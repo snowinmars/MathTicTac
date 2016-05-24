@@ -14,19 +14,13 @@ namespace MathTicTak.Interfaces
 		/// <returns></returns>
 		bool MakeMove(Move move);
 
-		void CreateNewGame(string player1Token, int player2Id);
-
-		/// <summary>
-		/// Determinates, who wins
-		/// </summary>
-		/// <returns></returns>
-		GameResult CheckGameResult();
-
+		bool CreateNew(string player1Token, State selectedState, int player2Id);
+        
 		/// <summary>
 		/// Returns world copy from server for user with token token
 		/// </summary>
 		/// <returns></returns>
-		World GetCurrentState(string token, int gameId);
+		World GetCurrentWorld(string token, int gameId);
 
 		IEnumerable<GameInfo> GetAllActiveGames(string token);
 	}

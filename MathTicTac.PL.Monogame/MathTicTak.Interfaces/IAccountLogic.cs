@@ -24,7 +24,9 @@ namespace MathTicTak.Interfaces
 		/// <returns>User's token</returns>
 		string Login(int id, string password);
 
-		void Logout(int id);
+		bool Logout(int id);
+
+        bool TokenIsValid(string token);
 
 		//bool Remove(int id);
 
