@@ -3,7 +3,7 @@
 	public enum State
 	{
 		None = 0,
-		Cross = 1,
-		Zero = 2,
+		Client = 1,
+		Enemy = 2,
 	}
 }

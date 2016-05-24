@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{018FCA23-9549-46C0-BEAC-864754EC00CC}</ProjectGuid>
+    <ProjectGuid>{CBF31850-4EE5-4F14-AA74-DBC95E44EED0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MathTicTac.Entities</RootNamespace>
-    <AssemblyName>MathTicTac.Entities</AssemblyName>
+    <RootNamespace>MathTicTac.Exceptions</RootNamespace>
+    <AssemblyName>MathTicTac.Exceptions</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,7 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>..\..\..\Epam.Library\Epam.Library.Bll.Core\Epam.Library.Bll.Core.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,23 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
-    <Compile Include="BigCell.cs" />
-    <Compile Include="Cell.cs" />
-    <Compile Include="Coord.cs" />
-    <Compile Include="Enum\GameStatus.cs" />
-    <Compile Include="Enum\State.cs" />
-    <Compile Include="Enum\Turn.cs" />
-    <Compile Include="GameInfo.cs" />
-    <Compile Include="Move.cs" />
-    <Compile Include="World.cs" />
+    <Compile Include="AuthenticationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Config\Config.csproj">
-      <Project>{D041F154-A02C-429A-B73A-F6165C0A75CA}</Project>
-      <Name>Config</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

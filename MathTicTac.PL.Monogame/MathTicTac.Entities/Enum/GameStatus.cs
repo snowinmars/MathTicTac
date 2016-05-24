@@ -6,10 +6,12 @@
 	public enum GameStatus
 	{
 		None = 0,
-		Turn = 1,
-		Awaiting = 2,
-		Won = 3,
-		Lose = 4,
-		DeadHeat = 5
+        Active = 1,
+        Ended = 2,
+        Turn = 3,
+		Awaiting = 4,
+		Won = 5,
+		Lose = 6,
+		DeadHeat = 7,
 	}
 }
