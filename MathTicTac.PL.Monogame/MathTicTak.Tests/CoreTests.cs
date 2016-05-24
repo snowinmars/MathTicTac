@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MathTicTak.Tests
+﻿namespace MathTicTak.Tests
 {
-    public class CoreTests
-    {
-    }
+	public class CoreTests
+	{
+	}
 }

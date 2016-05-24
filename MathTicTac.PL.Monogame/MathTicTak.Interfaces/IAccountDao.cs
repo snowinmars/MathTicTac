@@ -7,22 +7,22 @@ namespace MathTicTak.Interfaces
 	{
 		bool AcceptToken(int id, string token);
 
-        bool Add(Account item, string password);
+		bool Add(Account item, string password);
 
-        Account Get(int id);
+		Account Get(int id);
 
-        void AddStatus(int id, GameResult result);
-        
-        string CreateToken(int id);
+		void AddStatus(int id, GameResult result);
 
-        bool DeactivateToken(int id);
+		string CreateToken(int id);
 
-        bool TokenIsValid(string token);
+		bool DeactivateToken(int id);
 
-        string GetUserPassword(int id);
+		bool TokenIsValid(string token);
 
-        int GetUserIdByName(string name);
+		string GetUserPassword(int id);
 
-        int GetUserIdByToken(string token);
-    }
+		int GetUserIdByName(string name);
+
+		int GetUserIdByToken(string token);
+	}
 }

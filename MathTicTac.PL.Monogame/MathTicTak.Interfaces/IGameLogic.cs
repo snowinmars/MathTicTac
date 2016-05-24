@@ -1,5 +1,4 @@
 ﻿using MathTicTac.Entities;
-using MathTicTac.Entities.Enum;
 using System.Collections.Generic;
 
 namespace MathTicTak.Interfaces
@@ -15,7 +14,7 @@ namespace MathTicTak.Interfaces
 		bool MakeMove(Move move);
 
 		bool CreateNew(string player1Token, State selectedState, int player2Id);
-        
+
 		/// <summary>
 		/// Returns world copy from server for user with token token
 		/// </summary>

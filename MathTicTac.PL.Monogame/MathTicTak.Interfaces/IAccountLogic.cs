@@ -26,7 +26,7 @@ namespace MathTicTak.Interfaces
 
 		bool Logout(int id);
 
-        bool TokenIsValid(string token);
+		bool TokenIsValid(string token);
 
 		//bool Remove(int id);
 
