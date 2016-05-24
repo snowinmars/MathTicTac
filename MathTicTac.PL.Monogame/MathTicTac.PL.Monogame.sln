@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Config", "Config\Config.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathTicTak.Interfaces", "MathTicTak.Interfaces\MathTicTak.Interfaces.csproj", "{5D542FF4-9080-405D-959A-694307E5C634}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathTicTak.Tests", "MathTicTak.Tests\MathTicTak.Tests.csproj", "{67E2384F-E8F5-49D6-BEBF-09CBA60CD760}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,14 @@ Global
 		{5D542FF4-9080-405D-959A-694307E5C634}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5D542FF4-9080-405D-959A-694307E5C634}.Release|x86.ActiveCfg = Release|Any CPU
 		{5D542FF4-9080-405D-959A-694307E5C634}.Release|x86.Build.0 = Release|Any CPU
+		{67E2384F-E8F5-49D6-BEBF-09CBA60CD760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67E2384F-E8F5-49D6-BEBF-09CBA60CD760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67E2384F-E8F5-49D6-BEBF-09CBA60CD760}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{67E2384F-E8F5-49D6-BEBF-09CBA60CD760}.Debug|x86.Build.0 = Debug|Any CPU
+		{67E2384F-E8F5-49D6-BEBF-09CBA60CD760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67E2384F-E8F5-49D6-BEBF-09CBA60CD760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67E2384F-E8F5-49D6-BEBF-09CBA60CD760}.Release|x86.ActiveCfg = Release|Any CPU
+		{67E2384F-E8F5-49D6-BEBF-09CBA60CD760}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
