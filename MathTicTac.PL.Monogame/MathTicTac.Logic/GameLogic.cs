@@ -75,27 +75,12 @@ namespace MathTicTac.Logic
 
                 World currentGame = gameDao.GetGameState(gameId);
 
-                int curUserState = gameDao.GetGameRole(currentGame.Id, userId);
-
-                if (curUserState == -1)
+                if (gameDao.GetGameCreatorId(currentGame.Id) == userId)
                 {
-                    Mechanic.InvertStates(currentGame);
-
-                    if (currentGame.Status != Entities.Enum.GameStatus.Active)
+                    if (Mechanic.GetNumberOfMadeMoves(currentGame) % 2 != 0)
                     {
-                        if (Mechanic.GetNumberOfMadeMoves(currentGame) % 2 == 0)
-                        {
-                            currentGame.Status = Entities.Enum.GameStatus.Turn;
-                        }
-                        else
-                        {
-                            currentGame.Status = Entities.Enum.GameStatus.Awaiting;
-                        }
+                        currentGame.Status = Entities.Enum.GameStatus.Turn;
                     }
-                }
-                else if (curUserState == 0)
-                {
-                    throw new ArgumentException();
                 }
 
                 return currentGame;

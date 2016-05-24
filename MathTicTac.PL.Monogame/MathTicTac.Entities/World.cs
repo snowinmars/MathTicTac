@@ -16,11 +16,8 @@ namespace MathTicTac.Entities
 
 		public int Id { get; set; }
 		public BigCell[,] BigCells { get; private set; }
-
-		/// <summary>
-		/// Coordinates of allowed bigcell
-		/// </summary>
-		public Coord TurnCoord { get; set; }
+        public int ClientId { get; set; }
+        public int EnemyId { get; set; }
 
 		public GameStatus Status { get; set; }
 
@@ -45,7 +42,6 @@ namespace MathTicTac.Entities
 			}
 
 			this.Id = id;
-			this.TurnCoord = null;
 		}
 	}
 }
