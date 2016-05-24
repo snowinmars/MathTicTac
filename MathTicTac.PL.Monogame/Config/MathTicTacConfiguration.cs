@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 
 namespace Config
@@ -22,7 +23,8 @@ namespace Config
 			}
 		}
 
-		public static Random Random;
+
+		public static Random Random { get; set; }
 
 		public static readonly int BigCellRowCount;
 		public static readonly int BigCellColumnCount;

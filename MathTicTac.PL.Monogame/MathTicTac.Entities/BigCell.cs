@@ -1,5 +1,4 @@
-﻿using Config;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 
 namespace MathTicTac.Entities
@@ -11,30 +10,13 @@ namespace MathTicTac.Entities
 		public Cell[,] Cells { get; private set; }
 		public Vector2 position { get; set; }
 
-		public static readonly int CellRowCount;
-		public static readonly int CellColumnCount;
-
-		static BigCell()
-		{
-			CellRowCount = MathTicTacConfiguration.CellRowCount;
-			CellColumnCount = MathTicTacConfiguration.CellColumnCount;
-		}
-
 		public BigCell() : this(State.None, false, null, new Vector2(0,0))
 		{
 		}
 
 		public BigCell(State state, bool isFocus, Cell[,] cells, Vector2 position)
 		{
-			if (cells == null)
-			{
-				this.Cells = new Cell[CellRowCount, CellColumnCount];
-			}
-			else
-			{
-				this.Cells = cells;
-			}
-
+			this.Cells = cells;
 			this.State = state;
 			this.IsFocus = isFocus;
 			this.position = position;

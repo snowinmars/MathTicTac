@@ -54,16 +54,11 @@
     <Compile Include="Enum\MouseState.cs" />
     <Compile Include="Enum\State.cs" />
     <Compile Include="Enum\Turn.cs" />
+    <Compile Include="Enum\VisibleState.cs" />
     <Compile Include="GameInfo.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Config\Config.csproj">
-      <Project>{D041F154-A02C-429A-B73A-F6165C0A75CA}</Project>
-      <Name>Config</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -66,7 +66,7 @@ namespace MathTicTac.PL.Monogame
 		{
 			// TODO: Add your initialization logic here
 
-			this.world = new World(0);
+			this.world = new World(0, new BigCell[MathTicTacConfiguration.BigCellRowCount, MathTicTacConfiguration.BigCellColumnCount]);
 			this.IsMouseVisible = true;
 
 			Coord bigCellCoord = new Coord();
@@ -74,7 +74,7 @@ namespace MathTicTac.PL.Monogame
 			for (int i = 0; i < this.world.BigCells.GetLength(0); i++)
 				for (int j = 0; j < this.world.BigCells.GetLength(1); j++)
 				{
-					this.world.BigCells[i, j] = new BigCell(State.None, false, null, new Vector2(bigCellCoord.X, bigCellCoord.Y));
+					this.world.BigCells[i, j] = new BigCell(State.None, false, new Cell[MathTicTacConfiguration.CellRowCount, MathTicTacConfiguration.CellColumnCount], new Vector2(bigCellCoord.X, bigCellCoord.Y));
 
 					Coord cellCoord = new Coord(bigCellCoord.X + MathTicTacConfiguration.BIGCELLSPRITEOFFSET, bigCellCoord.Y + MathTicTacConfiguration.BIGCELLSPRITEOFFSET);
 
@@ -115,17 +115,19 @@ namespace MathTicTac.PL.Monogame
 
 			LoadTexture();
 
-			foreach (var bigcell in this.world.BigCells)
-			{
-				foreach (var cell in bigcell.Cells)
-				{
-					cell.SetTextures(new Dictionary<VisibleState, Texture2D> // TODO
+			MonogameStock.cellsTextures = new Dictionary<VisibleState, Texture2D>
 					{
 						{ VisibleState.Hover, this.crossCellHoverTexture},
 						{ VisibleState.Normal, this.crossCellTexture},
 						{ VisibleState.Pressed, this.crossCellPressedTexture},
 
-					});
+					};
+
+			foreach (var bigcell in this.world.BigCells)
+			{
+				foreach (var cell in bigcell.Cells)
+				{
+					cell.SetTextures(MonogameStock.cellsTextures);
 				}
 			}
 

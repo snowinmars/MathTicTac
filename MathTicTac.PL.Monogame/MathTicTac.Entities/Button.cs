@@ -6,19 +6,14 @@
 	using System;
 	using System.Collections.Generic;
 
-	public enum VisibleState
-	{
-		Normal,
-		Pressed,
-		Hover
-	}
+	
 
 	public class Button
 	{
 		private readonly string _buttonText;
 		private readonly Vector2 _position;
 		private readonly Rectangle _rectangle;
-		private readonly Dictionary<VisibleState, Texture2D> _textures = new Dictionary<VisibleState, Texture2D>();
+		private Dictionary<VisibleState, Texture2D> _textures = new Dictionary<VisibleState, Texture2D>();
 		private VisibleState _currentState = VisibleState.Normal;
 		private VisibleState _previousState = VisibleState.Normal;
 		private MouseState currentMouseState;
@@ -33,10 +28,7 @@
 
 		public void SetTextures(Dictionary<VisibleState, Texture2D> dict)
 		{
-			foreach (var item in dict)
-			{
-				this._textures.Add(item.Key, item.Value);
-			}
+			this._textures = dict; // due to I wanna all cells have same copy of textures.
 		}
 
 		public event EventHandler MouseClick;
