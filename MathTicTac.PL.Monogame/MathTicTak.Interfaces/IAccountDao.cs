@@ -1,5 +1,4 @@
 ﻿using MathTicTac.Entities;
-using MathTicTac.Entities.Enum;
 
 namespace MathTicTak.Interfaces
 {

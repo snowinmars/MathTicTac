@@ -1,4 +1,4 @@
-﻿namespace MathTicTac.Entities.Enum
+﻿namespace MathTicTac.Entities
 {
 	/// <summary>
 	/// Player1 - game creator

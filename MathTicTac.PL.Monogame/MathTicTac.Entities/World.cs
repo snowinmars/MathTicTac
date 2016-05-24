@@ -1,5 +1,4 @@
 ﻿using Config;
-using MathTicTac.Entities.Enum;
 
 namespace MathTicTac.Entities
 {
@@ -33,11 +32,6 @@ namespace MathTicTac.Entities
 			if (bigCells == null)
 			{
 				this.BigCells = new BigCell[BigCellRowCount, BigCellColumnCount];
-				for (int i = 0; i < this.BigCells.GetLength(0); i++)
-					for (int j = 0; j < this.BigCells.GetLength(1); j++)
-					{
-						this.BigCells[i, j] = new BigCell();
-					}
 			}
 			else
 			{

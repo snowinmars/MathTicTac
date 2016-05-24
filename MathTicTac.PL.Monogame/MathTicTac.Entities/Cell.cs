@@ -1,18 +1,14 @@
-﻿namespace MathTicTac.Entities
+﻿using Microsoft.Xna.Framework;
+
+namespace MathTicTac.Entities
 {
-	public class Cell
+	public class Cell : Button
 	{
 		public State State { get; set; }
-		public bool IsFocus { get; set; }
 
-		public Cell() : this(State.None, false)
-		{
-		}
-
-		public Cell(State state, bool isFocus)
+		public Cell(State state, Vector2 position, int width, int height, string buttonText = "") : base(position, width, height, buttonText)
 		{
 			this.State = state;
-			this.IsFocus = isFocus;
 		}
 
 		#region equals
@@ -48,23 +44,25 @@
 
 		public static bool operator ==(Cell lhs, Cell rhs)
 		{
-			if ((lhs == null) && (rhs == null))
+			object olhs = (object)lhs;
+			object orhs = (object)rhs;
+
+			if (olhs == null && orhs == null)
 			{
 				return true;
 			}
 
-			if ((lhs == null) ^ (rhs == null))
+			if (olhs == null ^ orhs == null)
 			{
 				return false;
 			}
 
-			return lhs.IsFocus == rhs.IsFocus &&
-			    lhs.State == rhs.State;
+			return lhs.State == rhs.State;
 		}
 
 		public override int GetHashCode()
 		{
-			return this.IsFocus.GetHashCode() ^ this.State.GetHashCode();
+			return base.GetHashCode() ^ this.State.GetHashCode();
 		}
 
 		#endregion equals

@@ -32,6 +32,9 @@ namespace Config
 		public const int WORLDHEIGHT = 500;
 		public const int WORLDWIDTH = 500;
 
+		public const int CELLSPRITEOFFSET = 5;
+		public const int BIGCELLSPRITEOFFSET = 5;
+
 		public const int BIGCELLHEIGHT = 160;
 		public const int BIGCELLWIDTH = 160;
 

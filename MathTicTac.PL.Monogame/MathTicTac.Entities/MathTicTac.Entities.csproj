@@ -31,9 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MonoGame.Framework, Version=3.5.1.1679, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,10 +46,12 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="BigCell.cs" />
+    <Compile Include="Button.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="Coord.cs" />
     <Compile Include="Enum\GameStatus.cs" />
     <Compile Include="Enum\GameResult.cs" />
+    <Compile Include="Enum\MouseState.cs" />
     <Compile Include="Enum\State.cs" />
     <Compile Include="Enum\Turn.cs" />
     <Compile Include="GameInfo.cs" />

@@ -1,4 +1,6 @@
 ﻿using Config;
+using Microsoft.Xna.Framework;
+using System;
 
 namespace MathTicTac.Entities
 {
@@ -7,6 +9,7 @@ namespace MathTicTac.Entities
 		public State State { get; set; }
 		public bool IsFocus { get; set; }
 		public Cell[,] Cells { get; private set; }
+		public Vector2 position { get; set; }
 
 		public static readonly int CellRowCount;
 		public static readonly int CellColumnCount;
@@ -17,11 +20,11 @@ namespace MathTicTac.Entities
 			CellColumnCount = MathTicTacConfiguration.CellColumnCount;
 		}
 
-		public BigCell() : this(State.None, false, null)
+		public BigCell() : this(State.None, false, null, new Vector2(0,0))
 		{
 		}
 
-		public BigCell(State state, bool isFocus, Cell[,] cells)
+		public BigCell(State state, bool isFocus, Cell[,] cells, Vector2 position)
 		{
 			if (cells == null)
 			{
@@ -34,6 +37,7 @@ namespace MathTicTac.Entities
 
 			this.State = state;
 			this.IsFocus = isFocus;
+			this.position = position;
 		}
 
 		public bool IsFilled()
