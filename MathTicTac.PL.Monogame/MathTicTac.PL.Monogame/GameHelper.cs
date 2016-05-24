@@ -5,7 +5,6 @@
 	using Entities;
 	using Microsoft.Xna.Framework;
 	using Microsoft.Xna.Framework.Graphics;
-	using System;
 	using System.Collections.Generic;
 
 	internal class GameHelper
@@ -23,7 +22,11 @@
 			MonogameStock.noneCellTexture = game.Content.Load<Texture2D>("Textures/None");
 
 			MonogameStock.borderAllCellTexture = game.Content.Load<Texture2D>("Textures/BorderCellAll");
+
+			MonogameStock.borderAllBigCellFocusTexture = game.Content.Load<Texture2D>("Textures/BorderBigCellAllFocus");
 			MonogameStock.borderAllBigCellTexture = game.Content.Load<Texture2D>("Textures/BorderBigCellAll");
+			MonogameStock.crossBigCellTexture = game.Content.Load<Texture2D>("Textures/CrossBigCell");
+			MonogameStock.zeroBigCellTexture = game.Content.Load<Texture2D>("Textures/ZeroBigCell");
 
 			MonogameStock.cellsCrossTextures = new Dictionary<VisibleState, Texture2D>
 			{
@@ -82,6 +85,8 @@
 				}
 		}
 
+		private bool turn;
+
 		internal void OnMouseClickCrunch(WorldDTO world, Coord bigCellCoord, Coord cellCoord)
 		{
 			BigCellDTO bigcell = world.BigCells[bigCellCoord.X, bigCellCoord.Y];
@@ -89,16 +94,26 @@
 
 			if (bigcell.IsFocus)
 			{
-				world.SetAllBigCellsToState(false);
-				world.BigCells[cellCoord.X, cellCoord.Y].IsFocus = true;
+				if (cell.State == State.None)
+				{
+					world.SetAllBigCellsToState(false);
+					world.BigCells[cellCoord.X, cellCoord.Y].IsFocus = true;
 
-				if (MathTicTacConfiguration.Random.Next() % 2 == 0)
-				{
-					cell.State = State.Client;
-				}
-				else
-				{
-					cell.State = State.Enemy;
+					if (turn)
+					{
+						cell.State = State.Client;
+					}
+					else
+					{
+						cell.State = State.Enemy;
+					}
+
+					turn = !turn;
+
+					if (bigcell.IsFilled())
+					{
+						world.SetAllBigCellsToState(true);
+					}
 				}
 			}
 		}

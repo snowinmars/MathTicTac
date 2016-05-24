@@ -17,5 +17,8 @@
 		internal static Texture2D zeroCellHoverTexture;
 		internal static Texture2D zeroCellNormalTexture;
 		internal static Texture2D zeroCellPressedTexture;
+		internal static Texture2D borderAllBigCellFocusTexture;
+		internal static Texture2D zeroBigCellTexture;
+		internal static Texture2D crossBigCellTexture;
 	}
 }

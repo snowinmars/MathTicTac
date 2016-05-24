@@ -36,11 +36,32 @@
 
 			foreach (var bigcell in this.world.BigCells)
 			{
-				Game.spriteBatch.Draw(MonogameStock.borderAllBigCellTexture, bigcell.Position, Color.White);
+				if (bigcell.IsFocus)
+				{
+					Game.spriteBatch.Draw(MonogameStock.borderAllBigCellFocusTexture, bigcell.Position, Color.White);
+				}
+				else
+				{
+					Game.spriteBatch.Draw(MonogameStock.borderAllBigCellTexture, bigcell.Position, Color.White);
+				}
 
 				foreach (var cell in bigcell.Cells)
 				{
 					cell.Draw(Game.spriteBatch);
+				}
+
+				switch (bigcell.State)
+				{
+					case State.None:
+						break;
+					case State.Client:
+						Game.spriteBatch.Draw(MonogameStock.crossBigCellTexture, bigcell.Position, Color.White);
+						break;
+					case State.Enemy:
+						Game.spriteBatch.Draw(MonogameStock.zeroBigCellTexture, bigcell.Position, Color.White);
+						break;
+					default:
+						throw new ArgumentException($"Enum {nameof(State)} is invalid");
 				}
 			}
 
@@ -95,10 +116,8 @@
 							int NonClosure_e = e;
 							int NonClosure_k = k;
 
-
 							cell.MouseClick += (o, s) =>
 							{
-
 								this.gameHelper.OnMouseClickCrunch(this.world,
 													new Coord(NonClosure_i, NonClosure_j),
 													new Coord(NonClosure_e, NonClosure_k));

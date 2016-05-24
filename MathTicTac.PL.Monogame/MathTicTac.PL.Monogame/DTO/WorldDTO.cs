@@ -1,5 +1,6 @@
 ﻿namespace MathTicTac.PL.Monogame.DTO
 {
+	using System;
 	using Entities;
 
 	internal class WorldDTO
