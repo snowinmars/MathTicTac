@@ -35,22 +35,26 @@
 
 		internal void MonogameStockLoad(Game game)
 		{
-			MonogameStock.zeroCellNormalTexture = game.Content.Load<Texture2D>("Textures/ZeroNormal");
-			MonogameStock.zeroCellHoverTexture = game.Content.Load<Texture2D>("Textures/ZeroHover");
-			MonogameStock.zeroCellPressedTexture = game.Content.Load<Texture2D>("Textures/ZeroPressed");
+			//MonogameStock.gameService = new ServiceHost(typeof(GameService));
+			//MonogameStock.accountService = new ServiceHost(typeof(AccountService));
 
-			MonogameStock.crossCellNormalTexture = game.Content.Load<Texture2D>("Textures/CrossNormal");
-			MonogameStock.crossCellHoverTexture = game.Content.Load<Texture2D>("Textures/CrossHover");
-			MonogameStock.crossCellPressedTexture = game.Content.Load<Texture2D>("Textures/CrossPressed");
+			MonogameStock.zeroCellNormalTexture =		game.Content.Load<Texture2D>("Textures/ZeroNormal");
+			MonogameStock.zeroCellHoverTexture =		game.Content.Load<Texture2D>("Textures/ZeroHover");
+			MonogameStock.zeroCellPressedTexture =		game.Content.Load<Texture2D>("Textures/ZeroPressed");
 
-			MonogameStock.noneCellTexture = game.Content.Load<Texture2D>("Textures/None");
+			MonogameStock.crossCellNormalTexture =		game.Content.Load<Texture2D>("Textures/CrossNormal");
+			MonogameStock.crossCellHoverTexture =		game.Content.Load<Texture2D>("Textures/CrossHover");
+			MonogameStock.crossCellPressedTexture =		game.Content.Load<Texture2D>("Textures/CrossPressed");
 
-			MonogameStock.borderAllCellTexture = game.Content.Load<Texture2D>("Textures/BorderCellAll");
+			MonogameStock.noneCellTexture =			game.Content.Load<Texture2D>("Textures/None");
+			MonogameStock.cellLastTurnTexture =		game.Content.Load<Texture2D>("Textures/CellLastTurn");
 
-			MonogameStock.borderAllBigCellFocusTexture = game.Content.Load<Texture2D>("Textures/BorderBigCellAllFocus");
-			MonogameStock.borderAllBigCellTexture = game.Content.Load<Texture2D>("Textures/BorderBigCellAll");
-			MonogameStock.crossBigCellTexture = game.Content.Load<Texture2D>("Textures/CrossBigCell");
-			MonogameStock.zeroBigCellTexture = game.Content.Load<Texture2D>("Textures/ZeroBigCell");
+			MonogameStock.borderAllCellTexture =		game.Content.Load<Texture2D>("Textures/BorderCellAll");
+			MonogameStock.borderAllBigCellFocusTexture =	game.Content.Load<Texture2D>("Textures/BorderBigCellAllFocus");
+			MonogameStock.borderAllBigCellTexture =		game.Content.Load<Texture2D>("Textures/BorderBigCellAll");
+
+			MonogameStock.crossBigCellTexture =		game.Content.Load<Texture2D>("Textures/CrossBigCell");
+			MonogameStock.zeroBigCellTexture =		game.Content.Load<Texture2D>("Textures/ZeroBigCell");
 
 			MonogameStock.cellsCrossTextures = new Dictionary<VisibleState, Texture2D>
 			{
@@ -119,6 +123,12 @@
 			{
 				if (cell.State == State.None)
 				{
+					world.LastTurnCoord = new LastTurnCoord
+					{
+						BigCellCoord = new CoordServiceModel((int)bigcell.Position.X, (int)bigcell.Position.Y),
+						CellCoord = new CoordServiceModel((int)cell.Position.X, (int)cell.Position.Y),
+					};
+
 					world.SetAllBigCellsToState(false);
 					world.BigCells[cellCoord.X, cellCoord.Y].IsFocus = true;
 
@@ -139,6 +149,12 @@
 					}
 				}
 			}
+		}
+
+		internal void MonogameStockUnload()
+		{
+			//MonogameStock.gameService.Close();
+			//MonogameStock.accountService.Close();
 		}
 
 		internal void Update(CellViewModel cell)

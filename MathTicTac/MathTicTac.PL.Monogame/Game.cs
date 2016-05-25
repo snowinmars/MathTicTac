@@ -9,9 +9,9 @@
 	using System;
 	using ViewModels;
 
-/// <summary>
-			/// This is the main type for your game.
-			/// </summary>
+	/// <summary>
+	/// This is the main type for your game.
+	/// </summary>
 	internal class Game : Microsoft.Xna.Framework.Game
 	{
 		private static SpriteBatch spriteBatch;
@@ -19,6 +19,9 @@
 
 		private GameHelper gameHelper;
 		private WorldViewModel world;
+
+		//private  ServiceHost gameService;
+		//private ServiceHost accountService;
 
 		public Game()
 		{
@@ -50,6 +53,13 @@
 				foreach (var cell in bigcell.Cells)
 				{
 					this.gameHelper.Draw(cell, Game.spriteBatch);
+				}
+
+				if (this.world.LastTurnCoord != null)
+				{
+					Game.spriteBatch.Draw(MonogameStock.cellLastTurnTexture,
+								new Vector2(this.world.LastTurnCoord.CellCoord.X,														this.world.LastTurnCoord.CellCoord.Y),
+									Color.White);
 				}
 
 				switch (bigcell.State)
@@ -107,6 +117,18 @@
 
 			this.gameHelper.MonogameStockLoad(this);
 
+			/// Services
+
+			//this.gameService = MonogameStock.gameService;
+			//this.accountService = MonogameStock.accountService;
+
+			//this.gameService.Open();
+			//this.accountService.Open();
+
+			///
+
+			/// world init
+
 			for (int i = 0; i < this.world.BigCells.GetLength(0); i++)
 				for (int j = 0; j < this.world.BigCells.GetLength(1); j++)
 					for (int e = 0; e < this.world.BigCells[i, j].Cells.GetLength(0); e++)
@@ -131,6 +153,9 @@
 													new CoordServiceModel(NonClosure_e, NonClosure_k));
 							};
 						}
+
+			///
+
 			// TODO: use this.Content to load your game content here
 			base.LoadContent();
 		}
@@ -141,6 +166,8 @@
 		/// </summary>
 		protected override void UnloadContent()
 		{
+			//this.gameHelper.MonogameStockUnload();
+
 			// TODO: Unload any non ContentManager content here
 		}
 

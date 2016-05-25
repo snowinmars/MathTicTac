@@ -2,8 +2,9 @@
 {
 	using Enums;
 	using Microsoft.Xna.Framework.Graphics;
+	using Services;
 	using System.Collections.Generic;
-
+	using System.ServiceModel;
 	public static class MonogameStock
 	{
 		public static Dictionary<VisibleState, Texture2D> cellsCrossTextures { get; internal set; }
@@ -14,11 +15,16 @@
 		internal static Texture2D crossCellNormalTexture;
 		internal static Texture2D crossCellPressedTexture;
 		internal static Texture2D noneCellTexture;
+		internal static Texture2D cellLastTurnTexture;
 		internal static Texture2D zeroCellHoverTexture;
 		internal static Texture2D zeroCellNormalTexture;
 		internal static Texture2D zeroCellPressedTexture;
 		internal static Texture2D borderAllBigCellFocusTexture;
 		internal static Texture2D zeroBigCellTexture;
 		internal static Texture2D crossBigCellTexture;
+
+		//internal static ServiceHost gameService;
+		//internal static ServiceHost accountService;
+
 	}
 }

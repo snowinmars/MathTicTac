@@ -1,4 +1,5 @@
 ﻿using MathTicTac.Enums;
+using MathTicTac.ServiceModels;
 
 namespace MathTicTac.ViewModels
 {
@@ -6,6 +7,8 @@ namespace MathTicTac.ViewModels
 	{
 		public int Id { get; set; }
 		public BigCellViewModel[,] BigCells { get; private set; }
+
+		public LastTurnCoord LastTurnCoord { get; set; }
 
 		public GameStatusVM Status { get; set; }
 
@@ -16,7 +19,6 @@ namespace MathTicTac.ViewModels
 		public WorldViewModel(int id, BigCellViewModel[,] bigCells)
 		{
 			this.BigCells = bigCells;
-
 			this.Id = id;
 		}
 

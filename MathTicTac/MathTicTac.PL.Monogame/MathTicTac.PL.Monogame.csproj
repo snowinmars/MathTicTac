@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE;LINUX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MathTicTac.PL.Monogame.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -34,6 +35,7 @@
     <DefineConstants>TRACE;LINUX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MathTicTac.PL.Monogame.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
@@ -56,6 +58,7 @@
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +70,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Content\Content.mgcb" />
+    <None Include="MathTicTac.PL.Monogame.ruleset" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MathTicTac.Config\MathTicTac.Config.csproj">
@@ -76,6 +80,10 @@
     <ProjectReference Include="..\MathTicTac.Enums\MathTicTac.Enums.csproj">
       <Project>{827E3A2B-E2E5-45E9-AC91-33FBC5004F8A}</Project>
       <Name>MathTicTac.Enums</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.PL.Services\MathTicTac.PL.Services.csproj">
+      <Project>{F474C307-C96F-48BF-89BE-8836BFDEC04C}</Project>
+      <Name>MathTicTac.PL.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\MathTicTac.ServiceModels\MathTicTac.ServiceModels.csproj">
       <Project>{234e3732-290e-4893-b7ee-821ab1982671}</Project>

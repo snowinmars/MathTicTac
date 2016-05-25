@@ -10,7 +10,7 @@
 	public class Button
 	{
 		public readonly string buttonText;
-		public readonly Vector2 position;
+		public readonly Vector2 Position;
 		public readonly Rectangle rectangle;
 		public Dictionary<VisibleState, Texture2D> textures = new Dictionary<VisibleState, Texture2D>();
 		public VisibleState currentVisibleState = VisibleState.Normal;
@@ -20,7 +20,7 @@
 
 		public Button(Vector2 position, int width, int height, string buttonText = "")
 		{
-			this.position = position;
+			this.Position = position;
 			this.buttonText = buttonText;
 			this.rectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
 		}
