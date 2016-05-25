@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B8C41618-6E12-442B-A55F-CC9E1DD590C4}</ProjectGuid>
+    <ProjectGuid>{03FCD47D-A288-45FA-9208-9A0215B7EB61}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MathTicTac.PL.Monogame</RootNamespace>

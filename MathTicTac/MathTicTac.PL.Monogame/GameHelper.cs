@@ -84,8 +84,10 @@
 					for (int e = 0; e < world.BigCells[i, j].Cells.GetLength(0); e++)
 						for (int k = 0; k < world.BigCells[i, j].Cells.GetLength(1); k++)
 						{
-							world.BigCells[i, j].Cells[e, k] = new CellViewModel(State.None, world.BigCells[i,j].Position, 0,0);
-
+							world.BigCells[i, j].Cells[e, k] = new CellViewModel(State.None,
+													cellCoord,
+													Configuration.CELLWIDTH,
+													Configuration.CELLHEIGHT);
 							cellCoord.X += Configuration.CELLWIDTH;
 
 							if (cellCoord.X + Configuration.CELLWIDTH > bigCellCoord.X + Configuration.BIGCELLWIDTH)
