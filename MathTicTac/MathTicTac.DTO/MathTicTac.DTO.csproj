@@ -41,8 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.cs" />
+    <Compile Include="BigCell.cs" />
+    <Compile Include="Cell.cs" />
     <Compile Include="Coord.cs" />
+    <Compile Include="GameInfo.cs" />
+    <Compile Include="Move.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="World.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MathTicTac.Enums\MathTicTac.Enums.csproj">
+      <Project>{827e3a2b-e2e5-45e9-ac91-33fbc5004f8a}</Project>
+      <Name>MathTicTac.Enums</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

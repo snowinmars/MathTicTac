@@ -11,13 +11,14 @@ namespace MathTicTac.Enums
 		None = 0,
 		
 		//  завершено
-		Win = 1,
-		Lose = 2,
+		Victory = 1,
+		Defeat = 2,
 		Draw = 3,
-		Dismissed = 4,
+		Rejected = 4,
+        Query = 5,
 
 		// не завершено
-		ClientTurn = 5,
-		EnemyTurn = 6,
+		ClientTurn = 6,
+		EnemyTurn = 7,
 	}
 }

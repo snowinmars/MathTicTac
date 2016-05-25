@@ -6,22 +6,19 @@ namespace MathTicTac.ServiceModels
 	{
 		public BigCellServiceModel() : this(State.None,
 						false,
-						null,
-						new CoordServiceModel(0, 0))
+						null)
 		{
 		}
 
-		public BigCellServiceModel(State state, bool isFocus, CellServiceModel[,] cells, CoordServiceModel position)
+		public BigCellServiceModel(State state, bool isFocus, CellServiceModel[,] cells)
 		{
 			this.Cells = cells;
 			this.State = state;
 			this.IsFocus = isFocus;
-			this.Position = position;
 		}
 
 		public CellServiceModel[,] Cells { get; private set; }
 		public bool IsFocus { get; set; }
-		public CoordServiceModel Position { get; set; }
 		public State State { get; set; }
 
 		public bool IsFilled()

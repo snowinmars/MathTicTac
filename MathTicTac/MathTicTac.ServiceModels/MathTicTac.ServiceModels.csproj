@@ -46,6 +46,7 @@
     <Compile Include="BigCellServiceModel.cs" />
     <Compile Include="CellServiceModel.cs" />
     <Compile Include="CoordServiceModel.cs" />
+    <Compile Include="GameInfoServiceModel.cs" />
     <Compile Include="MoveServiceModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorldServiceModel.cs" />
