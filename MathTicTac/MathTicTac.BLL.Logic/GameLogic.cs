@@ -12,6 +12,8 @@ namespace MathTicTac.BLL.Logic
 {
     public class GameLogic : IGameLogic
     {
+        private const int dimension = 3;
+
         private IAccountDao accDao;
         private IGameDao gameDao;
 
@@ -39,7 +41,14 @@ namespace MathTicTac.BLL.Logic
 
                 int player2Id = accDao.GetUserIdByIdentifier(player2Identifier);
 
-                return gameDao.Add(player1Id, player2Id);
+                DetailedWorld world = new DetailedWorld(dimension);
+
+                world.ClientId = player1Id;
+                world.EnemyId = player2Id;
+
+                world.Status = Enums.GameStatusVM.Query;
+
+                return gameDao.Add(world);
             }
 
             throw new UnauthorizedAccessException();

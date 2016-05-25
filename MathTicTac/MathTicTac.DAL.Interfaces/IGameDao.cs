@@ -9,7 +9,7 @@ namespace MathTicTac.DAL.Interfaces
 {
     public interface IGameDao
     {
-        bool Add(int creatorId, int guestId);
+        bool Add(DetailedWorld input);
 
         DetailedWorld GetGameState(int gameId);
 

@@ -20,15 +20,17 @@ namespace MathTicTac.DTO
 
         public GameStatusVM Status { get; set; }
 
-        public DetailedWorld(int id) : this(id, null)
+        public DetailedWorld(int dimension)
         {
-        }
+            this.BigCells = new BigCell[dimension, dimension];
 
-        public DetailedWorld(int id, BigCell[,] bigCells)
-        {
-            this.BigCells = bigCells;
-
-            this.Id = id;
+            for (int i = 0; i < this.BigCells.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.BigCells.GetLength(1); j++)
+                {
+                    this.BigCells[i, j] = new BigCell(dimension);
+                }
+            }
         }
     }
 }
