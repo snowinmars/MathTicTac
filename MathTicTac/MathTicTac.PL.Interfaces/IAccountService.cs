@@ -19,9 +19,9 @@ namespace MathTicTac.PL.Interfaces
         /// <param name="identifier"></param>
         /// <param name="password"></param>
         /// <returns>User's token</returns>
-        string Login(string identifier, string password, string ip);
+        string LoginByUserName(string identifier, string password, string ip);
 
-        bool Login(string token, string ip);
+        bool LoginByToken(string token, string ip);
 
         bool Logout(string token, string ip);
     }

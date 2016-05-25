@@ -41,7 +41,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountLogic.cs" />
+    <Compile Include="Additional\Mechanic.cs" />
+    <Compile Include="Additional\Security.cs" />
+    <Compile Include="GameLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MathTicTac.BLL.Interfaces\MathTicTac.BLL.Interfaces.csproj">
+      <Project>{E0620BE8-080B-4D9B-9B79-044E169227C7}</Project>
+      <Name>MathTicTac.BLL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.DAL.Interfaces\MathTicTac.DAL.Interfaces.csproj">
+      <Project>{272BD081-FFC9-49D5-BE30-0E7250B67977}</Project>
+      <Name>MathTicTac.DAL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.DTO\MathTicTac.DTO.csproj">
+      <Project>{d81617da-c924-4bd6-aa2c-5055231d0c9d}</Project>
+      <Name>MathTicTac.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.Enums\MathTicTac.Enums.csproj">
+      <Project>{827E3A2B-E2E5-45E9-AC91-33FBC5004F8A}</Project>
+      <Name>MathTicTac.Enums</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

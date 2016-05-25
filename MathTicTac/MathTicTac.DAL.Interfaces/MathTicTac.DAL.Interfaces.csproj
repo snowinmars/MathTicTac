@@ -41,7 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAccountDao.cs" />
+    <Compile Include="IGameDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MathTicTac.DTO\MathTicTac.DTO.csproj">
+      <Project>{D81617DA-C924-4BD6-AA2C-5055231D0C9D}</Project>
+      <Name>MathTicTac.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.Enums\MathTicTac.Enums.csproj">
+      <Project>{827e3a2b-e2e5-45e9-ac91-33fbc5004f8a}</Project>
+      <Name>MathTicTac.Enums</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

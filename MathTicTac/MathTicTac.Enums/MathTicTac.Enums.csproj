@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CurrentPlayer.cs" />
+    <Compile Include="GameResult.cs" />
     <Compile Include="GameStatusVM.cs" />
     <Compile Include="MyMouseState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
