@@ -68,7 +68,7 @@
 
 		internal void SetCellsCoords(WorldViewModel world)
 		{
-			CoordServiceModel bigCellCoord = new CoordServiceModel();
+			CoordServiceModel bigCellCoord = new CoordServiceModel(0,0);
 
 			for (int i = 0; i < world.BigCells.GetLength(0); i++)
 				for (int j = 0; j < world.BigCells.GetLength(1); j++)
