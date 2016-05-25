@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,8 @@
     <AssemblyName>MathTicTac.PL.Monogame</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>DesktopGL</MonoGamePlatform>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -64,6 +65,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
@@ -71,12 +73,16 @@
       <Project>{f4821eb4-dcc6-44ac-8ff3-9ff4c915ce9b}</Project>
       <Name>MathTicTac.Config</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.Enums\MathTicTac.Enums.csproj">
+      <Project>{827E3A2B-E2E5-45E9-AC91-33FBC5004F8A}</Project>
+      <Name>MathTicTac.Enums</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MathTicTac.ServiceModels\MathTicTac.ServiceModels.csproj">
       <Project>{234e3732-290e-4893-b7ee-821ab1982671}</Project>
       <Name>MathTicTac.ServiceModels</Name>
     </ProjectReference>
     <ProjectReference Include="..\MathTicTac.ViewModels\MathTicTac.ViewModels.csproj">
-      <Project>{ff868c0f-bbc4-42cb-8f45-7d6af641ff45}</Project>
+      <Project>{FF868C0F-BBC4-42CB-8F45-7D6AF641FF45}</Project>
       <Name>MathTicTac.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>

@@ -1,11 +1,11 @@
 ﻿namespace MathTicTac.ViewModels
 {
-	using ServiceModels;
 	using Microsoft.Xna.Framework;
 	using Microsoft.Xna.Framework.Graphics;
 	using System;
 	using System.Collections.Generic;
 	using Microsoft.Xna.Framework.Input;
+	using Enums;
 	public class Button
 	{
 		public readonly string buttonText;
@@ -102,22 +102,22 @@
 			}
 		}
 
-		private void OnMouseClick(EventArgs e)
+		public void OnMouseClick(EventArgs e)
 		{
 			this.MouseClick?.Invoke(this, e);
 		}
 
-		private void OnMouseDown(EventArgs e)
+		public void OnMouseDown(EventArgs e)
 		{
 			this.MouseDown?.Invoke(this, e);
 		}
 
-		private void OnMouseOut(EventArgs e)
+		public void OnMouseOut(EventArgs e)
 		{
 			this.MouseOut?.Invoke(this, e);
 		}
 
-		private void OnMouseUp(EventArgs e)
+		public void OnMouseUp(EventArgs e)
 		{
 			this.MouseUp?.Invoke(this, e);
 		}

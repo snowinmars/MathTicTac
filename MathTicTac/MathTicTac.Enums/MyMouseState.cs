@@ -1,4 +1,4 @@
-﻿namespace MathTicTac.ServiceModels
+﻿namespace MathTicTac.Enums
 {
 	public enum MyMouseState
 	{

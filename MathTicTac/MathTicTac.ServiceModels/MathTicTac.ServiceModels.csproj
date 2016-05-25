@@ -7,10 +7,11 @@
     <ProjectGuid>{234E3732-290E-4893-B7EE-821AB1982671}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MathTicTac.ViewModels</RootNamespace>
-    <AssemblyName>MathTicTac.ViewModels</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>MathTicTac.ServiceModels</RootNamespace>
+    <AssemblyName>MathTicTac.ServiceModels</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,16 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountServiceModel.cs" />
     <Compile Include="BigCellServiceModel.cs" />
     <Compile Include="CellServiceModel.cs" />
-    <Compile Include="Coord.cs" />
-    <Compile Include="Enum\GameStatusVM.cs" />
-    <Compile Include="Enum\MouseState.cs" />
-    <Compile Include="Enum\State.cs" />
-    <Compile Include="Enum\VisibleState.cs" />
+    <Compile Include="CoordServiceModel.cs" />
     <Compile Include="MoveServiceModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorldServiceModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MathTicTac.Enums\MathTicTac.Enums.csproj">
+      <Project>{827E3A2B-E2E5-45E9-AC91-33FBC5004F8A}</Project>
+      <Name>MathTicTac.Enums</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

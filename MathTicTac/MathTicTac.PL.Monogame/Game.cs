@@ -1,21 +1,22 @@
 ﻿namespace MathTicTac.PL.Monogame
 {
 	using Config;
+	using ViewModels;
 	using Microsoft.Xna.Framework;
 	using Microsoft.Xna.Framework.Graphics;
 	using Microsoft.Xna.Framework.Input;
 	using ServiceModels;
 	using System;
-	/// <summary>
-	/// This is the main type for your game.
-	/// </summary>
+	using Enums;    /// <summary>
+			/// This is the main type for your game.
+			/// </summary>
 	internal class Game : Microsoft.Xna.Framework.Game
 	{
 		private static SpriteBatch spriteBatch;
 		private readonly GraphicsDeviceManager graphics;
 
 		private GameHelper gameHelper;
-		private WorldServiceModel world;
+		private WorldViewModel world;
 
 		public Game()
 		{
@@ -54,11 +55,11 @@
 					case State.None:
 						break;
 
-					case State.Cross:
+					case State.Client:
 						Game.spriteBatch.Draw(MonogameStock.crossBigCellTexture, new Vector2(bigcell.Position.X, bigcell.Position.Y), Color.White);
 						break;
 
-					case State.Zero:
+					case State.Enemy:
 						Game.spriteBatch.Draw(MonogameStock.zeroBigCellTexture, new Vector2(bigcell.Position.X, bigcell.Position.Y), Color.White);
 						break;
 
@@ -85,7 +86,7 @@
 			// TODO: Add your initialization logic here
 			this.gameHelper = new GameHelper();
 
-			this.world = new WorldServiceModel(0, new BigCellServiceModel[Configuration.BigCellRowCount, Configuration.BigCellColumnCount]); // TODO map from logic
+			this.world = new WorldViewModel(0, new BigCellViewModel[Configuration.BigCellRowCount, Configuration.BigCellColumnCount]); // TODO map from logic
 			this.IsMouseVisible = true;
 
 			this.gameHelper.SetCellsCoords(this.world);
@@ -124,8 +125,8 @@
 							cell.MouseClick += (o, s) =>
 							{
 								this.gameHelper.OnMouseClickCrunch(this.world,
-													new Coord(NonClosure_i, NonClosure_j),
-													new Coord(NonClosure_e, NonClosure_k));
+													new CoordServiceModel(NonClosure_i, NonClosure_j),
+													new CoordServiceModel(NonClosure_e, NonClosure_k));
 							};
 						}
 			// TODO: use this.Content to load your game content here
@@ -157,7 +158,7 @@
 			{
 				foreach (var cell in bigcell.Cells)
 				{
-					cell.Update();
+					this.gameHelper.Update(cell);
 				}
 			}
 

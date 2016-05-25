@@ -1,4 +1,4 @@
-﻿namespace MathTicTac.DTO
+﻿namespace MathTicTac.Enums
 {
 	/// <summary>
 	/// Player1 - game creator

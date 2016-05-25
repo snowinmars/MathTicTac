@@ -4,8 +4,8 @@
 
 	public class MoveServiceModel
 	{
-		public Coord BigCellCoord { get; set; }
-		public Coord CellCoord { get; set; }
+		public CoordServiceModel BigCellCoord { get; set; }
+		public CoordServiceModel CellCoord { get; set; }
 		public int GameId { get; set; }
 		public string IP { get; set; }
 		public string Token { get; set; }
@@ -15,7 +15,7 @@
 			return Guid.NewGuid().ToString();
 		}
 
-		public MoveServiceModel(string ip, string token, int gameid, Coord bigCellCoord, Coord CellCoord)
+		public MoveServiceModel(string ip, string token, int gameid, CoordServiceModel bigCellCoord, CoordServiceModel CellCoord)
 		{
 			this.Token = token;
 			this.GameId = gameid;

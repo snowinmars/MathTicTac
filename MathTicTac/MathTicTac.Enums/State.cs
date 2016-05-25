@@ -1,4 +1,4 @@
-﻿namespace MathTicTac.DTO
+﻿namespace MathTicTac.Enums
 {
 	public enum State
 	{

@@ -1,5 +1,6 @@
 ﻿namespace MathTicTac.PL.Monogame
 {
+	using Enums;
 	using Microsoft.Xna.Framework.Graphics;
 	using ServiceModels;
 	using System.Collections.Generic;

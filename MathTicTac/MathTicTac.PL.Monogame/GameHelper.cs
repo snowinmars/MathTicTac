@@ -4,8 +4,11 @@
 	using Microsoft.Xna.Framework;
 	using Microsoft.Xna.Framework.Graphics;
 	using System.Collections.Generic;
+	using System;
+	using Enums;
 	using ViewModels;
-
+	using ServiceModels;
+	using Microsoft.Xna.Framework.Input;
 	internal class GameHelper
 	{
 		public void Draw(CellViewModel cell, SpriteBatch bath)
@@ -16,11 +19,11 @@
 					bath.Draw(MonogameStock.noneCellTexture, cell.rectangle, Color.White);
 					break;
 
-				case State.Cross:
+				case State.Client:
 					bath.Draw(MonogameStock.cellsCrossTextures[cell.currentVisibleState], cell.rectangle, Color.White);
 					break;
 
-				case State.Zero:
+				case State.Enemy:
 					bath.Draw(MonogameStock.cellsZeroTextures[cell.currentVisibleState], cell.rectangle, Color.White);
 					break;
 
@@ -63,25 +66,25 @@
 			};
 		}
 
-		internal void SetCellsCoords(WorldServiceModel world)
+		internal void SetCellsCoords(WorldViewModel world)
 		{
-			Coord bigCellCoord = new Coord();
+			CoordServiceModel bigCellCoord = new CoordServiceModel();
 
 			for (int i = 0; i < world.BigCells.GetLength(0); i++)
 				for (int j = 0; j < world.BigCells.GetLength(1); j++)
 				{
-					world.BigCells[i, j] = new BigCellServiceModel(State.None,
+					world.BigCells[i, j] = new BigCellViewModel(State.None,
 										true,
-										new CellServiceModel[Configuration.CellRowCount, Configuration.CellColumnCount],
+										new CellViewModel[Configuration.CellRowCount, Configuration.CellColumnCount],
 										bigCellCoord);
 
-					Coord cellCoord = new Coord(bigCellCoord.X + Configuration.BIGCELLSPRITEOFFSET,
+					CoordServiceModel cellCoord = new CoordServiceModel(bigCellCoord.X + Configuration.BIGCELLSPRITEOFFSET,
 									bigCellCoord.Y + Configuration.BIGCELLSPRITEOFFSET);
 
 					for (int e = 0; e < world.BigCells[i, j].Cells.GetLength(0); e++)
 						for (int k = 0; k < world.BigCells[i, j].Cells.GetLength(1); k++)
 						{
-							world.BigCells[i, j].Cells[e, k] = new CellServiceModel(State.None);
+							world.BigCells[i, j].Cells[e, k] = new CellViewModel(State.None, world.BigCells[i,j].Position, 0,0);
 
 							cellCoord.X += Configuration.CELLWIDTH;
 
@@ -104,10 +107,10 @@
 
 		private bool turn;
 
-		internal void OnMouseClickCrunch(WorldServiceModel world, Coord bigCellCoord, Coord cellCoord)
+		internal void OnMouseClickCrunch(WorldViewModel world, CoordServiceModel bigCellCoord, CoordServiceModel cellCoord)
 		{
-			BigCellServiceModel bigcell = world.BigCells[bigCellCoord.X, bigCellCoord.Y];
-			CellServiceModel cell = world.BigCells[bigCellCoord.X, bigCellCoord.Y].Cells[cellCoord.X, cellCoord.Y];
+			BigCellViewModel bigcell = world.BigCells[bigCellCoord.X, bigCellCoord.Y];
+			CellViewModel cell = world.BigCells[bigCellCoord.X, bigCellCoord.Y].Cells[cellCoord.X, cellCoord.Y];
 
 			if (bigcell.IsFocus)
 			{
@@ -118,11 +121,11 @@
 
 					if (turn)
 					{
-						cell.State = State.Cross;
+						cell.State = State.Client;
 					}
 					else
 					{
-						cell.State = State.Zero;
+						cell.State = State.Enemy;
 					}
 
 					turn = !turn;
@@ -132,6 +135,58 @@
 						world.SetAllBigCellsToState(true);
 					}
 				}
+			}
+		}
+
+		internal void Update(CellViewModel cell)
+		{
+			cell.previousVisibleState = cell.currentVisibleState;
+			cell.previousMouseState = cell.currentMouseState;
+
+			cell.currentMouseState = Mouse.GetState();
+
+			if (cell.rectangle.Contains(cell.currentMouseState.X, cell.currentMouseState.Y))
+			{
+				if (cell.currentMouseState.LeftButton == ButtonState.Pressed)
+				{
+					if (cell.previousMouseState.LeftButton == ButtonState.Released)
+					{
+						cell.OnMouseDown(EventArgs.Empty);
+						cell.currentVisibleState = VisibleState.Pressed;
+					}
+					else
+					{
+						if (cell.currentVisibleState != VisibleState.Pressed)
+						{
+							cell.currentVisibleState = VisibleState.Hover;
+						}
+					}
+				}
+				else
+				{
+					if (cell.previousVisibleState == VisibleState.Pressed)
+					{
+						cell.OnMouseClick(null);
+					}
+
+					cell.currentVisibleState = VisibleState.Hover;
+				}
+			}
+			else
+			{
+				if (cell.previousVisibleState == VisibleState.Hover ||
+					cell.previousVisibleState == VisibleState.Pressed)
+				{
+					cell.OnMouseOut(EventArgs.Empty);
+				}
+
+				cell.currentVisibleState = VisibleState.Normal;
+			}
+
+			if (cell.currentMouseState.LeftButton == ButtonState.Released &&
+				cell.previousVisibleState == VisibleState.Pressed)
+			{
+				cell.OnMouseUp(EventArgs.Empty);
 			}
 		}
 	}

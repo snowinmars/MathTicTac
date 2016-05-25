@@ -1,15 +1,17 @@
-﻿namespace MathTicTac.ServiceModels
+﻿using MathTicTac.Enums;
+
+namespace MathTicTac.ServiceModels
 {
 	public class BigCellServiceModel
 	{
 		public BigCellServiceModel() : this(State.None,
 						false,
 						null,
-						new Coord(0, 0))
+						new CoordServiceModel(0, 0))
 		{
 		}
 
-		public BigCellServiceModel(State state, bool isFocus, CellServiceModel[,] cells, Coord position)
+		public BigCellServiceModel(State state, bool isFocus, CellServiceModel[,] cells, CoordServiceModel position)
 		{
 			this.Cells = cells;
 			this.State = state;
@@ -19,7 +21,7 @@
 
 		public CellServiceModel[,] Cells { get; private set; }
 		public bool IsFocus { get; set; }
-		public Coord Position { get; set; }
+		public CoordServiceModel Position { get; set; }
 		public State State { get; set; }
 
 		public bool IsFilled()

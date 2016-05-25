@@ -1,20 +1,21 @@
-﻿using MathTicTac.Enums;
+﻿
+using MathTicTac.Enums;
 
-namespace MathTicTac.ServiceModels
+namespace MathTicTac.ViewModels
 {
 
-	public class WorldServiceModel
+	public class WorldViewModel
 	{
 		public int Id { get; set; }
-		public BigCellServiceModel[,] BigCells { get; private set; }
+		public BigCellViewModel[,] BigCells { get; private set; }
 
 		public GameStatusVM Status { get; set; }
 
-		public WorldServiceModel(int id) : this(id, null)
+		public WorldViewModel(int id) : this(id, null)
 		{
 		}
 
-		public WorldServiceModel(int id, BigCellServiceModel[,] bigCells)
+		public WorldViewModel(int id, BigCellViewModel[,] bigCells)
 		{
 			this.BigCells = bigCells;
 

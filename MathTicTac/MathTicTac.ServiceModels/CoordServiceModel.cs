@@ -1,17 +1,17 @@
 ﻿namespace MathTicTac.ServiceModels
 {
-	public class Coord
+	public class CoordServiceModel
 	{
 		public int X { get; set; }
 		public int Y { get; set; }
 
-		public Coord(int x, int y)
+		public CoordServiceModel(int x, int y)
 		{
 			this.X = x;
 			this.Y = y;
 		}
 
-		public Coord() : this(0, 0)
+		public CoordServiceModel() : this(0, 0)
 		{
 		}
 
@@ -24,7 +24,7 @@
 				return false;
 			}
 
-			Coord p = obj as Coord;
+			CoordServiceModel p = obj as CoordServiceModel;
 			if ((object)p == null)
 			{
 				return false;
@@ -33,7 +33,7 @@
 			return this.Equals(p);
 		}
 
-		public bool Equals(Coord obj)
+		public bool Equals(CoordServiceModel obj)
 		{
 			if ((object)obj == null)
 			{
@@ -43,11 +43,11 @@
 			return this == obj;
 		}
 
-		public static bool operator ==(Coord lhs, Coord rhs)
+		public static bool operator ==(CoordServiceModel lhs, CoordServiceModel rhs)
 		    => lhs.X == rhs.X &&
 			lhs.Y == rhs.Y;
 
-		public static bool operator !=(Coord lhs, Coord rhs)
+		public static bool operator !=(CoordServiceModel lhs, CoordServiceModel rhs)
 		    => !(lhs == rhs);
 
 		#endregion equals

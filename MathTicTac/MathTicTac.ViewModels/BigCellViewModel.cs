@@ -1,4 +1,5 @@
-﻿using MathTicTac.ServiceModels;
+﻿using MathTicTac.Enums;
+using MathTicTac.ServiceModels;
 
 namespace MathTicTac.ViewModels
 {
@@ -7,11 +8,11 @@ namespace MathTicTac.ViewModels
 		public BigCellViewModel() : this(State.None,
 						false,
 						null,
-						new Coord(0, 0))
+						new CoordServiceModel(0, 0))
 		{
 		}
 
-		public BigCellViewModel(State state, bool isFocus, CellViewModel[,] cells, Coord position)
+		public BigCellViewModel(State state, bool isFocus, CellViewModel[,] cells, CoordServiceModel position)
 		{
 			this.Cells = cells;
 			this.State = state;
@@ -21,7 +22,7 @@ namespace MathTicTac.ViewModels
 
 		public CellViewModel[,] Cells { get; private set; }
 		public bool IsFocus { get; set; }
-		public Coord Position { get; set; }
+		public CoordServiceModel Position { get; set; }
 		public State State { get; set; }
 
 		public bool IsFilled()
