@@ -1,9 +1,7 @@
-﻿
-using MathTicTac.Enums;
+﻿using MathTicTac.Enums;
 
 namespace MathTicTac.ViewModels
 {
-
 	public class WorldViewModel
 	{
 		public int Id { get; set; }

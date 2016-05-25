@@ -1,13 +1,15 @@
 ﻿namespace MathTicTac.PL.Monogame
 {
 	using Config;
-	using ViewModels;
+	using Enums;
 	using Microsoft.Xna.Framework;
 	using Microsoft.Xna.Framework.Graphics;
 	using Microsoft.Xna.Framework.Input;
 	using ServiceModels;
 	using System;
-	using Enums;    /// <summary>
+	using ViewModels;
+
+/// <summary>
 			/// This is the main type for your game.
 			/// </summary>
 	internal class Game : Microsoft.Xna.Framework.Game

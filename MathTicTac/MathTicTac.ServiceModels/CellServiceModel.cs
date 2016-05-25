@@ -1,8 +1,7 @@
-﻿
-namespace MathTicTac.ServiceModels
+﻿namespace MathTicTac.ServiceModels
 {
 	using Enums;
-	using Microsoft.Xna.Framework;
+
 	public class CellServiceModel
 	{
 		public CellServiceModel(State state)

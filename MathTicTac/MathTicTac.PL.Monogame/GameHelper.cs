@@ -1,14 +1,15 @@
 ﻿namespace MathTicTac.PL.Monogame
 {
 	using Config;
+	using Enums;
 	using Microsoft.Xna.Framework;
 	using Microsoft.Xna.Framework.Graphics;
-	using System.Collections.Generic;
-	using System;
-	using Enums;
-	using ViewModels;
-	using ServiceModels;
 	using Microsoft.Xna.Framework.Input;
+	using ServiceModels;
+	using System;
+	using System.Collections.Generic;
+	using ViewModels;
+
 	internal class GameHelper
 	{
 		public void Draw(CellViewModel cell, SpriteBatch bath)
@@ -68,7 +69,7 @@
 
 		internal void SetCellsCoords(WorldViewModel world)
 		{
-			CoordServiceModel bigCellCoord = new CoordServiceModel(0,0);
+			CoordServiceModel bigCellCoord = new CoordServiceModel(0, 0);
 
 			for (int i = 0; i < world.BigCells.GetLength(0); i++)
 				for (int j = 0; j < world.BigCells.GetLength(1); j++)

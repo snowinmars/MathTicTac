@@ -2,7 +2,6 @@
 
 namespace MathTicTac.ServiceModels
 {
-
 	public class WorldServiceModel
 	{
 		public int Id { get; set; }
