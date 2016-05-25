@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathTicTac.Enums", "MathTic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathTicTac.PL.Monogame", "MathTicTac.PL.Monogame\MathTicTac.PL.Monogame.csproj", "{03FCD47D-A288-45FA-9208-9A0215B7EB61}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathTicTac.PL.Interfaces", "MathTicTac.PL.Interfaces\MathTicTac.PL.Interfaces.csproj", "{9481B775-608D-4FC8-976D-DD981B8753BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -118,6 +120,14 @@ Global
 		{03FCD47D-A288-45FA-9208-9A0215B7EB61}.Release|Any CPU.ActiveCfg = Release|x86
 		{03FCD47D-A288-45FA-9208-9A0215B7EB61}.Release|x86.ActiveCfg = Release|x86
 		{03FCD47D-A288-45FA-9208-9A0215B7EB61}.Release|x86.Build.0 = Release|x86
+		{9481B775-608D-4FC8-976D-DD981B8753BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9481B775-608D-4FC8-976D-DD981B8753BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9481B775-608D-4FC8-976D-DD981B8753BF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9481B775-608D-4FC8-976D-DD981B8753BF}.Debug|x86.Build.0 = Debug|Any CPU
+		{9481B775-608D-4FC8-976D-DD981B8753BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9481B775-608D-4FC8-976D-DD981B8753BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9481B775-608D-4FC8-976D-DD981B8753BF}.Release|x86.ActiveCfg = Release|Any CPU
+		{9481B775-608D-4FC8-976D-DD981B8753BF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,5 +142,6 @@ Global
 		{FF868C0F-BBC4-42CB-8F45-7D6AF641FF45} = {A5ED4E49-0658-4A9E-84D7-3AC122F289D4}
 		{827E3A2B-E2E5-45E9-AC91-33FBC5004F8A} = {A5ED4E49-0658-4A9E-84D7-3AC122F289D4}
 		{03FCD47D-A288-45FA-9208-9A0215B7EB61} = {778BF61F-12FC-4911-AE01-D5B89C3F806E}
+		{9481B775-608D-4FC8-976D-DD981B8753BF} = {778BF61F-12FC-4911-AE01-D5B89C3F806E}
 	EndGlobalSection
 EndGlobal
