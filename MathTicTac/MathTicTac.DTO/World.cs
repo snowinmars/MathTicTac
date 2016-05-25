@@ -9,7 +9,7 @@ namespace MathTicTac.DTO
 
 		public Coord NextMove { get; set; }
 
-		public GameStatusVM Status { get; set; }
+		public GameStatus Status { get; set; }
 
 		public World(int id) : this(id, null)
 		{

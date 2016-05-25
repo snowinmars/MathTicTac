@@ -7,7 +7,7 @@ namespace MathTicTac.ServiceModels
 		public int Id { get; set; }
 		public BigCellServiceModel[,] BigCells { get; private set; }
 
-		public GameStatusVM Status { get; set; }
+		public GameStatus Status { get; set; }
 
 		public WorldServiceModel(int id) : this(id, null)
 		{

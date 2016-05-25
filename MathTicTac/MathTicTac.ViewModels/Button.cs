@@ -9,9 +9,24 @@
 
 	public class Button
 	{
+		/// <summary>
+		/// Now is not work
+		/// </summary>
 		public readonly string buttonText;
+
+		/// <summary>
+		/// Position in pixels
+		/// </summary>
 		public readonly Vector2 Position;
+
+		/// <summary>
+		/// Physic frame
+		/// </summary>
 		public readonly Rectangle rectangle;
+
+		/// <summary>
+		/// Init it with MonogameStock dictionaries, using SetTextures() method
+		/// </summary>
 		public Dictionary<VisibleState, Texture2D> textures = new Dictionary<VisibleState, Texture2D>();
 		public VisibleState currentVisibleState = VisibleState.Normal;
 		public VisibleState previousVisibleState = VisibleState.Normal;
@@ -25,6 +40,10 @@
 			this.rectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
 		}
 
+		/// <summary>
+		/// Set textures with this methods.
+		/// </summary>
+		/// <param name="dict"></param>
 		public void SetTextures(Dictionary<VisibleState, Texture2D> dict)
 		{
 			this.textures = dict; // due to I wanna all cells have same copy of textures.
@@ -38,6 +57,9 @@
 
 		public event EventHandler MouseUp;
 
+		/// <summary>
+		/// Now is not work
+		/// </summary>
 		public SpriteFont Font { get; set; }
 
 		public Dictionary<VisibleState, Texture2D> Textures

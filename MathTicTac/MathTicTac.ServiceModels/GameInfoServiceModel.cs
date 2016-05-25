@@ -8,6 +8,6 @@ namespace MathTicTac.ServiceModels
 		public int ID { get; set; }
 		public int OppositePlayerName { get; set; }
 		public DateTime TimeOfCreation { get; set; }
-		public GameStatusVM status { get; set; }
+		public GameStatus status { get; set; }
 	}
 }

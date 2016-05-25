@@ -21,10 +21,23 @@ namespace MathTicTac.ViewModels
 		}
 
 		public CellViewModel[,] Cells { get; private set; }
+
+		/// <summary>
+		/// Determinates, can player make a move to this big cell or not
+		/// </summary>
 		public bool IsFocus { get; set; }
+
+		/// <summary>
+		/// Position in pixels
+		/// </summary>
 		public CoordServiceModel Position { get; set; }
+
 		public State State { get; set; }
 
+		/// <summary>
+		/// Is all small cells in this big cell have state != State.None
+		/// </summary>
+		/// <returns></returns>
 		public bool IsFilled()
 		{
 			foreach (var item in this.Cells)

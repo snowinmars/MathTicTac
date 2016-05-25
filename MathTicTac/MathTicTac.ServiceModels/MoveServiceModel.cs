@@ -10,11 +10,6 @@
 		public string IP { get; set; }
 		public string Token { get; set; }
 
-		public static string GetNewId()
-		{
-			return Guid.NewGuid().ToString();
-		}
-
 		public MoveServiceModel(string ip, string token, int gameid, CoordServiceModel bigCellCoord, CoordServiceModel CellCoord)
 		{
 			this.Token = token;
