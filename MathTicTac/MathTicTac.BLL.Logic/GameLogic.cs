@@ -46,7 +46,7 @@ namespace MathTicTac.BLL.Logic
                 world.ClientId = player1Id;
                 world.EnemyId = player2Id;
 
-                world.Status = Enums.GameStatusVM.Query;
+                world.Status = Enums.GameStatus.Query;
 
                 return gameDao.Add(world);
             }
@@ -122,9 +122,9 @@ namespace MathTicTac.BLL.Logic
 
             // Checking turn availability
             if ((userId == currentWorld.ClientId &&
-                currentWorld.Status != Enums.GameStatusVM.ClientTurn) ||
+                currentWorld.Status != Enums.GameStatus.ClientTurn) ||
                 (userId == currentWorld.EnemyId &&
-                currentWorld.Status != Enums.GameStatusVM.EnemyTurn) ||
+                currentWorld.Status != Enums.GameStatus.EnemyTurn) ||
                 (userId != currentWorld.ClientId && userId != currentWorld.EnemyId))
             {
                 return false;
@@ -168,12 +168,12 @@ namespace MathTicTac.BLL.Logic
             if (userId == currentWorld.ClientId)
             {
                 currentWorld.BigCells[move.BigCellCoord.X, move.BigCellCoord.Y].Cells[move.CellCoord.X, move.CellCoord.Y].State = Enums.State.Client;
-                currentWorld.Status = Enums.GameStatusVM.EnemyTurn;
+                currentWorld.Status = Enums.GameStatus.EnemyTurn;
             }
             else if (userId == currentWorld.EnemyId)
             {
                 currentWorld.BigCells[move.BigCellCoord.X, move.BigCellCoord.Y].Cells[move.CellCoord.X, move.CellCoord.Y].State = Enums.State.Enemy;
-                currentWorld.Status = Enums.GameStatusVM.ClientTurn;
+                currentWorld.Status = Enums.GameStatus.ClientTurn;
             }
             else
             {
@@ -202,23 +202,23 @@ namespace MathTicTac.BLL.Logic
                 case Enums.State.None:
                     if (Mechanic.IsWorldFilled(currentWorld))
                     {
-                        currentWorld.Status = Enums.GameStatusVM.Draw;
+                        currentWorld.Status = Enums.GameStatus.Draw;
 
-                        accDao.AddStatus(currentWorld.ClientId, Enums.GameStatusVM.Draw);
-                        accDao.AddStatus(currentWorld.EnemyId, Enums.GameStatusVM.Draw);
+                        accDao.AddStatus(currentWorld.ClientId, Enums.GameStatus.Draw);
+                        accDao.AddStatus(currentWorld.EnemyId, Enums.GameStatus.Draw);
                     }
                     break;
                 case Enums.State.Client:
-                    currentWorld.Status = Enums.GameStatusVM.Victory;
+                    currentWorld.Status = Enums.GameStatus.Victory;
 
-                    accDao.AddStatus(currentWorld.ClientId, Enums.GameStatusVM.Victory);
-                    accDao.AddStatus(currentWorld.EnemyId, Enums.GameStatusVM.Defeat);
+                    accDao.AddStatus(currentWorld.ClientId, Enums.GameStatus.Victory);
+                    accDao.AddStatus(currentWorld.EnemyId, Enums.GameStatus.Defeat);
                     break;
                 case Enums.State.Enemy:
-                    currentWorld.Status = Enums.GameStatusVM.Defeat;
+                    currentWorld.Status = Enums.GameStatus.Defeat;
 
-                    accDao.AddStatus(currentWorld.ClientId, Enums.GameStatusVM.Defeat);
-                    accDao.AddStatus(currentWorld.EnemyId, Enums.GameStatusVM.Victory);
+                    accDao.AddStatus(currentWorld.ClientId, Enums.GameStatus.Defeat);
+                    accDao.AddStatus(currentWorld.EnemyId, Enums.GameStatus.Victory);
                     break;
                 default:
                     throw new InvalidOperationException($"Enum {nameof(Enums.State)} is invalid");
@@ -250,29 +250,29 @@ namespace MathTicTac.BLL.Logic
 
             switch (currentWorld.Status)
             {
-                case Enums.GameStatusVM.Victory:
-                case Enums.GameStatusVM.Defeat:
-                case Enums.GameStatusVM.Draw:
-                case Enums.GameStatusVM.Rejected:
+                case Enums.GameStatus.Victory:
+                case Enums.GameStatus.Defeat:
+                case Enums.GameStatus.Draw:
+                case Enums.GameStatus.Rejected:
                     return false;
-                case Enums.GameStatusVM.Query:
-                    currentWorld.Status = Enums.GameStatusVM.Rejected;
+                case Enums.GameStatus.Query:
+                    currentWorld.Status = Enums.GameStatus.Rejected;
                     return true;
-                case Enums.GameStatusVM.ClientTurn:
-                case Enums.GameStatusVM.EnemyTurn:
+                case Enums.GameStatus.ClientTurn:
+                case Enums.GameStatus.EnemyTurn:
                     break;
-                case Enums.GameStatusVM.None:
+                case Enums.GameStatus.None:
                 default:
-                    throw new InvalidOperationException($"Enum {nameof(Enums.GameStatusVM)} is invalid");
+                    throw new InvalidOperationException($"Enum {nameof(Enums.GameStatus)} is invalid");
             }
 
             if (userId == currentWorld.ClientId)
             {
-                currentWorld.Status = Enums.GameStatusVM.Defeat;
+                currentWorld.Status = Enums.GameStatus.Defeat;
             }
             else
             {
-                currentWorld.Status = Enums.GameStatusVM.Victory;
+                currentWorld.Status = Enums.GameStatus.Victory;
             }
 
             return gameDao.Update(currentWorld);

@@ -16,7 +16,7 @@ namespace MathTicTac.DAL.Interfaces
 
         Account Get(int id);
 
-        void AddStatus(int id, GameStatusVM result);
+        void AddStatus(int id, GameStatus result);
 
         string CreateToken(int id, string ip);
 

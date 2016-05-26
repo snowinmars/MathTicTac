@@ -18,7 +18,7 @@ namespace MathTicTac.DTO
         public int ClientId { get; set; }
         public int EnemyId { get; set; }
 
-        public GameStatusVM Status { get; set; }
+        public GameStatus Status { get; set; }
 
         public DetailedWorld(int dimension)
         {

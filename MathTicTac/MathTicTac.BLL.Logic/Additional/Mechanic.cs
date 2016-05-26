@@ -22,20 +22,20 @@ namespace MathTicTac.BLL.Logic.Additional
             {
                 switch (game.status)
                 {
-                    case Enums.GameStatusVM.Query:
-                        result.status = Enums.GameStatusVM.EnemyTurn;
+                    case Enums.GameStatus.Query:
+                        result.status = Enums.GameStatus.EnemyTurn;
                         break;
-                    case Enums.GameStatusVM.Victory:
-                    case Enums.GameStatusVM.Defeat:
-                    case Enums.GameStatusVM.Draw:
-                    case Enums.GameStatusVM.Rejected:
-                    case Enums.GameStatusVM.ClientTurn:
-                    case Enums.GameStatusVM.EnemyTurn:
+                    case Enums.GameStatus.Victory:
+                    case Enums.GameStatus.Defeat:
+                    case Enums.GameStatus.Draw:
+                    case Enums.GameStatus.Rejected:
+                    case Enums.GameStatus.ClientTurn:
+                    case Enums.GameStatus.EnemyTurn:
                         result.status = game.status;
                         break;
-                    case Enums.GameStatusVM.None:
+                    case Enums.GameStatus.None:
                     default:
-                        throw new InvalidOperationException($"Enum {nameof (Enums.GameStatusVM)} is invalid");
+                        throw new InvalidOperationException($"Enum {nameof (Enums.GameStatus)} is invalid");
                 }
 
                 result.OppositePlayerName = accDao.GetUserNameById(game.EnemyId);
@@ -44,26 +44,26 @@ namespace MathTicTac.BLL.Logic.Additional
             {
                 switch (game.status)
                 {
-                    case Enums.GameStatusVM.Victory:
-                        result.status = Enums.GameStatusVM.Defeat;
+                    case Enums.GameStatus.Victory:
+                        result.status = Enums.GameStatus.Defeat;
                         break;
-                    case Enums.GameStatusVM.Defeat:
-                        result.status = Enums.GameStatusVM.Victory;
+                    case Enums.GameStatus.Defeat:
+                        result.status = Enums.GameStatus.Victory;
                         break;
-                    case Enums.GameStatusVM.Query:
-                    case Enums.GameStatusVM.Rejected:
-                    case Enums.GameStatusVM.Draw:
+                    case Enums.GameStatus.Query:
+                    case Enums.GameStatus.Rejected:
+                    case Enums.GameStatus.Draw:
                         result.status = game.status;
                         break;
-                    case Enums.GameStatusVM.ClientTurn:
-                        result.status = Enums.GameStatusVM.EnemyTurn;
+                    case Enums.GameStatus.ClientTurn:
+                        result.status = Enums.GameStatus.EnemyTurn;
                         break;
-                    case Enums.GameStatusVM.EnemyTurn:
-                        result.status = Enums.GameStatusVM.ClientTurn;
+                    case Enums.GameStatus.EnemyTurn:
+                        result.status = Enums.GameStatus.ClientTurn;
                         break;
-                    case Enums.GameStatusVM.None:
+                    case Enums.GameStatus.None:
                     default:
-                        throw new InvalidOperationException($"Enum {nameof(Enums.GameStatusVM)} is invalid");
+                        throw new InvalidOperationException($"Enum {nameof(Enums.GameStatus)} is invalid");
                 }
 
                 result.OppositePlayerName = accDao.GetUserNameById(game.ClientId);
@@ -76,30 +76,31 @@ namespace MathTicTac.BLL.Logic.Additional
         {
             if (world.ClientId == userId)
             {
-                World result = new World(world.Id, world.BigCells);
+                World result = new World(world.BigCells);
+                result.Id = world.Id;
 
                 result.LastBigCellMove = world.LastBigCellMove;
                 result.LastCellMove = world.LastCellMove;
 
                 switch (world.Status)
                 {
-                    case Enums.GameStatusVM.Victory:
-                    case Enums.GameStatusVM.Defeat:
-                    case Enums.GameStatusVM.Draw:
-                    case Enums.GameStatusVM.Rejected:
-                    case Enums.GameStatusVM.ClientTurn:
-                    case Enums.GameStatusVM.EnemyTurn:
+                    case Enums.GameStatus.Victory:
+                    case Enums.GameStatus.Defeat:
+                    case Enums.GameStatus.Draw:
+                    case Enums.GameStatus.Rejected:
+                    case Enums.GameStatus.ClientTurn:
+                    case Enums.GameStatus.EnemyTurn:
                         result.Status = world.Status;
                         break;
-                    case Enums.GameStatusVM.Query:
-                        result.Status = Enums.GameStatusVM.EnemyTurn;
+                    case Enums.GameStatus.Query:
+                        result.Status = Enums.GameStatus.EnemyTurn;
                         break;
-                    case Enums.GameStatusVM.None:
+                    case Enums.GameStatus.None:
                     default:
-                        throw new InvalidOperationException($"Enum {nameof(Enums.GameStatusVM)} is invalid");
+                        throw new InvalidOperationException($"Enum {nameof(Enums.GameStatus)} is invalid");
                 }
 
-                if (result.Status == Enums.GameStatusVM.ClientTurn)
+                if (result.Status == Enums.GameStatus.ClientTurn)
                 {
                     if (!Mechanic.IsBigCellFilled(result.BigCells[result.LastCellMove.X, result.LastCellMove.Y]))
                     {
@@ -121,38 +122,39 @@ namespace MathTicTac.BLL.Logic.Additional
             }
             else if (world.EnemyId == userId)
             {
-                World result = new World(world.Id, world.BigCells);
+                World result = new World(world.BigCells);
+                result.Id = world.Id;
 
                 result.LastBigCellMove = world.LastBigCellMove;
                 result.LastCellMove = world.LastCellMove;
 
                 switch (world.Status)
                 {
-                    case Enums.GameStatusVM.Victory:
-                        result.Status = Enums.GameStatusVM.Defeat;
+                    case Enums.GameStatus.Victory:
+                        result.Status = Enums.GameStatus.Defeat;
                         break;
-                    case Enums.GameStatusVM.Defeat:
-                        result.Status = Enums.GameStatusVM.Victory;
+                    case Enums.GameStatus.Defeat:
+                        result.Status = Enums.GameStatus.Victory;
                         break;
-                    case Enums.GameStatusVM.ClientTurn:
-                        result.Status = Enums.GameStatusVM.EnemyTurn;
+                    case Enums.GameStatus.ClientTurn:
+                        result.Status = Enums.GameStatus.EnemyTurn;
                         break;
-                    case Enums.GameStatusVM.EnemyTurn:
-                        result.Status = Enums.GameStatusVM.ClientTurn;
+                    case Enums.GameStatus.EnemyTurn:
+                        result.Status = Enums.GameStatus.ClientTurn;
                         break;
-                    case Enums.GameStatusVM.Draw:
-                    case Enums.GameStatusVM.Rejected:
-                    case Enums.GameStatusVM.Query:
+                    case Enums.GameStatus.Draw:
+                    case Enums.GameStatus.Rejected:
+                    case Enums.GameStatus.Query:
                         result.Status = world.Status;
                         break;
-                    case Enums.GameStatusVM.None:
+                    case Enums.GameStatus.None:
                     default:
-                        throw new InvalidOperationException($"Enum {nameof(Enums.GameStatusVM)} is invalid");
+                        throw new InvalidOperationException($"Enum {nameof(Enums.GameStatus)} is invalid");
                 }
 
                 Mechanic.InvertWorld(result.BigCells);
 
-                if (result.Status == Enums.GameStatusVM.ClientTurn)
+                if (result.Status == Enums.GameStatus.ClientTurn)
                 {
                     if (!Mechanic.IsBigCellFilled(result.BigCells[result.LastBigCellMove.X, result.LastBigCellMove.Y]))
                     {

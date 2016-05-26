@@ -43,7 +43,7 @@ namespace MathTicTac.DAL.Dao
             return item.Id != 0;
         }
 
-        public void AddStatus(int id, MathTicTac.Enums.GameStatusVM result)
+        public void AddStatus(int id, MathTicTac.Enums.GameStatus result)
         {
             using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
             {
