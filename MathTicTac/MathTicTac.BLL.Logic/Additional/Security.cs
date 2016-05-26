@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,6 +10,8 @@ namespace MathTicTac.BLL.Logic.Additional
 {
     internal static class Security
     {
+        internal static SHA512 shaM { get; private set; } = new SHA512Managed();
+
         internal static bool TokenIpPairIsValid(string token, string ip, IAccountDao accDao)
         {
             if (string.IsNullOrWhiteSpace(token) || string.IsNullOrWhiteSpace(ip))
@@ -32,9 +35,49 @@ namespace MathTicTac.BLL.Logic.Additional
             return false;
         }
 
-        internal static string GetPassHash(string input)
+        internal static byte[] GetPassHash(string input)
         {
-            return input;
+            if (input == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return Security.shaM.ComputeHash(input);
+        }
+
+        private static bool IsHashesEquals(byte[] lhs, byte[] rhs)
+        {
+            if ((lhs == null) || (rhs == null))
+            {
+                throw new ArgumentNullException("Hash is null");
+            }
+
+            if (lhs.Length != rhs.Length)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < lhs.Length; i++)
+            {
+                if (lhs[i] != rhs[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static byte[] ComputeHash(this SHA512 shaM, string text)
+        {
+            if (shaM == null)
+            {
+                throw new ArgumentNullException(nameof(shaM), "SHA manager is null");
+            }
+
+            byte[] data = Encoding.Unicode.GetBytes(text);
+
+            return shaM.ComputeHash(data);
         }
     }
 }

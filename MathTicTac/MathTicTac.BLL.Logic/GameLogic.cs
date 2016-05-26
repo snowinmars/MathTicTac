@@ -183,12 +183,15 @@ namespace MathTicTac.BLL.Logic
             //World result status updating
             foreach (var bigCell in currentWorld.BigCells)
             {
-                var currentState = Mechanic.GetBigCellResult(bigCell);
-
-                if (bigCell.State == Enums.State.None && currentState != Enums.State.None)
+                if (bigCell.State == Enums.State.None)
                 {
-                    bigCell.State = currentState;
-                    break;
+                    var currentState = Mechanic.GetBigCellResult(bigCell);
+
+                    if (currentState != Enums.State.None)
+                    {
+                        bigCell.State = currentState;
+                        break;
+                    }
                 }
             }
 
@@ -200,13 +203,22 @@ namespace MathTicTac.BLL.Logic
                     if (Mechanic.IsWorldFilled(currentWorld))
                     {
                         currentWorld.Status = Enums.GameStatusVM.Draw;
+
+                        accDao.AddStatus(currentWorld.ClientId, Enums.GameStatusVM.Draw);
+                        accDao.AddStatus(currentWorld.EnemyId, Enums.GameStatusVM.Draw);
                     }
                     break;
                 case Enums.State.Client:
                     currentWorld.Status = Enums.GameStatusVM.Victory;
+
+                    accDao.AddStatus(currentWorld.ClientId, Enums.GameStatusVM.Victory);
+                    accDao.AddStatus(currentWorld.EnemyId, Enums.GameStatusVM.Defeat);
                     break;
                 case Enums.State.Enemy:
                     currentWorld.Status = Enums.GameStatusVM.Defeat;
+
+                    accDao.AddStatus(currentWorld.ClientId, Enums.GameStatusVM.Defeat);
+                    accDao.AddStatus(currentWorld.EnemyId, Enums.GameStatusVM.Victory);
                     break;
                 default:
                     throw new InvalidOperationException($"Enum {nameof(Enums.State)} is invalid");

@@ -12,17 +12,17 @@ namespace MathTicTac.DAL.Interfaces
     {
         DateTime? AcceptToken(string token);
 
-        bool Add(Account item, string password);
+        bool Add(Account item, byte[] password);
 
         Account Get(int id);
 
-        void AddStatus(int id, GameResult result);
+        void AddStatus(int id, GameStatusVM result);
 
         string CreateToken(int id, string ip);
 
         bool DeleteToken(string token);
 
-        string GetUserPassword(int id);
+        byte[] GetUserPassword(int id);
 
         int GetUserIdByIdentifier(string identifier);
 

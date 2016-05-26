@@ -15,18 +15,6 @@ namespace MathTicTac.DAL.Interfaces
 
         IEnumerable<DetailedGameInfo> GetAllGames(int userId);
 
-        int GetGameCreatorId(int gameId);
-
-        int GetGameGuestId(int gameId);
-
         bool Update(DetailedWorld gameWorld);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="gameId"></param>
-        /// <param name="userId"></param>
-        /// <returns>1 - Owner, -1 - Guest, 0 - No match</returns>
-        int GetGameRole(int gameId, int userId);
     }
 }

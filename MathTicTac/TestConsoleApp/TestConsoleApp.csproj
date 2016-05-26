@@ -4,16 +4,33 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8F3422A0-3A97-4009-AB19-DB03AA8B38B5}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{04A57B8A-F5AE-4BB0-A527-BCA8F38F3087}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MathTicTac.DAL.Dao</RootNamespace>
-    <AssemblyName>MathTicTac.DAL.Dao</AssemblyName>
+    <RootNamespace>TestConsoleApp</RootNamespace>
+    <AssemblyName>TestConsoleApp</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +40,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,13 +59,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountDao.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlConfig.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MathTicTac.BLL.Interfaces\MathTicTac.BLL.Interfaces.csproj">
+      <Project>{e0620be8-080b-4d9b-9b79-044e169227c7}</Project>
+      <Name>MathTicTac.BLL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.BLL.Logic\MathTicTac.BLL.Logic.csproj">
+      <Project>{abce9384-41d3-4740-8983-24718d25a1a8}</Project>
+      <Name>MathTicTac.BLL.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.DAL.Dao\MathTicTac.DAL.Dao.csproj">
+      <Project>{8f3422a0-3a97-4009-ab19-db03aa8b38b5}</Project>
+      <Name>MathTicTac.DAL.Dao</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MathTicTac.DAL.Interfaces\MathTicTac.DAL.Interfaces.csproj">
-      <Project>{272BD081-FFC9-49D5-BE30-0E7250B67977}</Project>
+      <Project>{272bd081-ffc9-49d5-be30-0e7250b67977}</Project>
       <Name>MathTicTac.DAL.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\MathTicTac.DTO\MathTicTac.DTO.csproj">
@@ -58,6 +90,18 @@
       <Project>{827e3a2b-e2e5-45e9-ac91-33fbc5004f8a}</Project>
       <Name>MathTicTac.Enums</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
