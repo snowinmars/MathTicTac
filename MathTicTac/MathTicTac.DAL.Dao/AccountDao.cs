@@ -51,7 +51,7 @@ namespace MathTicTac.DAL.Dao
 
                 using (var command = new SqlCommand(procedureName, connection))
                 {
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.AddWithValue("@ID", id);
                     command.Parameters.AddWithValue("@GameResult", result);
@@ -135,6 +135,7 @@ namespace MathTicTac.DAL.Dao
                     }
                 }
             }
+
             if (result.Id == 0)
             {
                 return null;
@@ -145,27 +146,137 @@ namespace MathTicTac.DAL.Dao
 
         public int GetUserIdByIdentifier(string identifier)
         {
-            throw new NotImplementedException();
+            int result = 0;
+
+            using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+            {
+                const string query = "SELECT [Id] FROM [Accounts] WHERE [Name] = @Identifier";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Identifier", identifier);
+
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result = (int)reader["Id"];
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
         public int GetUserIdByToken(string token)
         {
-            throw new NotImplementedException();
+            int result = 0;
+
+            using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+            {
+                const string query = "SELECT [UserId] FROM [Tokens] WHERE [Token] = @Token";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Token", token);
+
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result = (int)reader["UserId"];
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
         public string GetUserNameById(int id)
         {
-            throw new NotImplementedException();
+            string result = null;
+
+            using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+            {
+                const string query = "SELECT [Name] FROM [Accounts] WHERE [Id] = @ID";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ID", id);
+
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result = (string)reader["Name"];
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
         public byte[] GetUserPassword(int id)
         {
-            throw new NotImplementedException();
+            byte[] result = null;
+
+            using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+            {
+                const string query = "SELECT [Password] FROM [Accounts] WHERE [Id] = @ID";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ID", id);
+
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result = (byte[])reader["Password"];
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
         public string GetUserTokenById(int id)
         {
-            throw new NotImplementedException();
+            string result = null;
+
+            using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+            {
+                const string query = "SELECT [Token] FROM [Tokens] WHERE [UserId] = @ID";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ID", id);
+
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result = (string)reader["Token"];
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
         public bool IsTokenIpTrusted(string token, string ip)
