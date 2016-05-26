@@ -5,9 +5,13 @@
 	using Microsoft.Xna.Framework;
 	using Microsoft.Xna.Framework.Graphics;
 	using Microsoft.Xna.Framework.Input;
+	using Newtonsoft.Json;
 	using ServiceModels;
 	using System;
 	using System.Collections.Generic;
+	using System.Globalization;
+	using System.IO;
+	using System.Net;
 	using ViewModels;
 
 	internal class GameHelper
@@ -110,6 +114,32 @@
 						bigCellCoord.Y += Configuration.BIGCELLHEIGHT;
 					}
 				}
+		}
+
+		internal void Send<T>(T obj, string controllerName, string method)
+		{
+			const string serverurl = "localhost";
+
+			string url = $"http://{serverurl}/api/{controllerName}";
+
+			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+			httpWebRequest.ContentType = "application/json";
+			httpWebRequest.Method = method.ToUpper(CultureInfo.InvariantCulture);
+
+			using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+			{
+				string json = JsonConvert.SerializeObject(obj);
+
+				streamWriter.Write(json);
+				streamWriter.Flush();
+				streamWriter.Close();
+			}
+
+			var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+			using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+			{
+				string result = streamReader.ReadToEnd();
+			}
 		}
 
 		private bool turn;

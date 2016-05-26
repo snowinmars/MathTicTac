@@ -48,6 +48,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="OpenTK">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\OpenTK.dll</HintPath>
     </Reference>
@@ -71,6 +75,7 @@
     <None Include="app.config" />
     <None Include="Content\Content.mgcb" />
     <None Include="MathTicTac.PL.Monogame.ruleset" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MathTicTac.Config\MathTicTac.Config.csproj">
@@ -80,10 +85,6 @@
     <ProjectReference Include="..\MathTicTac.Enums\MathTicTac.Enums.csproj">
       <Project>{827E3A2B-E2E5-45E9-AC91-33FBC5004F8A}</Project>
       <Name>MathTicTac.Enums</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MathTicTac.PL.Services\MathTicTac.PL.Services.csproj">
-      <Project>{F474C307-C96F-48BF-89BE-8836BFDEC04C}</Project>
-      <Name>MathTicTac.PL.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\MathTicTac.ServiceModels\MathTicTac.ServiceModels.csproj">
       <Project>{234e3732-290e-4893-b7ee-821ab1982671}</Project>

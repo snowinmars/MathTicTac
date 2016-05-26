@@ -2,7 +2,6 @@
 {
 	using Enums;
 	using Microsoft.Xna.Framework.Graphics;
-	using Services;
 	using System.Collections.Generic;
 	using System.ServiceModel;
 	public static class MonogameStock
@@ -22,9 +21,5 @@
 		internal static Texture2D borderAllBigCellFocusTexture;
 		internal static Texture2D zeroBigCellTexture;
 		internal static Texture2D crossBigCellTexture;
-
-		//internal static ServiceHost gameService;
-		//internal static ServiceHost accountService;
-
 	}
 }

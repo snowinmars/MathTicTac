@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F474C307-C96F-48BF-89BE-8836BFDEC04C}</ProjectGuid>
+    <ProjectGuid>{64A6FD73-D0E9-435B-B40E-1F1F7CBD8E70}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MathTicTac.PL.Services</RootNamespace>
-    <AssemblyName>MathTicTac.PL.Services</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>MathTicTac.NinjectKernel</RootNamespace>
+    <AssemblyName>MathTicTac.NinjectKernel</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>..\MathTicTac.PL.Monogame\MathTicTac.PL.Monogame.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,19 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountService.cs" />
-    <Compile Include="GameService.cs" />
+    <Compile Include="Initializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MathTicTac.PL.Interfaces\MathTicTac.PL.Interfaces.csproj">
-      <Project>{9481b775-608d-4fc8-976d-dd981b8753bf}</Project>
-      <Name>MathTicTac.PL.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MathTicTac.ServiceModels\MathTicTac.ServiceModels.csproj">
-      <Project>{234e3732-290e-4893-b7ee-821ab1982671}</Project>
-      <Name>MathTicTac.ServiceModels</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
