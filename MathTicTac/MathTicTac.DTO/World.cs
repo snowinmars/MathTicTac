@@ -6,7 +6,8 @@ namespace MathTicTac.DTO
 	{
 		public BigCell[,] BigCells { get; private set; }
 
-		public Coord NextMove { get; set; }
+        public Coord LastBigCellMove { get; set; }
+        public Coord LastCellMove { get; set; }
 
 		public GameStatus Status { get; set; }
 

@@ -2,20 +2,28 @@
 
 namespace MathTicTac.DTO
 {
-	public class BigCell
-	{
-		public BigCell() : this(State.None,
-				false,
-				null)
-		{
-		}
+    public class BigCell
+    {
+        public BigCell() : this(0)
+        {
+        }
 
-		public BigCell(State state, bool isFocus, Cell[,] cells)
-		{
-			this.Cells = cells;
-			this.State = state;
-			this.IsFocus = isFocus;
-		}
+        public BigCell(int dimension) : this(State.None,
+                                false,
+                                null)
+        {
+            if (dimension > 0)
+            {
+                this.Cells = new Cell[dimension, dimension];
+            }
+        }
+
+        public BigCell(State state, bool isFocus, Cell[,] cells)
+        {
+            this.Cells = cells;
+            this.State = state;
+            this.IsFocus = isFocus;
+        }
 
 		public Cell[,] Cells { get; private set; }
 		public bool IsFocus { get; set; }

@@ -46,6 +46,8 @@
     <Compile Include="BigCell.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="Coord.cs" />
+    <Compile Include="DetailedGameInfo.cs" />
+    <Compile Include="DetailedWorld.cs" />
     <Compile Include="GameInfo.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

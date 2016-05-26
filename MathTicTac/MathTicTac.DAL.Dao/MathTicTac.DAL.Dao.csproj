@@ -42,7 +42,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlConfig.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MathTicTac.DAL.Interfaces\MathTicTac.DAL.Interfaces.csproj">
+      <Project>{272BD081-FFC9-49D5-BE30-0E7250B67977}</Project>
+      <Name>MathTicTac.DAL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.DTO\MathTicTac.DTO.csproj">
+      <Project>{d81617da-c924-4bd6-aa2c-5055231d0c9d}</Project>
+      <Name>MathTicTac.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.Enums\MathTicTac.Enums.csproj">
+      <Project>{827e3a2b-e2e5-45e9-ac91-33fbc5004f8a}</Project>
+      <Name>MathTicTac.Enums</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
