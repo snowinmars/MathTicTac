@@ -7,16 +7,14 @@
 		public CoordServiceModel BigCellCoord { get; set; }
 		public CoordServiceModel CellCoord { get; set; }
 		public int GameId { get; set; }
-		public string IP { get; set; }
 		public string Token { get; set; }
 
-		public MoveServiceModel(string ip, string token, int gameid, CoordServiceModel bigCellCoord, CoordServiceModel CellCoord)
+		public MoveServiceModel(string token, int gameid, CoordServiceModel bigCellCoord, CoordServiceModel CellCoord)
 		{
 			this.Token = token;
 			this.GameId = gameid;
 			this.CellCoord = CellCoord;
 			this.BigCellCoord = bigCellCoord;
-			this.IP = ip;
 		}
 	}
 }
