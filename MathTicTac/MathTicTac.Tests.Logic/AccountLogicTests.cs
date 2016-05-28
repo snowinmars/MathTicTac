@@ -21,6 +21,7 @@ namespace MathTicTac.Tests.Logic
                 .Returns<Account, byte[]>((x, y) 
                 => {
                     x.Id = 13;
+
                     return true;
                 });
             mock.Setup(f 
@@ -43,9 +44,10 @@ namespace MathTicTac.Tests.Logic
         }
 
         [Theory]
+        // Correct name and password
         [InlineData("Samir", "Pass")]
         [InlineData("pr0gy", "Pass")]
-        public void AddingNewCorrectUserMustReturnTrueAndId(string name, string password)
+        public void AddingUser(string name, string password)
         {
             Account newUser = new Account();
             newUser.Username = name;
@@ -57,7 +59,9 @@ namespace MathTicTac.Tests.Logic
         }
 
         [Theory]
+        // Correct ID
         [InlineData(13, "snow")]
+        // Incorrect ID (Returns null)
         [InlineData(15, null)]
         public void GettingAccountById(int id, string res)
         {
