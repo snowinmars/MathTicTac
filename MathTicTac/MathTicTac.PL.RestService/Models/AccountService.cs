@@ -1,11 +1,8 @@
-﻿using MathTicTac.PL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using MathTicTac.ServiceModels;
-using MathTicTac.BLL.Interfaces;
+﻿using MathTicTac.BLL.Interfaces;
 using MathTicTac.DTO;
+using MathTicTac.PL.Interfaces;
+using MathTicTac.ServiceModels;
+using System;
 
 namespace MathTicTac.PL.RestService.Models
 {
@@ -20,31 +17,30 @@ namespace MathTicTac.PL.RestService.Models
 
 		public bool Add(AccountServiceModel item, string password)
 		{
-			throw new NotImplementedException();
+			Account account = Mapper.AccountSMtoAccount(item);
 
-			//Account account = new Account();
-
-			//accountLogic.Add()
+			return accountLogic.Add(account, password);
 		}
 
 		public AccountServiceModel Get(int id)
 		{
-			throw new NotImplementedException();
+			Account account = accountLogic.Get(id);
+			return Mapper.AccounttoAccountSM(account);
 		}
 
 		public bool LoginByToken(string token, string ip)
 		{
-			throw new NotImplementedException();
+			return accountLogic.Login(token, ip);
 		}
 
 		public string LoginByUserName(string identifier, string password, string ip)
 		{
-			throw new NotImplementedException();
+			return accountLogic.Login(identifier, password, ip);
 		}
 
 		public bool Logout(string token, string ip)
 		{
-			throw new NotImplementedException();
+			return accountLogic.Logout(token, ip);
 		}
 	}
 }

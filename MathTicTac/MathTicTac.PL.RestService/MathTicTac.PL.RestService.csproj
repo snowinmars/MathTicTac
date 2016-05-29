@@ -145,6 +145,7 @@
     </Compile>
     <Compile Include="Models\AccountService.cs" />
     <Compile Include="Models\GameService.cs" />
+    <Compile Include="Models\Mapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
