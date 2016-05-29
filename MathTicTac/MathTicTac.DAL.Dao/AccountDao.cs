@@ -14,7 +14,29 @@ namespace MathTicTac.DAL.Dao
     {
         public DateTime? AcceptToken(string token)
         {
-            throw new NotImplementedException();
+            DateTime? result = null;
+
+            using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+            {
+                const string query = "SELECT [TimeOfLastAccess] FROM [Token] WHERE Token = @Token";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Token", token);
+
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result = (DateTime)reader["TimeOfLastAccess"];
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
         public bool Add(Account item, byte[] password)
@@ -75,7 +97,7 @@ namespace MathTicTac.DAL.Dao
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
                     SqlParameter RetToken = command.Parameters.Add("@Token", SqlDbType.NVarChar);
-                    RetToken.Direction = ParameterDirection.ReturnValue;
+                    RetToken.Direction = ParameterDirection.Output;
 
                     command.Parameters.AddWithValue("@UserID", id);
                     command.Parameters.AddWithValue("@IP", ip);
@@ -281,12 +303,57 @@ namespace MathTicTac.DAL.Dao
 
         public bool IsTokenIpTrusted(string token, string ip)
         {
-            throw new NotImplementedException();
+            bool result = false;
+
+            using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+            {
+                const string procedureName = "IsTokenIpTrusted";
+
+                using (var command = new SqlCommand(procedureName, connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    SqlParameter RetId = command.Parameters.Add("RetVal", SqlDbType.Int);
+                    RetId.Direction = ParameterDirection.ReturnValue;
+
+                    command.Parameters.AddWithValue("@Token", token);
+                    command.Parameters.AddWithValue("@IP", ip);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                    result = (int)RetId.Value == 1;
+                }
+            }
+
+            return result;
         }
 
         public bool UpdateTokenDate(string token)
         {
-            throw new NotImplementedException();
+            bool result = false;
+
+            using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+            {
+                const string procedureName = "UpdateTokenDate";
+
+                using (var command = new SqlCommand(procedureName, connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    SqlParameter RetVal = command.Parameters.Add("RetVal", SqlDbType.Int);
+                    RetVal.Direction = ParameterDirection.Output;
+
+                    command.Parameters.AddWithValue("@Token", token);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                    result = (int)RetVal.Value == 1;
+                }
+            }
+
+            return result;
         }
     }
 }

@@ -58,7 +58,7 @@ namespace MathTicTac.BLL.Logic
                 return null;
             }
 
-            if (Security.GetPassHash(password) == accDao.GetUserPassword(userId))
+            if (Security.GetPassHash(password).SequenceEqual(accDao.GetUserPassword(userId)))
             {
                 string userToken = accDao.GetUserTokenById(userId);
 
