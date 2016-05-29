@@ -3,13 +3,17 @@
 
 namespace MathTicTac.PL.RestService.App_Start
 {
+	using Interfaces;
+	using BLL.Interfaces;
 	using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 	using Ninject;
 	using Ninject.Web.Common;
-	using NinjectKernel;
 	using System;
 	using System.Web;
-
+	using BLL.Logic;
+	using DAL.Dao;
+	using DAL.Interfaces;
+	using Models;
 	public static class NinjectWebCommon
 	{
 		private static readonly Bootstrapper bootstrapper = new Bootstrapper();
@@ -44,8 +48,13 @@ namespace MathTicTac.PL.RestService.App_Start
 			{
 				kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
 				kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+				kernel.Bind<IAccountService>().To<AccountService>().InSingletonScope();
+				kernel.Bind<IAccountLogic>().To<AccountLogic>().InSingletonScope();
+				kernel.Bind<IAccountDao>().To<AccountDao>().InSingletonScope();
+				kernel.Bind<IGameService>().To<GameService>().InSingletonScope();
+				kernel.Bind<IGameLogic>().To<GameLogic>().InSingletonScope();
+				kernel.Bind<IGameDao>().To<GameDao>().InSingletonScope();
 
-				Initializer.RegisterServices(kernel);
 				NinjectWebCommon.Kernel = kernel;
 				return kernel;
 			}
