@@ -80,6 +80,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AccountLogicTests.cs" />
+    <Compile Include="GameLogicTests.cs" />
+    <Compile Include="MoqInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
