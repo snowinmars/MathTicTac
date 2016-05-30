@@ -8,9 +8,7 @@ namespace MathTicTac.DTO
 		{
 		}
 
-		public BigCell(int dimension) : this(State.None,
-					false,
-					null)
+		public BigCell(int dimension) : this(State.None, false, null)
 		{
 			if (dimension > 0)
 			{

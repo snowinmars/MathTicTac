@@ -116,7 +116,7 @@
 				}
 		}
 
-		internal void Send<T>(T obj, string controllerName, string method)
+		internal void Send<T>(T obj, string controllerName, WebMethod method)
 		{
 			const string serverurl = "localhost";
 
@@ -124,7 +124,7 @@
 
 			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
 			httpWebRequest.ContentType = "application/json";
-			httpWebRequest.Method = method.ToUpper(CultureInfo.InvariantCulture);
+			httpWebRequest.Method = method.ToString();
 
 			using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
 			{
@@ -149,9 +149,9 @@
 			BigCellViewModel bigcell = world.BigCells[bigCellCoord.X, bigCellCoord.Y];
 			CellViewModel cell = world.BigCells[bigCellCoord.X, bigCellCoord.Y].Cells[cellCoord.X, cellCoord.Y];
 
-			MoveServiceModel move = new MoveServiceModel("", 1, bigcell.Position, new CoordServiceModel((int)cell.Position.X, (int)cell.Position.Y));
+			MoveServiceModel move = new MoveServiceModel("", world.Id, bigcell.Position, new CoordServiceModel((int)cell.Position.X, (int)cell.Position.Y));
 
-			this.Send(move, "Game", "Get");
+			this.Send(move, "Game", WebMethod.Get);
 
 			if (bigcell.IsFocus)
 			{

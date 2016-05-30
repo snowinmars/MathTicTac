@@ -7,7 +7,10 @@
 		public int GameId { get; set; }
 		public string Token { get; set; }
 
-		public MoveServiceModel(string token, int gameid, CoordServiceModel bigCellCoord, CoordServiceModel CellCoord)
+		public MoveServiceModel(string token,
+						int gameid,
+						CoordServiceModel bigCellCoord,
+						CoordServiceModel CellCoord)
 		{
 			this.Token = token;
 			this.GameId = gameid;

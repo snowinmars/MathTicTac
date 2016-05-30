@@ -8,7 +8,11 @@
 		public Coord BigCellCoord { get; set; }
 		public Coord CellCoord { get; set; }
 
-		public Move(string ip, string token, int gameid, Coord bigCellCoord, Coord CellCoord)
+		public Move(string ip,
+				string token,
+				int gameid,
+				Coord bigCellCoord,
+				Coord CellCoord)
 		{
 			this.Token = token;
 			this.GameId = gameid;
