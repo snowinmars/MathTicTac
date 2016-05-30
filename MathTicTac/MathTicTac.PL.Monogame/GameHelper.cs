@@ -149,6 +149,10 @@
 			BigCellViewModel bigcell = world.BigCells[bigCellCoord.X, bigCellCoord.Y];
 			CellViewModel cell = world.BigCells[bigCellCoord.X, bigCellCoord.Y].Cells[cellCoord.X, cellCoord.Y];
 
+			MoveServiceModel move = new MoveServiceModel("", 1, bigcell.Position, new CoordServiceModel((int)cell.Position.X, (int)cell.Position.Y));
+
+			this.Send(move, "Game", "Get");
+
 			if (bigcell.IsFocus)
 			{
 				if (cell.State == State.None)

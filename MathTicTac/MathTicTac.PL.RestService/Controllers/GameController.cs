@@ -23,14 +23,14 @@ namespace MathTicTac.PL.RestService.Controllers
 			this.gameService = gameService;
 		}
 
-		public IHttpActionResult Get([FromBody]string token, [FromBody]string ip)
+		public IHttpActionResult Get(string token)
 		{
 			// TODO to ask
 			// Have I return Created()? Y?
 			return Json(this.gameService.GetAllActiveGames(token));
 		}
 
-		public IHttpActionResult Get([FromBody]string token, [FromBody]string ip, [FromBody]int gameId)
+		public IHttpActionResult Get(string token, int gameId)
 		{
 			return Json(this.gameService.GetCurrentWorld(token, gameId));
 		}
