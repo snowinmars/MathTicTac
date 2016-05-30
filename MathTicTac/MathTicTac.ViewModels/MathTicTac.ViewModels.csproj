@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameAccount.cs" />
+    <Compile Include="GameAccountViewModel.cs" />
     <Compile Include="BigCellViewModel.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="CellViewModel.cs" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MathTicTac.ViewModels
 {
-	public class GameAccount
+	public class GameAccountViewModel
 	{
 		public string Username { get; set; }
 		public string Password { get; set; }

@@ -113,7 +113,7 @@
 			}
 		}
 
-		internal async void Login(GameAccount clienAccount)
+		internal async void Login(GameAccountViewModel clienAccount)
 		{
 			string username = "snowinmars";
 			string password = "Novikova";
@@ -123,7 +123,7 @@
 			clienAccount.Password = password;
 			clienAccount.Username = username;
 
-			await MyHttpClient.PostAsync<GameAccount>(clienAccount, "Account").ConfigureAwait(false);
+			await MyHttpClient.PostAsync<GameAccountViewModel>(clienAccount, "Account").ConfigureAwait(false);
 		}
 
 		internal void SetCellsCoords(WorldViewModel world)

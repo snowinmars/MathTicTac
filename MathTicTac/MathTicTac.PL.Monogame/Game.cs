@@ -21,7 +21,7 @@
 		private GameHelper gameHelper;
 		private WorldViewModel world;
 
-		private GameAccount clienAccount;
+		private GameAccountViewModel clienAccount;
 
 		public Game()
 		{

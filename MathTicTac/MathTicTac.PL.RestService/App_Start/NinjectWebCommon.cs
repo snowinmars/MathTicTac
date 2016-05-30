@@ -9,7 +9,6 @@ namespace MathTicTac.PL.RestService.App_Start
 	using DAL.Interfaces;
 	using Interfaces;
 	using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-	using Models;
 	using Ninject;
 	using Ninject.Web.Common;
 	using System;
@@ -69,10 +68,8 @@ namespace MathTicTac.PL.RestService.App_Start
 			// due to Controller and ApiController use different Dependency Resolvers
 			GlobalConfiguration.Configuration.DependencyResolver = new NinjectResolver(kernel);
 
-			kernel.Bind<IAccountService>().To<AccountService>().InSingletonScope();
 			kernel.Bind<IAccountLogic>().To<AccountLogic>().InSingletonScope();
 			kernel.Bind<IAccountDao>().To<AccountDao>().InSingletonScope();
-			kernel.Bind<IGameService>().To<GameService>().InSingletonScope();
 			kernel.Bind<IGameLogic>().To<GameLogic>().InSingletonScope();
 			kernel.Bind<IGameDao>().To<GameDao>().InSingletonScope();
 		}
