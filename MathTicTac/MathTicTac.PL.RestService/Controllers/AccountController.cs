@@ -29,18 +29,18 @@ namespace MathTicTac.PL.RestService.Controllers
 
 		public IHttpActionResult Post([FromBody]string token, [FromBody]string ip)
 		{
-			return Json(this.accountService.LoginByToken(token, ip));
+			return Json(this.accountService.LoginByToken(token));
 		}
 
 		public IHttpActionResult Post([FromBody]string identifier, [FromBody]string password, [FromBody]string ip)
 		{
-			return Json(this.accountService.LoginByUserName(identifier, password, ip));
+			return Json(this.accountService.LoginByUserName(identifier, password));
 		}
 
 		// TODO to ask. Is it has to be post? If yes, how to rename? Like an usual action?
 		public IHttpActionResult Delete(string token, string ip)
 		{
-			return Json(this.accountService.Logout(token, ip));
+			return Json(this.accountService.Logout(token));
 		}
 	}
 }

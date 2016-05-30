@@ -5,17 +5,15 @@
 	using Microsoft.Xna.Framework;
 	using Microsoft.Xna.Framework.Graphics;
 	using Microsoft.Xna.Framework.Input;
-	using Newtonsoft.Json;
 	using ServiceModels;
 	using System;
 	using System.Collections.Generic;
-	using System.Globalization;
-	using System.IO;
-	using System.Net;
 	using ViewModels;
 
 	internal class GameHelper
 	{
+		private bool turn;
+
 		public void Draw(CellViewModel cell, SpriteBatch bath)
 		{
 			switch (cell.State)
@@ -39,9 +37,6 @@
 
 		internal void MonogameStockLoad(Game game)
 		{
-			//MonogameStock.gameService = new ServiceHost(typeof(GameService));
-			//MonogameStock.accountService = new ServiceHost(typeof(AccountService));
-
 			MonogameStock.zeroCellNormalTexture = game.Content.Load<Texture2D>("Textures/ZeroNormal");
 			MonogameStock.zeroCellHoverTexture = game.Content.Load<Texture2D>("Textures/ZeroHover");
 			MonogameStock.zeroCellPressedTexture = game.Content.Load<Texture2D>("Textures/ZeroPressed");
@@ -73,6 +68,49 @@
 				{ VisibleState.Normal, MonogameStock.zeroCellNormalTexture},
 				{ VisibleState.Pressed, MonogameStock.zeroCellPressedTexture},
 			};
+		}
+
+		internal void MonogameStockUnload()
+		{
+			//MonogameStock.gameService.Close();
+			//MonogameStock.accountService.Close();
+		}
+
+		internal void OnMouseClickCrunch(WorldViewModel world, CoordServiceModel bigCellCoord, CoordServiceModel cellCoord)
+		{
+			BigCellViewModel bigcell = world.BigCells[bigCellCoord.X, bigCellCoord.Y];
+			CellViewModel cell = world.BigCells[bigCellCoord.X, bigCellCoord.Y].Cells[cellCoord.X, cellCoord.Y];
+
+			if (bigcell.IsFocus)
+			{
+				if (cell.State == State.None)
+				{
+					world.LastTurnCoord = new LastTurnCoord
+					{
+						BigCellCoord = new CoordServiceModel((int)bigcell.Position.X, (int)bigcell.Position.Y),
+						CellCoord = new CoordServiceModel((int)cell.Position.X, (int)cell.Position.Y),
+					};
+
+					world.SetAllBigCellsToState(false);
+					world.BigCells[cellCoord.X, cellCoord.Y].IsFocus = true;
+
+					if (turn)
+					{
+						cell.State = State.Client;
+					}
+					else
+					{
+						cell.State = State.Enemy;
+					}
+
+					turn = !turn;
+
+					if (bigcell.IsFilled())
+					{
+						world.SetAllBigCellsToState(true);
+					}
+				}
+			}
 		}
 
 		internal void SetCellsCoords(WorldViewModel world)
@@ -116,80 +154,6 @@
 				}
 		}
 
-		internal void Send<T>(T obj, string controllerName, WebMethod method)
-		{
-			const string serverurl = "localhost";
-
-			string url = $"http://{serverurl}/api/{controllerName}";
-
-			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-			httpWebRequest.ContentType = "application/json";
-			httpWebRequest.Method = method.ToString();
-
-			using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-			{
-				string json = JsonConvert.SerializeObject(obj);
-
-				streamWriter.Write(json);
-				streamWriter.Flush();
-				streamWriter.Close();
-			}
-
-			var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-			using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-			{
-				string result = streamReader.ReadToEnd();
-			}
-		}
-
-		private bool turn;
-
-		internal void OnMouseClickCrunch(WorldViewModel world, CoordServiceModel bigCellCoord, CoordServiceModel cellCoord)
-		{
-			BigCellViewModel bigcell = world.BigCells[bigCellCoord.X, bigCellCoord.Y];
-			CellViewModel cell = world.BigCells[bigCellCoord.X, bigCellCoord.Y].Cells[cellCoord.X, cellCoord.Y];
-
-			MoveServiceModel move = new MoveServiceModel("", world.Id, bigcell.Position, new CoordServiceModel((int)cell.Position.X, (int)cell.Position.Y));
-
-			this.Send(move, "Game", WebMethod.Get);
-
-			if (bigcell.IsFocus)
-			{
-				if (cell.State == State.None)
-				{
-					world.LastTurnCoord = new LastTurnCoord
-					{
-						BigCellCoord = new CoordServiceModel((int)bigcell.Position.X, (int)bigcell.Position.Y),
-						CellCoord = new CoordServiceModel((int)cell.Position.X, (int)cell.Position.Y),
-					};
-
-					world.SetAllBigCellsToState(false);
-					world.BigCells[cellCoord.X, cellCoord.Y].IsFocus = true;
-
-					if (turn)
-					{
-						cell.State = State.Client;
-					}
-					else
-					{
-						cell.State = State.Enemy;
-					}
-
-					turn = !turn;
-
-					if (bigcell.IsFilled())
-					{
-						world.SetAllBigCellsToState(true);
-					}
-				}
-			}
-		}
-
-		internal void MonogameStockUnload()
-		{
-			//MonogameStock.gameService.Close();
-			//MonogameStock.accountService.Close();
-		}
 
 		internal void Update(CellViewModel cell)
 		{
@@ -241,6 +205,11 @@
 			{
 				cell.OnMouseUp(EventArgs.Empty);
 			}
+		}
+
+		private void Call(string userName, string password, string controllerName, WebMethod post)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

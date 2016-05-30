@@ -1,5 +1,9 @@
 ﻿using MathTicTac.PL.Interfaces;
 using MathTicTac.ServiceModels;
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace MathTicTac.PL.RestService.Controllers
@@ -21,7 +25,9 @@ namespace MathTicTac.PL.RestService.Controllers
 		{
 			// TODO to ask
 			// Have I return Created()? Y?
-			return Json(this.gameService.GetAllActiveGames(token));
+			// Answer: Have to
+			//return Json(this.gameService.GetAllActiveGames(token));
+			return Json(token);
 		}
 
 		public IHttpActionResult Get(string token, int gameId)
@@ -36,6 +42,9 @@ namespace MathTicTac.PL.RestService.Controllers
 
 		public IHttpActionResult Post([FromBody]string player1Token, [FromBody]string player1Ip, [FromBody]string player2Identifier)
 		{
+			// TODO to Created()
+			// TODO to ViewModels
+
 			return Json(this.gameService.Create(player1Token, player1Ip, player2Identifier));
 		}
 

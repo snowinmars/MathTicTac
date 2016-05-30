@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountNonAuth.cs" />
     <Compile Include="BigCellViewModel.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="CellViewModel.cs" />

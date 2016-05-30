@@ -12,6 +12,8 @@ namespace MathTicTac.ViewModels
 
 		public GameStatus Status { get; set; }
 
+		public string Token { get; set; }
+
 		public WorldViewModel(int id) : this(id, null)
 		{
 		}
