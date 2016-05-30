@@ -17,30 +17,30 @@ namespace MathTicTac.PL.RestService.Models
 
 		public bool Add(AccountServiceModel item, string password)
 		{
-			Account account = Mapper.AccountSMtoAccount(item);
+			Account account = Mapper.AccountSM2Account(item);
 
-			return accountLogic.Add(account, password);
+			return this.accountLogic.Add(account, password);
 		}
 
 		public AccountServiceModel Get(int id)
 		{
-			Account account = accountLogic.Get(id);
-			return Mapper.AccounttoAccountSM(account);
+			Account account = this.accountLogic.Get(id);
+			return Mapper.Account2AccountSM(account);
 		}
 
 		public bool LoginByToken(string token, string ip)
 		{
-			return accountLogic.Login(token, ip);
+			return this.accountLogic.Login(token, ip);
 		}
 
 		public string LoginByUserName(string identifier, string password, string ip)
 		{
-			return accountLogic.Login(identifier, password, ip);
+			return this.accountLogic.Login(identifier, password, ip);
 		}
 
 		public bool Logout(string token, string ip)
 		{
-			return accountLogic.Logout(token, ip);
+			return this.accountLogic.Logout(token, ip);
 		}
 	}
 }

@@ -9,7 +9,7 @@ namespace MathTicTac.PL.RestService.Models
 {
 	internal static class Mapper
 	{
-		internal static Account AccountSMtoAccount(AccountServiceModel item)
+		internal static Account AccountSM2Account(AccountServiceModel item)
 		{
 			return new Account
 			{
@@ -21,7 +21,7 @@ namespace MathTicTac.PL.RestService.Models
 			};
 		}
 
-		internal static AccountServiceModel AccounttoAccountSM(Account account)
+		internal static AccountServiceModel Account2AccountSM(Account account)
 		{
 			return new AccountServiceModel(account.Username)
 			{
@@ -58,9 +58,7 @@ namespace MathTicTac.PL.RestService.Models
 
 		internal static Move MoveSM2Move(MoveServiceModel move)
 		{
-			string ip = "";
-
-			return new Move(ip , move.Token, move.GameId, new Coord(move.BigCellCoord.X, move.BigCellCoord.Y), new Coord(move.CellCoord.X, move.CellCoord.Y));
+			return new Move(null , move.Token, move.GameId, new Coord(move.BigCellCoord.X, move.BigCellCoord.Y), new Coord(move.CellCoord.X, move.CellCoord.Y));
 		}
 
 		internal static BigCellServiceModel[,] BigCellArray2BigCellSMArray(BigCell[,] array)

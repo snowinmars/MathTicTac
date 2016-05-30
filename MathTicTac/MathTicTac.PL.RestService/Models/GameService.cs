@@ -20,12 +20,14 @@ namespace MathTicTac.PL.RestService.Models
 
 		public bool Create(string player1Token, string player1Ip, string player2Identifier)
 		{
-			return gameLogic.Create(player1Token, player1Ip, player2Identifier);
+			return this.gameLogic.Create(player1Token, player1Ip, player2Identifier);
 		}
 
-		public IEnumerable<GameInfoServiceModel> GetAllActiveGames(string token, string ip)
+		public IEnumerable<GameInfoServiceModel> GetAllActiveGames(string token)
 		{
-			return gameLogic.GetAllActiveGames(token, ip)
+			string ip = HttpContext.Current.Request.UserHostAddress;
+
+			return this.gameLogic.GetAllActiveGames(token, ip)
 				.Select((g) => new GameInfoServiceModel
 						{
 							ID = g.ID,
@@ -35,21 +37,29 @@ namespace MathTicTac.PL.RestService.Models
 						});
 		}
 
-		public WorldServiceModel GetCurrentWorld(string token, string ip, int gameId)
+		public WorldServiceModel GetCurrentWorld(string token, int gameId)
 		{
-			World world = gameLogic.GetCurrentWorld(token, ip, gameId);
+			string ip = HttpContext.Current.Request.UserHostAddress;
+
+			World world = this.gameLogic.GetCurrentWorld(token, ip, gameId);
 			return Mapper.World2WorldSM(world);
 		}
 
 		public bool MakeMove(MoveServiceModel move)
 		{
+			string ip = HttpContext.Current.Request.UserHostAddress;
+
 			Move newmove = Mapper.MoveSM2Move(move);
-			return gameLogic.MakeMove(newmove);
+			newmove.IP = ip;
+
+			return this.gameLogic.MakeMove(newmove);
 		}
 
-		public bool RejectGame(string token, string ip, int gameId)
+		public bool RejectGame(string token, int gameId)
 		{
-			throw new NotImplementedException();
+			string ip = HttpContext.Current.Request.UserHostAddress;
+
+			return this.gameLogic.RejectGame(token, ip, gameId);
 		}
 	}
 }

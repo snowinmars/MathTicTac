@@ -27,12 +27,12 @@ namespace MathTicTac.PL.RestService.Controllers
 		{
 			// TODO to ask
 			// Have I return Created()? Y?
-			return Json(this.gameService.GetAllActiveGames(token, ip));
+			return Json(this.gameService.GetAllActiveGames(token));
 		}
 
 		public IHttpActionResult Get([FromBody]string token, [FromBody]string ip, [FromBody]int gameId)
 		{
-			return Json(this.gameService.GetCurrentWorld(token, ip, gameId));
+			return Json(this.gameService.GetCurrentWorld(token, gameId));
 		}
 
 		public IHttpActionResult Put([FromBody]MoveServiceModel move)
@@ -47,7 +47,7 @@ namespace MathTicTac.PL.RestService.Controllers
 
 		public IHttpActionResult Delete ([FromBody]string token, [FromBody]string ip, [FromBody]int gameId)
 		{
-			return Json(this.gameService.RejectGame(token, ip, gameId));
+			return Json(this.gameService.RejectGame(token, gameId));
 		}
     }
 }
