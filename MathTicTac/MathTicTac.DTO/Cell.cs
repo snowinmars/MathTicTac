@@ -2,14 +2,16 @@
 
 namespace MathTicTac.DTO
 {
-    public class Cell
-    {
-        public Cell() : this(State.None) { }
+	public class Cell
+	{
+		public Cell() : this(State.None)
+		{
+		}
 
-        public Cell(State state)
-        {
-            this.State = state;
-        }
+		public Cell(State state)
+		{
+			this.State = state;
+		}
 
 		public State State { get; set; }
 	}

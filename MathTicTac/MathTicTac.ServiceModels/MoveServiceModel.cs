@@ -1,7 +1,5 @@
 ﻿namespace MathTicTac.ServiceModels
 {
-	using System;
-
 	public class MoveServiceModel
 	{
 		public CoordServiceModel BigCellCoord { get; set; }

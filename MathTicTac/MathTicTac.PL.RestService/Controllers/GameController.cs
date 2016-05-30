@@ -1,21 +1,15 @@
 ﻿using MathTicTac.PL.Interfaces;
 using MathTicTac.ServiceModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace MathTicTac.PL.RestService.Controllers
 {
-
 	/// GET	   - READ
 	/// POST   - ADD
 	/// PUT    - UPDATE
 	/// DELETE - DELETE
-    public class GameController : ApiController
-    {
+	public class GameController : ApiController
+	{
 		private IGameService gameService;
 
 		public GameController(IGameService gameService)
@@ -35,7 +29,7 @@ namespace MathTicTac.PL.RestService.Controllers
 			return Json(this.gameService.GetCurrentWorld(token, gameId));
 		}
 
-		public IHttpActionResult Put([FromBody]MoveServiceModel move)
+		public IHttpActionResult Put(MoveServiceModel move)
 		{
 			return Json(this.gameService.MakeMove(move));
 		}
@@ -45,9 +39,9 @@ namespace MathTicTac.PL.RestService.Controllers
 			return Json(this.gameService.Create(player1Token, player1Ip, player2Identifier));
 		}
 
-		public IHttpActionResult Delete ([FromBody]string token, [FromBody]string ip, [FromBody]int gameId)
+		public IHttpActionResult Delete(string token, int gameId)
 		{
 			return Json(this.gameService.RejectGame(token, gameId));
 		}
-    }
+	}
 }

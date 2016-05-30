@@ -1,5 +1,4 @@
 ﻿using MathTicTac.ServiceModels;
-using System.ServiceModel;
 
 namespace MathTicTac.PL.Interfaces
 {

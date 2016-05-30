@@ -1,10 +1,8 @@
 ﻿using MathTicTac.ServiceModels;
 using System.Collections.Generic;
-using System.ServiceModel;
 
 namespace MathTicTac.PL.Interfaces
 {
-
 	public interface IGameService
 	{
 		/// <summary>

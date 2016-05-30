@@ -1,5 +1,4 @@
 ﻿using MathTicTac.Enums;
-using MathTicTac.ServiceModels;
 
 namespace MathTicTac.ViewModels
 {

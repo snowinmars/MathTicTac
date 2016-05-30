@@ -1,11 +1,10 @@
-﻿using MathTicTac.PL.Interfaces;
-using System;
+﻿using MathTicTac.BLL.Interfaces;
+using MathTicTac.DTO;
+using MathTicTac.PL.Interfaces;
+using MathTicTac.ServiceModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using MathTicTac.ServiceModels;
-using MathTicTac.BLL.Interfaces;
-using MathTicTac.DTO;
 
 namespace MathTicTac.PL.RestService.Models
 {
@@ -29,12 +28,12 @@ namespace MathTicTac.PL.RestService.Models
 
 			return this.gameLogic.GetAllActiveGames(token, ip)
 				.Select((g) => new GameInfoServiceModel
-						{
-							ID = g.ID,
-							OppositePlayerName = g.OppositePlayerName,
-							status = g.status,
-							TimeOfCreation = g.TimeOfCreation
-						});
+				{
+					ID = g.ID,
+					OppositePlayerName = g.OppositePlayerName,
+					status = g.status,
+					TimeOfCreation = g.TimeOfCreation
+				});
 		}
 
 		public WorldServiceModel GetCurrentWorld(string token, int gameId)

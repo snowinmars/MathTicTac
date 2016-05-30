@@ -1,10 +1,5 @@
 ﻿using MathTicTac.PL.Interfaces;
 using MathTicTac.ServiceModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace MathTicTac.PL.RestService.Controllers
@@ -14,7 +9,7 @@ namespace MathTicTac.PL.RestService.Controllers
 	/// PUT    - UPDATE
 	/// DELETE - DELETE
 	public class AccountController : ApiController
-    {
+	{
 		private IAccountService accountService;
 
 		public AccountController(IAccountService accountService)
@@ -22,7 +17,7 @@ namespace MathTicTac.PL.RestService.Controllers
 			this.accountService = accountService;
 		}
 
-		public IHttpActionResult Get([FromBody] int id)
+		public IHttpActionResult Get(int id)
 		{
 			return Json(this.accountService.Get(id));
 		}
@@ -42,12 +37,10 @@ namespace MathTicTac.PL.RestService.Controllers
 			return Json(this.accountService.LoginByUserName(identifier, password, ip));
 		}
 
-
 		// TODO to ask. Is it has to be post? If yes, how to rename? Like an usual action?
-		public IHttpActionResult Delete([FromBody]string token, [FromBody]string ip)
+		public IHttpActionResult Delete(string token, string ip)
 		{
 			return Json(this.accountService.Logout(token, ip));
 		}
-			 
-    }
+	}
 }

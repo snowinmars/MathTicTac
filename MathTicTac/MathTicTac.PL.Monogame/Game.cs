@@ -58,7 +58,7 @@
 				if (this.world.LastTurnCoord != null)
 				{
 					Game.spriteBatch.Draw(MonogameStock.cellLastTurnTexture,
-								new Vector2(this.world.LastTurnCoord.CellCoord.X,														this.world.LastTurnCoord.CellCoord.Y),
+								new Vector2(this.world.LastTurnCoord.CellCoord.X, this.world.LastTurnCoord.CellCoord.Y),
 									Color.White);
 				}
 

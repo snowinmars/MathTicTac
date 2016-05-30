@@ -3,7 +3,7 @@
 	using Enums;
 	using Microsoft.Xna.Framework.Graphics;
 	using System.Collections.Generic;
-	using System.ServiceModel;
+
 	public static class MonogameStock
 	{
 		public static Dictionary<VisibleState, Texture2D> cellsCrossTextures { get; internal set; }

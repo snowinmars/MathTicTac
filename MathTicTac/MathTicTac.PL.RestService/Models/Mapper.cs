@@ -1,9 +1,5 @@
 ﻿using MathTicTac.DTO;
 using MathTicTac.ServiceModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace MathTicTac.PL.RestService.Models
 {
@@ -36,7 +32,6 @@ namespace MathTicTac.PL.RestService.Models
 		{
 			CellServiceModel[,] cells = new CellServiceModel[bigcell.Cells.GetLength(0), bigcell.Cells.GetLength(1)];
 
-
 			for (int e = 0; e < bigcell.Cells.GetLength(0); e++)
 				for (int k = 0; k < bigcell.Cells.GetLength(1); k++)
 				{
@@ -58,7 +53,7 @@ namespace MathTicTac.PL.RestService.Models
 
 		internal static Move MoveSM2Move(MoveServiceModel move)
 		{
-			return new Move(null , move.Token, move.GameId, new Coord(move.BigCellCoord.X, move.BigCellCoord.Y), new Coord(move.CellCoord.X, move.CellCoord.Y));
+			return new Move(null, move.Token, move.GameId, new Coord(move.BigCellCoord.X, move.BigCellCoord.Y), new Coord(move.CellCoord.X, move.CellCoord.Y));
 		}
 
 		internal static BigCellServiceModel[,] BigCellArray2BigCellSMArray(BigCell[,] array)

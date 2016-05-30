@@ -15,6 +15,7 @@ namespace MathTicTac.PL.RestService.App_Start
 	using System;
 	using System.Web;
 	using System.Web.Http;
+
 	public static class NinjectWebCommon
 	{
 		private static readonly Bootstrapper bootstrapper = new Bootstrapper();

@@ -42,23 +42,23 @@
 			//MonogameStock.gameService = new ServiceHost(typeof(GameService));
 			//MonogameStock.accountService = new ServiceHost(typeof(AccountService));
 
-			MonogameStock.zeroCellNormalTexture =		game.Content.Load<Texture2D>("Textures/ZeroNormal");
-			MonogameStock.zeroCellHoverTexture =		game.Content.Load<Texture2D>("Textures/ZeroHover");
-			MonogameStock.zeroCellPressedTexture =		game.Content.Load<Texture2D>("Textures/ZeroPressed");
+			MonogameStock.zeroCellNormalTexture = game.Content.Load<Texture2D>("Textures/ZeroNormal");
+			MonogameStock.zeroCellHoverTexture = game.Content.Load<Texture2D>("Textures/ZeroHover");
+			MonogameStock.zeroCellPressedTexture = game.Content.Load<Texture2D>("Textures/ZeroPressed");
 
-			MonogameStock.crossCellNormalTexture =		game.Content.Load<Texture2D>("Textures/CrossNormal");
-			MonogameStock.crossCellHoverTexture =		game.Content.Load<Texture2D>("Textures/CrossHover");
-			MonogameStock.crossCellPressedTexture =		game.Content.Load<Texture2D>("Textures/CrossPressed");
+			MonogameStock.crossCellNormalTexture = game.Content.Load<Texture2D>("Textures/CrossNormal");
+			MonogameStock.crossCellHoverTexture = game.Content.Load<Texture2D>("Textures/CrossHover");
+			MonogameStock.crossCellPressedTexture = game.Content.Load<Texture2D>("Textures/CrossPressed");
 
-			MonogameStock.noneCellTexture =			game.Content.Load<Texture2D>("Textures/None");
-			MonogameStock.cellLastTurnTexture =		game.Content.Load<Texture2D>("Textures/CellLastTurn");
+			MonogameStock.noneCellTexture = game.Content.Load<Texture2D>("Textures/None");
+			MonogameStock.cellLastTurnTexture = game.Content.Load<Texture2D>("Textures/CellLastTurn");
 
-			MonogameStock.borderAllCellTexture =		game.Content.Load<Texture2D>("Textures/BorderCellAll");
-			MonogameStock.borderAllBigCellFocusTexture =	game.Content.Load<Texture2D>("Textures/BorderBigCellAllFocus");
-			MonogameStock.borderAllBigCellTexture =		game.Content.Load<Texture2D>("Textures/BorderBigCellAll");
+			MonogameStock.borderAllCellTexture = game.Content.Load<Texture2D>("Textures/BorderCellAll");
+			MonogameStock.borderAllBigCellFocusTexture = game.Content.Load<Texture2D>("Textures/BorderBigCellAllFocus");
+			MonogameStock.borderAllBigCellTexture = game.Content.Load<Texture2D>("Textures/BorderBigCellAll");
 
-			MonogameStock.crossBigCellTexture =		game.Content.Load<Texture2D>("Textures/CrossBigCell");
-			MonogameStock.zeroBigCellTexture =		game.Content.Load<Texture2D>("Textures/ZeroBigCell");
+			MonogameStock.crossBigCellTexture = game.Content.Load<Texture2D>("Textures/CrossBigCell");
+			MonogameStock.zeroBigCellTexture = game.Content.Load<Texture2D>("Textures/ZeroBigCell");
 
 			MonogameStock.cellsCrossTextures = new Dictionary<VisibleState, Texture2D>
 			{

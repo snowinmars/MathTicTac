@@ -2,7 +2,6 @@
 using MathTicTac.DTO;
 using MathTicTac.PL.Interfaces;
 using MathTicTac.ServiceModels;
-using System;
 
 namespace MathTicTac.PL.RestService.Models
 {
