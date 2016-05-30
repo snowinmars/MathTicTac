@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,6 +46,35 @@
   <ItemGroup>
     <Compile Include="Initializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MathTicTac.BLL.Interfaces\MathTicTac.BLL.Interfaces.csproj">
+      <Project>{e0620be8-080b-4d9b-9b79-044e169227c7}</Project>
+      <Name>MathTicTac.BLL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.BLL.Logic\MathTicTac.BLL.Logic.csproj">
+      <Project>{abce9384-41d3-4740-8983-24718d25a1a8}</Project>
+      <Name>MathTicTac.BLL.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.DAL.Dao\MathTicTac.DAL.Dao.csproj">
+      <Project>{8f3422a0-3a97-4009-ab19-db03aa8b38b5}</Project>
+      <Name>MathTicTac.DAL.Dao</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.DAL.Interfaces\MathTicTac.DAL.Interfaces.csproj">
+      <Project>{272bd081-ffc9-49d5-be30-0e7250b67977}</Project>
+      <Name>MathTicTac.DAL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.PL.Interfaces\MathTicTac.PL.Interfaces.csproj">
+      <Project>{9481b775-608d-4fc8-976d-dd981b8753bf}</Project>
+      <Name>MathTicTac.PL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.PL.RestService\MathTicTac.PL.RestService.csproj">
+      <Project>{9e02d361-2f99-4ae6-b896-79534c10e687}</Project>
+      <Name>MathTicTac.PL.RestService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

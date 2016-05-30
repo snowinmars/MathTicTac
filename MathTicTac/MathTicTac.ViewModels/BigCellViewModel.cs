@@ -12,7 +12,10 @@ namespace MathTicTac.ViewModels
 		{
 		}
 
-		public BigCellViewModel(State state, bool isFocus, CellViewModel[,] cells, CoordServiceModel position)
+		public BigCellViewModel(State state,
+						bool isFocus,
+						CellViewModel[,] cells,
+						CoordServiceModel position)
 		{
 			this.Cells = cells;
 			this.State = state;

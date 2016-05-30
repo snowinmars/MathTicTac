@@ -1,5 +1,4 @@
 ﻿using MathTicTac.Enums;
-using MathTicTac.ServiceModels;
 
 namespace MathTicTac.ViewModels
 {
@@ -12,6 +11,8 @@ namespace MathTicTac.ViewModels
 		public LastTurnCoord LastTurnCoord { get; set; }
 
 		public GameStatus Status { get; set; }
+
+		public string Token { get; set; }
 
 		public WorldViewModel(int id) : this(id, null)
 		{

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MathTicTac.DAL.Dao
+﻿namespace MathTicTac.DAL.Dao
 {
     internal static class SqlConfig
     {

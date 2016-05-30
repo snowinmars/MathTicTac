@@ -1,5 +1,4 @@
 ﻿using MathTicTac.ServiceModels;
-using System.ServiceModel;
 
 namespace MathTicTac.PL.Interfaces
 {
@@ -9,7 +8,7 @@ namespace MathTicTac.PL.Interfaces
 
 		AccountServiceModel Get(int id);
 
-		bool LoginByToken(string token, string ip);
+		bool LoginByToken(string token);
 
 		/// <summary>
 		/// Login user.
@@ -18,8 +17,8 @@ namespace MathTicTac.PL.Interfaces
 		/// <param name="password"></param>
 		/// <param name="ip">todo: describe ip parameter on Login</param>
 		/// <returns>User's token</returns>
-		string LoginByUserName(string identifier, string password, string ip);
+		string LoginByUserName(string identifier, string password);
 
-		bool Logout(string token, string ip);
+		bool Logout(string token);
 	}
 }

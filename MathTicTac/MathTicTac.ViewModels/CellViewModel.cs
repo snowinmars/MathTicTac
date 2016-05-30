@@ -6,7 +6,14 @@ namespace MathTicTac.ViewModels
 {
 	public class CellViewModel : Button
 	{
-		public CellViewModel(State state, CoordServiceModel position, int width, int height, string buttonText = "") : base(new Vector2(position.X, position.Y), width, height, buttonText)
+		public CellViewModel(State state,
+					CoordServiceModel position,
+					int width,
+					int height,
+					string buttonText = "") : base(new Vector2(position.X, position.Y),
+										width,
+										height,
+										buttonText)
 		{
 			this.State = state;
 		}

@@ -7,6 +7,7 @@
 	using Microsoft.Xna.Framework.Input;
 	using ServiceModels;
 	using System;
+	using System.Web;
 	using ViewModels;
 
 	/// <summary>
@@ -19,9 +20,6 @@
 
 		private GameHelper gameHelper;
 		private WorldViewModel world;
-
-		//private  ServiceHost gameService;
-		//private ServiceHost accountService;
 
 		public Game()
 		{
@@ -58,7 +56,7 @@
 				if (this.world.LastTurnCoord != null)
 				{
 					Game.spriteBatch.Draw(MonogameStock.cellLastTurnTexture,
-								new Vector2(this.world.LastTurnCoord.CellCoord.X,														this.world.LastTurnCoord.CellCoord.Y),
+								new Vector2(this.world.LastTurnCoord.CellCoord.X, this.world.LastTurnCoord.CellCoord.Y),
 									Color.White);
 				}
 
@@ -117,17 +115,7 @@
 
 			this.gameHelper.MonogameStockLoad(this);
 
-			/// Services
-
-			//this.gameService = MonogameStock.gameService;
-			//this.accountService = MonogameStock.accountService;
-
-			//this.gameService.Open();
-			//this.accountService.Open();
-
-			///
-
-			/// world init
+			//// world init
 
 			for (int i = 0; i < this.world.BigCells.GetLength(0); i++)
 				for (int j = 0; j < this.world.BigCells.GetLength(1); j++)
@@ -154,7 +142,9 @@
 							};
 						}
 
-			///
+			////
+
+
 
 			// TODO: use this.Content to load your game content here
 			base.LoadContent();
@@ -166,8 +156,6 @@
 		/// </summary>
 		protected override void UnloadContent()
 		{
-			//this.gameHelper.MonogameStockUnload();
-
 			// TODO: Unload any non ContentManager content here
 		}
 
@@ -178,6 +166,8 @@
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
+			// TODO ASP NET Identity
+
 			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
 			{
 				Exit();

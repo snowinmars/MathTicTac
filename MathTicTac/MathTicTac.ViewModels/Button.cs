@@ -28,6 +28,7 @@
 		/// Init it with MonogameStock dictionaries, using SetTextures() method
 		/// </summary>
 		public Dictionary<VisibleState, Texture2D> textures = new Dictionary<VisibleState, Texture2D>();
+
 		public VisibleState currentVisibleState = VisibleState.Normal;
 		public VisibleState previousVisibleState = VisibleState.Normal;
 		public MouseState currentMouseState;

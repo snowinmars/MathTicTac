@@ -1,39 +1,35 @@
 ﻿using MathTicTac.DTO;
 using MathTicTac.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MathTicTac.DAL.Interfaces
 {
-    public interface IAccountDao
-    {
-        DateTime? AcceptToken(string token);
+	public interface IAccountDao
+	{
+		DateTime? AcceptToken(string token);
 
-        bool Add(Account item, byte[] password);
+		bool Add(Account item, byte[] password);
 
-        Account Get(int id);
+		Account Get(int id);
 
-        void AddStatus(int id, GameStatus result);
+		void AddStatus(int id, GameStatus result);
 
-        string CreateToken(int id, string ip);
+		string CreateToken(int id, string ip);
 
-        bool DeleteToken(string token);
+		bool DeleteToken(string token);
 
-        byte[] GetUserPassword(int id);
+		byte[] GetUserPassword(int id);
 
-        int GetUserIdByIdentifier(string identifier);
+		int GetUserIdByIdentifier(string identifier);
 
-        int GetUserIdByToken(string token);
+		int GetUserIdByToken(string token);
 
-        string GetUserNameById(int id);
+		string GetUserNameById(int id);
 
-        string GetUserTokenById(int id);
+		string GetUserTokenById(int id);
 
-        bool IsTokenIpTrusted(string token, string ip);
+		bool IsTokenIpTrusted(string token, string ip);
 
-        bool UpdateTokenDate(string token);
-    }
+		bool UpdateTokenDate(string token);
+	}
 }
