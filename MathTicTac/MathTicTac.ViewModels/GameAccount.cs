@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace MathTicTac.ViewModels
 {
-	public class AccountNonAuth
+	public class GameAccount
 	{
 		public string Username { get; set; }
 		public string Password { get; set; }
-
+		public int Id { get; set; }
 	}
 }

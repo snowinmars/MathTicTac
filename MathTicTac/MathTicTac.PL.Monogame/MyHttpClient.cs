@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Config;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace MathTicTac.PL.Monogame
 		{
 			using (var client = new HttpClient())
 			{
-				client.BaseAddress = new Uri($"http://localhost:9000/api/");
+				client.BaseAddress = new Uri(Configuration.ServerUrl);
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -36,7 +37,7 @@ namespace MathTicTac.PL.Monogame
 		{
 			using (var client = new HttpClient())
 			{
-				client.BaseAddress = new Uri($"http://localhost:54514/api/");
+				client.BaseAddress = new Uri(Configuration.ServerUrl);
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -55,7 +56,7 @@ namespace MathTicTac.PL.Monogame
 		{
 			using (var client = new HttpClient())
 			{
-				client.BaseAddress = new Uri($"http://localhost:9000/api/");
+				client.BaseAddress = new Uri(Configuration.ServerUrl);
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -74,7 +75,7 @@ namespace MathTicTac.PL.Monogame
 		{
 			using (var client = new HttpClient())
 			{
-				client.BaseAddress = new Uri($"http://localhost:9000/api/");
+				client.BaseAddress = new Uri(Configuration.ServerUrl);
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

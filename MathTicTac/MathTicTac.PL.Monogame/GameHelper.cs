@@ -113,6 +113,19 @@
 			}
 		}
 
+		internal async void Login(GameAccount clienAccount)
+		{
+			string username = "snowinmars";
+			string password = "Novikova";
+			int id = 13;
+
+			clienAccount.Id = id;
+			clienAccount.Password = password;
+			clienAccount.Username = username;
+
+			await MyHttpClient.PostAsync<GameAccount>(clienAccount, "Account").ConfigureAwait(false);
+		}
+
 		internal void SetCellsCoords(WorldViewModel world)
 		{
 			CoordServiceModel bigCellCoord = new CoordServiceModel(0, 0);

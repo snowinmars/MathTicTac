@@ -21,6 +21,8 @@
 		private GameHelper gameHelper;
 		private WorldViewModel world;
 
+		private GameAccount clienAccount;
+
 		public Game()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -100,6 +102,8 @@
 			this.IsMouseVisible = true;
 
 			this.gameHelper.SetCellsCoords(this.world);
+
+			this.gameHelper.Login(this.clienAccount);
 
 			base.Initialize();
 		}

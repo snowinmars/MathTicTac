@@ -19,12 +19,15 @@ namespace Config
 				BigCellColumnCount = Int32.Parse(ConfigurationManager.AppSettings["BigCellColumnCount"]);
 				CellRowCount = Int32.Parse(ConfigurationManager.AppSettings["CellRowCount"]);
 				CellColumnCount = Int32.Parse(ConfigurationManager.AppSettings["CellColumnCount"]);
+				ServerUrl = ConfigurationManager.AppSettings["ServerUrl"];
 			}
 			catch (Exception ex)
 			{
 				throw new InvalidOperationException($"Error in cctor {nameof(Configuration)} class.", ex);
 			}
 		}
+
+		public static string ServerUrl { get; set; }
 
 		/// <summary>
 		/// In all application programmer have to use only this ramdom examplar
