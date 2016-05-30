@@ -51,6 +51,10 @@
       <Project>{D81617DA-C924-4BD6-AA2C-5055231D0C9D}</Project>
       <Name>MathTicTac.DTO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.Enums\MathTicTac.Enums.csproj">
+      <Project>{827E3A2B-E2E5-45E9-AC91-33FBC5004F8A}</Project>
+      <Name>MathTicTac.Enums</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
