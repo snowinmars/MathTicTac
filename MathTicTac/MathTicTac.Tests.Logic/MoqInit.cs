@@ -12,6 +12,7 @@ namespace MathTicTac.Tests.Logic
     internal static class MoqInit
     {
         internal static Mock<IAccountDao> accDaoMock = new Mock<IAccountDao>();
+        internal static Mock<IGameDao> gameDaoMock = new Mock<IGameDao>();
 
         static MoqInit()
         {
