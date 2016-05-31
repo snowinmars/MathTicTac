@@ -1,6 +1,8 @@
 ﻿using MathTicTac.Enums;
 using MathTicTac.ServiceModels;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace MathTicTac.ViewModels
 {
@@ -19,6 +21,58 @@ namespace MathTicTac.ViewModels
 		}
 
 		public State State { get; set; }
+
+		public override void Update()
+		{
+			this.previousVisibleState = this.currentVisibleState;
+			this.previousMouseState = this.currentMouseState;
+
+			this.currentMouseState = Mouse.GetState();
+
+			if (this.rectangle.Contains(this.currentMouseState.X, this.currentMouseState.Y))
+			{
+				if (this.currentMouseState.LeftButton == ButtonState.Pressed)
+				{
+					if (this.previousMouseState.LeftButton == ButtonState.Released)
+					{
+						this.OnMouseDown(EventArgs.Empty);
+						this.currentVisibleState = VisibleState.Pressed;
+					}
+					else
+					{
+						if (this.currentVisibleState != VisibleState.Pressed)
+						{
+							this.currentVisibleState = VisibleState.Hover;
+						}
+					}
+				}
+				else
+				{
+					if (this.previousVisibleState == VisibleState.Pressed)
+					{
+						this.OnMouseClick(null);
+					}
+
+					this.currentVisibleState = VisibleState.Hover;
+				}
+			}
+			else
+			{
+				if (this.previousVisibleState == VisibleState.Hover ||
+					this.previousVisibleState == VisibleState.Pressed)
+				{
+					this.OnMouseOut(EventArgs.Empty);
+				}
+
+				this.currentVisibleState = VisibleState.Normal;
+			}
+
+			if (this.currentMouseState.LeftButton == ButtonState.Released &&
+				this.previousVisibleState == VisibleState.Pressed)
+			{
+				this.OnMouseUp(EventArgs.Empty);
+			}
+		}
 
 		#region equals
 

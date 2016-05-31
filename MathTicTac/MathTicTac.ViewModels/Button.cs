@@ -12,7 +12,7 @@
 		/// <summary>
 		/// Now is not work
 		/// </summary>
-		public readonly string buttonText;
+		public string buttonText;
 
 		/// <summary>
 		/// Position in pixels
@@ -68,13 +68,13 @@
 			get { return this.textures; }
 		}
 
-		public void Draw(SpriteBatch bath)
+		public virtual void Draw(SpriteBatch bath)
 		{
 			bath.Draw(this.textures[currentVisibleState], this.rectangle, Color.White);
 			bath.DrawString(Font, buttonText, Position, Color.Black);
 		}
 
-		public void Update()
+		public virtual void Update()
 		{
 			this.previousVisibleState = this.currentVisibleState;
 			this.previousMouseState = this.currentMouseState;
