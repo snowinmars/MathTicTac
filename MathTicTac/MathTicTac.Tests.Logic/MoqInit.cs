@@ -19,6 +19,14 @@ namespace MathTicTac.Tests.Logic
         /// World with enemy turn wich can take state of bigcell 2.2. All other big cells states are None.
         /// </summary>
         private static DetailedWorld worldId69;
+        /// <summary>
+        /// World with client turn wich can take Win of client.
+        /// </summary>
+        private static DetailedWorld worldId70;
+        /// <summary>
+        ///  World with enemy turn wich can take Win of enemy.
+        /// </summary>
+        private static DetailedWorld worldId71;
 
         static MoqInit()
         {
@@ -176,12 +184,17 @@ namespace MathTicTac.Tests.Logic
                 => f.GetGameState(It.IsAny<int>()))
                 .Returns<int>(id => 
                 {
-                    if (id == 69)
+                    switch (id)
                     {
-                        return MoqInit.worldId69;
+                        case 69:
+                            return MoqInit.worldId69;
+                        case 70:
+                            return MoqInit.worldId70;
+                        case 71:
+                            return MoqInit.worldId71;
+                        default:
+                            return null;
                     }
-
-                    return null;
                 });
 
             gameDaoMock.Setup(f
@@ -193,6 +206,7 @@ namespace MathTicTac.Tests.Logic
 
         internal static void ReInit()
         {
+            #region World69
             MoqInit.worldId69 = new DetailedWorld(3)
             {
                 Id = 69,
@@ -232,7 +246,102 @@ namespace MathTicTac.Tests.Logic
 
             MoqInit.worldId69.BigCells[2, 2].Cells[0, 0].State = State.Enemy;
             MoqInit.worldId69.BigCells[2, 2].Cells[0, 1].State = State.Enemy;
-            MoqInit.worldId69.BigCells[2, 2].Cells[2, 2].State = State.Client;
+            MoqInit.worldId69.BigCells[2, 2].Cells[2, 2].State = State.Client; 
+            #endregion
+
+            #region World70
+            MoqInit.worldId70 = new DetailedWorld(3)
+            {
+                Id = 70,
+                ClientId = 13,
+                EnemyId = 12,
+                LastBigCellMove = new Coord(0, 0),
+                LastCellMove = new Coord(2, 2),
+                Status = GameStatus.ClientTurn,
+            };
+
+            MoqInit.worldId70.BigCells[0, 0].State = State.Client;
+            MoqInit.worldId70.BigCells[1, 1].State = State.Client;
+
+            MoqInit.worldId70.BigCells[0, 0].Cells[0, 0].State = State.Client;
+            MoqInit.worldId70.BigCells[0, 0].Cells[0, 1].State = State.Client;
+            MoqInit.worldId70.BigCells[0, 0].Cells[0, 2].State = State.Enemy;
+            MoqInit.worldId70.BigCells[0, 0].Cells[1, 1].State = State.Enemy;
+            MoqInit.worldId70.BigCells[0, 0].Cells[2, 2].State = State.Client;
+
+            MoqInit.worldId70.BigCells[1, 0].Cells[1, 0].State = State.Client;
+            MoqInit.worldId70.BigCells[1, 0].Cells[2, 2].State = State.Enemy;
+
+            MoqInit.worldId70.BigCells[0, 1].Cells[0, 2].State = State.Client;
+            MoqInit.worldId70.BigCells[0, 1].Cells[1, 2].State = State.Client;
+
+            MoqInit.worldId70.BigCells[1, 1].Cells[0, 1].State = State.Enemy;
+            MoqInit.worldId70.BigCells[1, 1].Cells[1, 1].State = State.Client;
+            MoqInit.worldId70.BigCells[1, 1].Cells[2, 1].State = State.Client;
+            MoqInit.worldId70.BigCells[1, 1].Cells[1, 2].State = State.Client;
+
+            MoqInit.worldId70.BigCells[2, 1].Cells[0, 1].State = State.Enemy;
+
+            MoqInit.worldId70.BigCells[0, 2].Cells[0, 0].State = State.Enemy;
+            MoqInit.worldId70.BigCells[0, 2].Cells[0, 1].State = State.Client;
+            MoqInit.worldId70.BigCells[0, 2].Cells[1, 1].State = State.Enemy;
+            MoqInit.worldId70.BigCells[0, 2].Cells[2, 2].State = State.Client;
+
+            MoqInit.worldId70.BigCells[1, 2].Cells[1, 0].State = State.Enemy;
+            MoqInit.worldId70.BigCells[1, 2].Cells[1, 1].State = State.Enemy;
+
+            MoqInit.worldId70.BigCells[2, 2].Cells[0, 0].State = State.Enemy;
+            MoqInit.worldId70.BigCells[2, 2].Cells[0, 1].State = State.Enemy;
+            MoqInit.worldId70.BigCells[2, 2].Cells[2, 2].State = State.Client;
+            MoqInit.worldId70.BigCells[2, 2].Cells[1, 2].State = State.Client;
+            #endregion
+
+            #region World71
+            MoqInit.worldId71 = new DetailedWorld(3)
+            {
+                Id = 70,
+                ClientId = 13,
+                EnemyId = 12,
+                LastBigCellMove = new Coord(0, 0),
+                LastCellMove = new Coord(2, 2),
+                Status = GameStatus.EnemyTurn,
+            };
+
+            MoqInit.worldId71.BigCells[0, 0].State = State.Enemy;
+            MoqInit.worldId71.BigCells[1, 1].State = State.Enemy;
+
+            MoqInit.worldId71.BigCells[0, 0].Cells[0, 0].State = State.Client;
+            MoqInit.worldId71.BigCells[0, 0].Cells[0, 1].State = State.Client;
+            MoqInit.worldId71.BigCells[0, 0].Cells[0, 2].State = State.Enemy;
+            MoqInit.worldId71.BigCells[0, 0].Cells[1, 1].State = State.Enemy;
+            MoqInit.worldId71.BigCells[0, 0].Cells[2, 2].State = State.Client;
+
+            MoqInit.worldId71.BigCells[1, 0].Cells[1, 0].State = State.Client;
+            MoqInit.worldId71.BigCells[1, 0].Cells[2, 2].State = State.Enemy;
+
+            MoqInit.worldId71.BigCells[0, 1].Cells[0, 2].State = State.Client;
+            MoqInit.worldId71.BigCells[0, 1].Cells[1, 2].State = State.Client;
+
+            MoqInit.worldId71.BigCells[1, 1].Cells[0, 1].State = State.Enemy;
+            MoqInit.worldId71.BigCells[1, 1].Cells[1, 1].State = State.Client;
+            MoqInit.worldId71.BigCells[1, 1].Cells[2, 1].State = State.Client;
+            MoqInit.worldId71.BigCells[1, 1].Cells[1, 2].State = State.Client;
+
+            MoqInit.worldId71.BigCells[2, 1].Cells[0, 1].State = State.Enemy;
+
+            MoqInit.worldId71.BigCells[0, 2].Cells[0, 0].State = State.Enemy;
+            MoqInit.worldId71.BigCells[0, 2].Cells[0, 1].State = State.Client;
+            MoqInit.worldId71.BigCells[0, 2].Cells[1, 1].State = State.Enemy;
+            MoqInit.worldId71.BigCells[0, 2].Cells[2, 2].State = State.Client;
+
+            MoqInit.worldId71.BigCells[1, 2].Cells[1, 0].State = State.Enemy;
+            MoqInit.worldId71.BigCells[1, 2].Cells[1, 1].State = State.Enemy;
+
+            MoqInit.worldId71.BigCells[2, 2].Cells[0, 0].State = State.Enemy;
+            MoqInit.worldId71.BigCells[2, 2].Cells[0, 1].State = State.Enemy;
+            MoqInit.worldId71.BigCells[2, 2].Cells[2, 2].State = State.Client;
+            MoqInit.worldId71.BigCells[2, 2].Cells[1, 2].State = State.Client; 
+            #endregion
         }
     }
 }

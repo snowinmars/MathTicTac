@@ -56,5 +56,19 @@ namespace MathTicTac.Tests.Logic
 
             Assert.Equal(ResponseResult.Ok, result);
         }
+
+        [Theory]
+        [InlineData("192.168.1.1", "DAB93155-3737-44DD-8AC1-C81D7A23B712", 71, 2, 2, 0, 2)]
+        [InlineData("192.168.0.1", "058F39A9-420B-4F22-9689-47E99BD7E876", 70, 2, 2, 0, 2)]
+        public void MakingCorrectWinMove(string ip, string token, int gameId, int bigCellX, int bigCellY, int cellX, int cellY)
+        {
+            MoqInit.ReInit();
+
+            Move move = new Move(ip, token, gameId, new Coord(bigCellX, bigCellY), new Coord(cellX, cellY));
+
+            var result = gameLogic.MakeMove(move);
+
+            Assert.Equal(ResponseResult.Ok, result);
+        }
     }
 }

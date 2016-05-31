@@ -282,7 +282,7 @@ namespace MathTicTac.BLL.Logic.Additional
 				}
 
 				currentList3.Add(input.Cells[i, i].State);
-				currentList4.Add(input.Cells[input.Cells.GetLength(0) - 1 - i, input.Cells.GetLength(0) - 1 - i].State);
+				currentList4.Add(input.Cells[input.Cells.GetLength(0) - 1 - i, i].State);
 
 				if (Mechanic.IsVictoryRow(currentList1))
 				{
@@ -325,7 +325,7 @@ namespace MathTicTac.BLL.Logic.Additional
 				}
 
 				currentList3.Add(input.BigCells[i, i].State);
-				currentList4.Add(input.BigCells[input.BigCells.GetLength(0) - 1 - i, input.BigCells.GetLength(0) - 1 - i].State);
+				currentList4.Add(input.BigCells[input.BigCells.GetLength(0) - 1 - i, i].State);
 
 				if (Mechanic.IsVictoryRow(currentList1))
 				{
@@ -364,7 +364,7 @@ namespace MathTicTac.BLL.Logic.Additional
 				}
 			}
 
-			return true;
+			return testState != State.None;
 		}
 	}
 }
