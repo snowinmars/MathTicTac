@@ -12,5 +12,6 @@ namespace MathTicTac.Enums
 		Ok = 1,
 		TokenInvalid = 2,
 		AccountDataInvalid = 3,
+        TurnUnavailiable = 4,
 	}
 }

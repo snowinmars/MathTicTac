@@ -5,6 +5,7 @@ using MathTicTac.DAL.Interfaces;
 using MathTicTac.DTO;
 using MathTicTac.BLL.Logic;
 using MathTicTac.BLL.Interfaces;
+using MathTicTac.Enums;
 
 namespace MathTicTac.Tests.Logic
 {
@@ -18,9 +19,8 @@ namespace MathTicTac.Tests.Logic
         }
 
         [Theory]
-        // Correct name and password
-        [InlineData("snow", "Pass", 13)]
-        public void AddingUser(string name, string password, int id)
+        [InlineData("snow", "Pass", 13, ResponseResult.Ok)]
+        public void AddingCorrectUser(string name, string password, int id, ResponseResult retVal)
         {
             Account newUser = new Account();
             newUser.Username = name;
@@ -28,58 +28,81 @@ namespace MathTicTac.Tests.Logic
             var result = accountLogic.Add(newUser, password);
 
             Assert.Equal<int>(id, newUser.Id);
-            Assert.True(result);
+            Assert.Equal(retVal, result);
         }
 
         [Theory]
-        // Correct ID
-        [InlineData(13, "snow")]
-        // Incorrect ID (Returns null)
-        [InlineData(15, null)]
-        public void GettingAccountById(int id, string res)
+        [InlineData(13, "058F39A9-420B-4F22-9689-47E99BD7E876", "192.168.0.1", "snow")]
+        public void GettingAccountByCoorectData(int id, string token, string ip, string res)
         {
-            var result = accountLogic.Get(id);
+            Account account;
 
-            if (res != null)
+            var result = accountLogic.Get(id, token, ip, out account);
+
+            switch (result)
             {
-                Assert.Equal<string>(res, result.Username);
-            }
-            else
-            {
-                Assert.True(result == null);
+                case ResponseResult.Ok:
+                    Assert.Equal<string>(res, account.Username);
+                    break;
+                case ResponseResult.TokenInvalid:
+                case ResponseResult.AccountDataInvalid:
+                case ResponseResult.TurnUnavailiable:
+                case ResponseResult.None:
+                default:
+                    throw new InvalidOperationException();
             }
         }
 
         [Theory]
-        // Correct data
         [InlineData("snow", "Pass", "192.168.0.1", "058F39A9-420B-4F22-9689-47E99BD7E876")]
-        // Incorrect data
-        [InlineData("pr0gy", "pass", "192.168.0.1", null)]
-        public void LoggingByIdPassIp(string identifier, string password, string ip, string testRes)
+        public void LoggingByCorrectIdPassIp(string identifier, string password, string ip, string testToken)
         {
-            var result = accountLogic.Login(identifier, password, ip);
+            string token;
 
-            Assert.Equal<string>(testRes, result);
+            var result = accountLogic.Login(identifier, password, ip, out token);
+
+            Assert.Equal<string>(testToken, token);
+            Assert.Equal(ResponseResult.Ok, result);
         }
 
         [Theory]
-        [InlineData("058F39A9-420B-4F22-9689-47E99BD7E876", "192.168.0.1", true)]
-        [InlineData("058F39A9-420B-4F22-9689-47E99BD7E877", "192.168.0.1", false)]
-        [InlineData("058F39A9-420B-4F22-9689-47E99BD7E876", "192.168.0.2", false)]
-        public void LoggingByToken(string token, string ip, bool retVal)
+        [InlineData("pr0gy", "pass", "192.168.0.1")]
+        public void LoggingByIncorrectIdPassIp(string identifier, string password, string ip)
+        {
+            string token;
+
+            var result = accountLogic.Login(identifier, password, ip, out token);
+
+            Assert.Equal<string>(null, token);
+            Assert.Equal(ResponseResult.AccountDataInvalid, result);
+        }
+
+        [Theory]
+        [InlineData("058F39A9-420B-4F22-9689-47E99BD7E876", "192.168.0.1")]
+        public void LoggingByCorrectTokenIpPair(string token, string ip)
         {
             var result = accountLogic.Login(token, ip);
 
-            Assert.Equal<bool>(retVal, result);
+            Assert.Equal(ResponseResult.Ok, result);
         }
 
         [Theory]
-        [InlineData("058F39A9-420B-4F22-9689-47E99BD7E876", "192.168.0.1", true)]
-        public void LoggingOut(string token, string ip, bool retVal)
+        [InlineData("058F39A9-420B-4F22-9689-47E99BD7E877", "192.168.0.1")]
+        [InlineData("058F39A9-420B-4F22-9689-47E99BD7E876", "192.168.0.2")]
+        public void LoggingByIncorrectTokenIpPair(string token, string ip)
+        {
+            var result = accountLogic.Login(token, ip);
+
+            Assert.Equal(ResponseResult.TokenInvalid, result);
+        }
+
+        [Theory]
+        [InlineData("058F39A9-420B-4F22-9689-47E99BD7E876", "192.168.0.1")]
+        public void LoggingOutByCorrectTokenIpPair(string token, string ip)
         {
             var result = accountLogic.Logout(token, ip);
 
-            Assert.Equal<bool>(retVal, result);
+            Assert.Equal(ResponseResult.Ok, result);
         }
     }
 }

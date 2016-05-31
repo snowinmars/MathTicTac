@@ -24,6 +24,6 @@ namespace MathTicTac.BLL.Interfaces
         /// <returns></returns>
         ResponseResult GetCurrentWorld(string token, string ip, int gameId, out World result);
 
-		IEnumerable<GameInfo> GetAllActiveGames(string token, string ip);
+		ResponseResult GetAllActiveGames(string token, string ip, out IEnumerable<GameInfo> result);
 	}
 }

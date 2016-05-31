@@ -2,6 +2,7 @@
 using MathTicTac.BLL.Logic.Additional;
 using MathTicTac.DAL.Interfaces;
 using MathTicTac.DTO;
+using MathTicTac.Enums;
 using System;
 using System.Linq;
 
@@ -21,38 +22,59 @@ namespace MathTicTac.BLL.Logic
 			this.accDao = accDao;
 		}
 
-		public bool Add(Account item, string password)
+		public ResponseResult Add(Account item, string password)
 		{
-			return this.accDao.Add(item, Security.GetPassHash(password));
+            if (this.accDao.Add(item, Security.GetPassHash(password)))
+            {
+                return ResponseResult.Ok;
+            }
+
+            return ResponseResult.None;
 		}
 
-		public Account Get(int id)
+		public ResponseResult Get(int id, string token, string ip, out Account account)
 		{
+            if (!Security.TokenIpPairIsValid(token, ip, accDao))
+            {
+                account = null;
+
+                return ResponseResult.TokenInvalid;
+            }
+
 			if (id > 0)
 			{
-				return accDao.Get(id);
+                account = accDao.Get(id);
+
+                return ResponseResult.Ok;
 			}
 
 			throw new ArgumentOutOfRangeException();
 		}
 
-		public bool Login(string token, string ip)
+		public ResponseResult Login(string token, string ip)
 		{
-			return Security.TokenIpPairIsValid(token, ip, accDao);
+            if (Security.TokenIpPairIsValid(token, ip, accDao))
+            {
+                return ResponseResult.Ok;
+            }
+
+            return ResponseResult.TokenInvalid;
 		}
 
-		public string Login(string identifier, string password, string ip)
+		public ResponseResult Login(string identifier, string password, string ip, out string token)
 		{
 			if (string.IsNullOrWhiteSpace(identifier) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(ip))
 			{
 				throw new ArgumentNullException();
 			}
 
-			int userId = accDao.GetUserIdByIdentifier(identifier);
+            token = null;
+
+            int userId = accDao.GetUserIdByIdentifier(identifier);
 
 			if (userId == 0)
 			{
-				return null;
+				return ResponseResult.AccountDataInvalid;
 			}
 
 			if (Security.GetPassHash(password).SequenceEqual(accDao.GetUserPassword(userId)))
@@ -64,20 +86,22 @@ namespace MathTicTac.BLL.Logic
 					accDao.DeleteToken(userToken);
 				}
 
-				return accDao.CreateToken(userId, ip);
+                token = accDao.CreateToken(userId, ip);
+
+                return ResponseResult.Ok;
 			}
 
-			return null;
+			return ResponseResult.AccountDataInvalid;
 		}
 
-		public bool Logout(string token, string ip)
+		public ResponseResult Logout(string token, string ip)
 		{
-			if (Security.TokenIpPairIsValid(token, ip, accDao))
+			if (Security.TokenIpPairIsValid(token, ip, accDao) && accDao.DeleteToken(token))
 			{
-				return accDao.DeleteToken(token);
+				return ResponseResult.Ok;
 			}
 
-			return true;
+            return ResponseResult.TokenInvalid;
 		}
 	}
 }

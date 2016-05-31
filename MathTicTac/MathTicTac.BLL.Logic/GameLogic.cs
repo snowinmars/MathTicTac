@@ -2,6 +2,7 @@
 using MathTicTac.BLL.Logic.Additional;
 using MathTicTac.DAL.Interfaces;
 using MathTicTac.DTO;
+using MathTicTac.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -25,7 +26,7 @@ namespace MathTicTac.BLL.Logic
 			this.gameDao = gameDao;
 		}
 
-		public bool Create(string player1Token, string player1Ip, string player2Identifier)
+		public ResponseResult Create(string player1Token, string player1Ip, string player2Identifier)
 		{
 			if (string.IsNullOrWhiteSpace(player1Token) || string.IsNullOrWhiteSpace(player2Identifier))
 			{
@@ -45,13 +46,18 @@ namespace MathTicTac.BLL.Logic
 
 				world.Status = Enums.GameStatus.Query;
 
-				return gameDao.Add(world);
+                if (!gameDao.Add(world))
+                {
+                    return ResponseResult.None;
+                }
+
+				return ResponseResult.Ok;
 			}
 
-			throw new UnauthorizedAccessException();
+			return ResponseResult.TokenInvalid;
 		}
 
-		public IEnumerable<GameInfo> GetAllActiveGames(string token, string ip)
+		public ResponseResult GetAllActiveGames(string token, string ip, out IEnumerable<GameInfo> result)
 		{
 			if (string.IsNullOrWhiteSpace(token) || string.IsNullOrWhiteSpace(ip))
 			{
@@ -60,7 +66,9 @@ namespace MathTicTac.BLL.Logic
 
 			if (!Security.TokenIpPairIsValid(token, ip, accDao))
 			{
-				throw new UnauthorizedAccessException();
+                result = null;
+
+                return ResponseResult.TokenInvalid;
 			}
 
 			int userId = accDao.GetUserIdByToken(token);
@@ -74,10 +82,12 @@ namespace MathTicTac.BLL.Logic
 				resultList.Add(Mechanic.ConvertGameInfo(game, userId, accDao));
 			}
 
-			return resultList;
+            result = resultList;
+
+			return ResponseResult.Ok;
 		}
 
-		public World GetCurrentWorld(string token, string ip, int gameId)
+		public ResponseResult GetCurrentWorld(string token, string ip, int gameId, out World result)
 		{
 			if (string.IsNullOrWhiteSpace(token) || string.IsNullOrWhiteSpace(ip) || gameId == 0)
 			{
@@ -86,7 +96,9 @@ namespace MathTicTac.BLL.Logic
 
 			if (!Security.TokenIpPairIsValid(token, ip, accDao))
 			{
-				throw new UnauthorizedAccessException();
+                result = null;
+
+				return ResponseResult.TokenInvalid;
 			}
 
 			int userId = accDao.GetUserIdByToken(token);
@@ -95,13 +107,17 @@ namespace MathTicTac.BLL.Logic
 
 			if (userId != currentWorld.ClientId && userId != currentWorld.EnemyId)
 			{
-				throw new UnauthorizedAccessException();
+                result = null;
+
+                return ResponseResult.AccountDataInvalid;
 			}
 
-			return Mechanic.ConvertWorld(currentWorld, userId);
-		}
+            result = Mechanic.ConvertWorld(currentWorld, userId);
 
-		public bool MakeMove(Move move)
+            return ResponseResult.Ok;
+        }
+
+		public ResponseResult MakeMove(Move move)
 		{
 			if (move == null)
 			{
@@ -110,7 +126,7 @@ namespace MathTicTac.BLL.Logic
 
 			if (!Security.TokenIpPairIsValid(move.Token, move.IP, accDao))
 			{
-				throw new UnauthorizedAccessException();
+				return ResponseResult.TokenInvalid;
 			}
 
 			int userId = accDao.GetUserIdByToken(move.Token);
@@ -124,7 +140,7 @@ namespace MathTicTac.BLL.Logic
 			    currentWorld.Status != Enums.GameStatus.EnemyTurn) ||
 			    (userId != currentWorld.ClientId && userId != currentWorld.EnemyId))
 			{
-				return false;
+				return ResponseResult.TurnUnavailiable;
 			}
 
 			bool moveCoordsValid = false;
@@ -152,13 +168,13 @@ namespace MathTicTac.BLL.Logic
 
 			if (!moveCoordsValid)
 			{
-				return false;
+				return ResponseResult.TurnUnavailiable;
 			}
 
 			//Checking Cell coordinates availability
 			if (currentWorld.BigCells[move.BigCellCoord.X, move.BigCellCoord.Y].Cells[move.CellCoord.X, move.CellCoord.Y].State != Enums.State.None)
 			{
-				return false;
+				return ResponseResult.TurnUnavailiable;
 			}
 
 			// Making move and status updating
@@ -174,7 +190,7 @@ namespace MathTicTac.BLL.Logic
 			}
 			else
 			{
-				throw new InvalidOperationException();
+				return ResponseResult.AccountDataInvalid;
 			}
 
 			//World result status updating
@@ -224,10 +240,15 @@ namespace MathTicTac.BLL.Logic
 					throw new InvalidOperationException($"Enum {nameof(Enums.State)} is invalid");
 			}
 
-			return gameDao.Update(currentWorld);
+            if (gameDao.Update(currentWorld))
+            {
+                return ResponseResult.Ok;
+            }
+
+            return ResponseResult.None;
 		}
 
-		public bool RejectGame(string token, string ip, int gameId)
+		public ResponseResult RejectGame(string token, string ip, int gameId)
 		{
 			if (string.IsNullOrWhiteSpace(token) || string.IsNullOrWhiteSpace(ip) || gameId == 0)
 			{
@@ -236,7 +257,7 @@ namespace MathTicTac.BLL.Logic
 
 			if (!Security.TokenIpPairIsValid(token, ip, accDao))
 			{
-				throw new UnauthorizedAccessException();
+				return ResponseResult.TokenInvalid;
 			}
 
 			int userId = accDao.GetUserIdByToken(token);
@@ -245,7 +266,7 @@ namespace MathTicTac.BLL.Logic
 
 			if (userId != currentWorld.ClientId && userId != currentWorld.EnemyId)
 			{
-				return false;
+				return ResponseResult.AccountDataInvalid;
 			}
 
 			switch (currentWorld.Status)
@@ -254,11 +275,11 @@ namespace MathTicTac.BLL.Logic
 				case Enums.GameStatus.Defeat:
 				case Enums.GameStatus.Draw:
 				case Enums.GameStatus.Rejected:
-					return false;
+					return ResponseResult.TurnUnavailiable;
 
 				case Enums.GameStatus.Query:
 					currentWorld.Status = Enums.GameStatus.Rejected;
-					return true;
+					return ResponseResult.Ok;
 
 				case Enums.GameStatus.ClientTurn:
 				case Enums.GameStatus.EnemyTurn:
@@ -278,7 +299,12 @@ namespace MathTicTac.BLL.Logic
 				currentWorld.Status = Enums.GameStatus.Victory;
 			}
 
-			return gameDao.Update(currentWorld);
+            if (gameDao.Update(currentWorld))
+            {
+                return ResponseResult.Ok;
+            }
+
+			return ResponseResult.None;
 		}
 	}
 }

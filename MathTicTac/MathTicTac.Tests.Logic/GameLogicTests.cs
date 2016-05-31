@@ -19,7 +19,5 @@ namespace MathTicTac.Tests.Logic
             this.accountLogic = new AccountLogic(MoqInit.accDaoMock.Object);
             this.gameLogic = new GameLogic(MoqInit.gameDaoMock.Object, MoqInit.accDaoMock.Object);
         }
-
-        
     }
 }
