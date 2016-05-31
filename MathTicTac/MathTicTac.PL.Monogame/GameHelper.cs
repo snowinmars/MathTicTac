@@ -101,6 +101,8 @@
 
 		internal void MonogameStockLoad(Game game)
 		{
+			// textures
+
 			MonogameStock.zeroCellNormalTexture = game.Content.Load<Texture2D>("Textures/ZeroNormal");
 			MonogameStock.zeroCellHoverTexture = game.Content.Load<Texture2D>("Textures/ZeroHover");
 			MonogameStock.zeroCellPressedTexture = game.Content.Load<Texture2D>("Textures/ZeroPressed");
@@ -119,7 +121,6 @@
 			MonogameStock.borderAllBigCellFocusTexture = this.CreateTexture(game.GraphicsDevice, 160, 160, Color.White, 4, Color.SkyBlue);
 			MonogameStock.borderAllBigCellTexture = this.CreateTexture(game.GraphicsDevice, 160, 160, Color.White, 1, Color.Black);
 
-
 			MonogameStock.cellsCrossTextures = new Dictionary<VisibleState, Texture2D>
 			{
 				{ VisibleState.Hover, MonogameStock.crossCellHoverTexture},
@@ -133,6 +134,10 @@
 				{ VisibleState.Normal, MonogameStock.zeroCellNormalTexture},
 				{ VisibleState.Pressed, MonogameStock.zeroCellPressedTexture},
 			};
+
+			// fonts
+
+			MonogameStock.DefaultFont = game.Content.Load<SpriteFont>("Fonts/Default");
 		}
 
 		internal void MonogameStockUnload()

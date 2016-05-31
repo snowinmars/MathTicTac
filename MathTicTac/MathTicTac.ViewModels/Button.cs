@@ -68,10 +68,10 @@
 			get { return this.textures; }
 		}
 
-		public virtual void Draw(SpriteBatch bath)
+		public void Draw(SpriteBatch bath)
 		{
 			bath.Draw(this.textures[currentVisibleState], this.rectangle, Color.White);
-			//bath.DrawString(Font, _buttonText, _position, Microsoft.Xna.Framework.Color.Black);
+			bath.DrawString(Font, buttonText, Position, Color.Black);
 		}
 
 		public void Update()

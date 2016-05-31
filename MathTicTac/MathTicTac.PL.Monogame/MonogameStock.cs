@@ -8,6 +8,7 @@
 	{
 		public static Dictionary<VisibleState, Texture2D> cellsCrossTextures { get; internal set; }
 		public static Dictionary<VisibleState, Texture2D> cellsZeroTextures { get; internal set; }
+		internal static SpriteFont DefaultFont;
 		internal static Texture2D borderAllBigCellTexture;
 		internal static Texture2D borderAllCellTexture;
 		internal static Texture2D crossCellHoverTexture;

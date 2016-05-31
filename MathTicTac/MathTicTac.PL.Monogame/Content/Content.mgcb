@@ -109,3 +109,9 @@
 /processorParam:TextureFormat=Color
 /build:Textures/ZeroPressed.png
 
+#begin Fonts/Default.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Default.spritefont
+
