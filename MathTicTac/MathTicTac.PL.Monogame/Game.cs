@@ -7,6 +7,7 @@
 	using Microsoft.Xna.Framework.Input;
 	using ServiceModels;
 	using System;
+	using System.Collections.Generic;
 	using System.Web;
 	using ViewModels;
 
@@ -39,46 +40,48 @@
 
 			Game.spriteBatch.Begin();
 
-			foreach (var bigcell in this.world.BigCells)
-			{
-				if (bigcell.IsFocus)
-				{
-					Game.spriteBatch.Draw(MonogameStock.borderAllBigCellFocusTexture, new Vector2(bigcell.Position.X, bigcell.Position.Y), Color.White);
-				}
-				else
-				{
-					Game.spriteBatch.Draw(MonogameStock.borderAllBigCellTexture, new Vector2(bigcell.Position.X, bigcell.Position.Y), Color.White);
-				}
+			this.box.Draw(Game.spriteBatch);
 
-				foreach (var cell in bigcell.Cells)
-				{
-					this.gameHelper.Draw(cell, Game.spriteBatch);
-				}
+			//foreach (var bigcell in this.world.BigCells)
+			//{
+			//	if (bigcell.IsFocus)
+			//	{
+			//		Game.spriteBatch.Draw(MonogameStock.borderAllBigCellFocusTexture, new Vector2(bigcell.Position.X, bigcell.Position.Y), Color.White);
+			//	}
+			//	else
+			//	{
+			//		Game.spriteBatch.Draw(MonogameStock.borderAllBigCellTexture, new Vector2(bigcell.Position.X, bigcell.Position.Y), Color.White);
+			//	}
 
-				if (this.world.LastTurnCoord != null)
-				{
-					Game.spriteBatch.Draw(MonogameStock.cellLastTurnTexture,
-								new Vector2(this.world.LastTurnCoord.CellCoord.X, this.world.LastTurnCoord.CellCoord.Y),
-									Color.White);
-				}
+			//	foreach (var cell in bigcell.Cells)
+			//	{
+			//		this.gameHelper.Draw(cell, Game.spriteBatch);
+			//	}
 
-				switch (bigcell.State)
-				{
-					case State.None:
-						break;
+			//	if (this.world.LastTurnCoord != null)
+			//	{
+			//		Game.spriteBatch.Draw(MonogameStock.cellLastTurnTexture,
+			//					new Vector2(this.world.LastTurnCoord.CellCoord.X, this.world.LastTurnCoord.CellCoord.Y),
+			//						Color.White);
+			//	}
 
-					case State.Client:
-						Game.spriteBatch.Draw(MonogameStock.crossBigCellTexture, new Vector2(bigcell.Position.X, bigcell.Position.Y), Color.White);
-						break;
+			//	switch (bigcell.State)
+			//	{
+			//		case State.None:
+			//			break;
 
-					case State.Enemy:
-						Game.spriteBatch.Draw(MonogameStock.zeroBigCellTexture, new Vector2(bigcell.Position.X, bigcell.Position.Y), Color.White);
-						break;
+			//		case State.Client:
+			//			Game.spriteBatch.Draw(MonogameStock.crossBigCellTexture, new Vector2(bigcell.Position.X, bigcell.Position.Y), Color.White);
+			//			break;
 
-					default:
-						throw new ArgumentException($"Enum {nameof(State)} is invalid");
-				}
-			}
+			//		case State.Enemy:
+			//			Game.spriteBatch.Draw(MonogameStock.zeroBigCellTexture, new Vector2(bigcell.Position.X, bigcell.Position.Y), Color.White);
+			//			break;
+
+			//		default:
+			//			throw new ArgumentException($"Enum {nameof(State)} is invalid");
+			//	}
+			//}
 
 			Game.spriteBatch.End();
 
@@ -86,6 +89,8 @@
 
 			base.Draw(gameTime);
 		}
+
+		private TextBox box;
 
 		/// <summary>
 		/// Allows the game to perform any initialization it needs to before starting to run.
@@ -100,6 +105,8 @@
 
 			this.world = new WorldViewModel(0, new BigCellViewModel[Configuration.BigCellRowCount, Configuration.BigCellColumnCount]); // TODO map from logic
 			this.IsMouseVisible = true;
+
+			this.box = new TextBox(new Vector2(0,0), 100,30);
 
 			this.gameHelper.SetCellsCoords(this.world);
 
@@ -118,7 +125,12 @@
 			Game.spriteBatch = new SpriteBatch(this.GraphicsDevice);
 
 			this.gameHelper.MonogameStockLoad(this);
+			this.box.SetTextures(new Dictionary<VisibleState, Texture2D>
+			{
+				{ VisibleState.Normal, this.gameHelper.CreateTexture(this.GraphicsDevice, this.box.rectangle.Width, this.box.rectangle.Height, Color.Red) },
+			});
 
+			this.box.Font = MonogameStock.DefaultFont;
 			//// world init
 
 			for (int i = 0; i < this.world.BigCells.GetLength(0); i++)
@@ -177,11 +189,13 @@
 				Exit();
 			}
 
+			this.box.Update();
+
 			foreach (var bigcell in this.world.BigCells)
 			{
 				foreach (var cell in bigcell.Cells)
 				{
-					this.gameHelper.Update(cell);
+					cell.Update();
 				}
 			}
 
