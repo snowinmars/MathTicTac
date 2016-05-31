@@ -16,16 +16,59 @@
 
 		public Texture2D CreateTexture(GraphicsDevice device, int width, int height, Color color)
 		{
-			//initialize a texture
+			Texture2D texture = new Texture2D(device, width, height);
+			Color[] data = new Color[width * height];
+
+			for (int i = 0; i < data.Length; i++)
+			{
+				data[i] = color;
+			}
+
+			texture.SetData(data);
+
+			return texture;
+		}
+
+		public Texture2D CreateTextureWithBorder(GraphicsDevice device, int width, int height, Color textureColor, int borderThick, Color borderColor)
+		{
 			Texture2D texture = new Texture2D(device, width, height);
 
-			//the array holds the color for each pixel in the texture
 			Color[] data = new Color[width * height];
-			Func<int, Color> paint = p => color;
-			for (int pixel = 0; pixel < data.Length; pixel++)
+
+			for (int i = 0; i < data.Length; i++)
 			{
-				//the function applies the color according to the specified pixel
-				data[pixel] = paint?.Invoke(pixel) ?? default(Color);
+				data[i] = textureColor;
+			}
+
+			// painting vertical borders
+
+			for (int i = 0; i < data.Length; i = i + width)
+			{
+				for (int j = 0; j < borderThick; j++)
+				{
+					data[i + j] = borderColor;
+				}
+
+				if (i > 1)
+				{
+					for (int j = 0; j < borderThick; j++)
+					{
+						data[i - 1 - j] = borderColor;
+					}
+				}
+			}
+
+			// painting horisontal borders
+
+			for (int j = 0; j < borderThick; j++)
+			{
+				var bias = j * width;
+
+				for (int i = 0; i < height; i++)
+				{
+					data[i + bias] = borderColor;
+					data[data.Length - i - 1 - j * width] = borderColor;
+				}
 			}
 
 			//set the color
@@ -34,25 +77,24 @@
 			return texture;
 		}
 
-
 		public void Draw(CellViewModel cell, SpriteBatch bath)
 		{
 			switch (cell.State)
 			{
-				case State.None:
-					bath.Draw(MonogameStock.noneCellTexture, cell.rectangle, Color.White);
-					break;
+			case State.None:
+				bath.Draw(MonogameStock.noneCellTexture, cell.rectangle, Color.White);
+				break;
 
-				case State.Client:
-					bath.Draw(MonogameStock.cellsCrossTextures[cell.currentVisibleState], cell.rectangle, Color.White);
-					break;
+			case State.Client:
+				bath.Draw(MonogameStock.cellsCrossTextures[cell.currentVisibleState], cell.rectangle, Color.White);
+				break;
 
-				case State.Enemy:
-					bath.Draw(MonogameStock.cellsZeroTextures[cell.currentVisibleState], cell.rectangle, Color.White);
-					break;
+			case State.Enemy:
+				bath.Draw(MonogameStock.cellsZeroTextures[cell.currentVisibleState], cell.rectangle, Color.White);
+				break;
 
-				default:
-					break;
+			default:
+				break;
 			}
 		}
 
@@ -140,11 +182,11 @@
 			string password = "Novikova";
 			int id = 13;
 
-			clienAccount.Id = id;
-			clienAccount.Password = password;
-			clienAccount.Username = username;
+			//clienAccount.Id = id;
+			//clienAccount.Password = password;
+			//clienAccount.Username = username;
 
-			await MyHttpClient.PostAsync<GameAccountViewModel>(clienAccount, "Account").ConfigureAwait(false);
+			//await MyHttpClient.PostAsync<GameAccountViewModel>(clienAccount, "Account").ConfigureAwait(false);
 		}
 
 		internal void SetCellsCoords(WorldViewModel world)
@@ -187,7 +229,6 @@
 					}
 				}
 		}
-
 
 		internal void Update(CellViewModel cell)
 		{
