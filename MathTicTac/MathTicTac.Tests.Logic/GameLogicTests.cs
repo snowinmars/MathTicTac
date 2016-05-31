@@ -35,10 +35,26 @@ namespace MathTicTac.Tests.Logic
         [InlineData("DAB93155-3737-44DD-8AC1-C81D7A23B712", "192.168.1.1", 69, GameStatus.ClientTurn)]
         public void GettingCurrentWorldByCorrectData(string token, string ip, int gameId, GameStatus avaitingRes)
         {
+            MoqInit.ReInit();
+
             World retVal;
             var result = gameLogic.GetCurrentWorld(token, ip, gameId, out retVal);
 
             Assert.Equal(avaitingRes, retVal.Status);
+            Assert.Equal(ResponseResult.Ok, result);
+        }
+
+        [Theory]
+        [InlineData("192.168.1.1", "DAB93155-3737-44DD-8AC1-C81D7A23B712", 69, 2, 2, 0, 2)]
+        public void MakingCorrectMove(string ip, string token, int gameId, int bigCellX, int bigCellY, int cellX, int cellY)
+        {
+            MoqInit.ReInit();
+
+            Move move = new Move(ip, token, gameId, new Coord(bigCellX, bigCellY), new Coord(cellX, cellY));
+
+            var result = gameLogic.MakeMove(move);
+
+            Assert.Equal(ResponseResult.Ok, result);
         }
     }
 }

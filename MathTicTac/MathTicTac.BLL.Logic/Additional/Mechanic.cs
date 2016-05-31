@@ -169,9 +169,9 @@ namespace MathTicTac.BLL.Logic.Additional
 
 				if (result.Status == Enums.GameStatus.ClientTurn)
 				{
-					if (!Mechanic.IsBigCellFilled(result.BigCells[result.LastBigCellMove.X, result.LastBigCellMove.Y]))
+					if (!Mechanic.IsBigCellFilled(result.BigCells[result.LastCellMove.X, result.LastCellMove.Y]))
 					{
-						result.BigCells[result.LastBigCellMove.X, result.LastBigCellMove.Y].IsFocus = true;
+						result.BigCells[result.LastCellMove.X, result.LastCellMove.Y].IsFocus = true;
 					}
 					else
 					{
@@ -227,24 +227,21 @@ namespace MathTicTac.BLL.Logic.Additional
 		{
 			foreach (var bigCell in bigCells)
 			{
-				if (true)
+				switch (bigCell.State)
 				{
-					switch (bigCell.State)
-					{
-						case Enums.State.None:
-							break;
+					case Enums.State.None:
+						break;
 
-						case Enums.State.Client:
-							bigCell.State = Enums.State.Enemy;
-							break;
+					case Enums.State.Client:
+						bigCell.State = Enums.State.Enemy;
+						break;
 
-						case Enums.State.Enemy:
-							bigCell.State = Enums.State.Client;
-							break;
+					case Enums.State.Enemy:
+						bigCell.State = Enums.State.Client;
+						break;
 
-						default:
-							throw new InvalidOperationException($"Enum {nameof(Enums.State)} is invalid");
-					}
+					default:
+						throw new InvalidOperationException($"Enum {nameof(Enums.State)} is invalid");
 				}
 
 				foreach (var cell in bigCell.Cells)
@@ -255,11 +252,11 @@ namespace MathTicTac.BLL.Logic.Additional
 							break;
 
 						case Enums.State.Client:
-							bigCell.State = Enums.State.Enemy;
+                            cell.State = Enums.State.Enemy;
 							break;
 
 						case Enums.State.Enemy:
-							bigCell.State = Enums.State.Client;
+                            cell.State = Enums.State.Client;
 							break;
 
 						default:

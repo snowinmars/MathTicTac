@@ -124,7 +124,8 @@ namespace MathTicTac.Tests.Logic
 
             accDaoMock.Setup(f
                 => f.CreateToken(It.IsAny<int>(), It.IsAny<string>()))
-                .Returns<int, string>((id, ip) => {
+                .Returns<int, string>((id, ip) => 
+                {
                     if (id == 13 && ip == "192.168.0.1")
                     {
                         return "058F39A9-420B-4F22-9689-47E99BD7E876";
@@ -135,11 +136,12 @@ namespace MathTicTac.Tests.Logic
                     }
 
                     return null;
-                    });
+               });
 
             accDaoMock.Setup(f
                 => f.AcceptToken(It.IsAny<string>()))
-                .Returns<string>( token => {
+                .Returns<string>( token =>
+                {
                     if (token == "058F39A9-420B-4F22-9689-47E99BD7E876"
                     || token == "DAB93155-3737-44DD-8AC1-C81D7A23B712")
                     {
@@ -147,11 +149,12 @@ namespace MathTicTac.Tests.Logic
                     }
 
                     return null;
-                    });
+                });
 
             accDaoMock.Setup(f
                 => f.IsTokenIpTrusted(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns<string, string>((token, ip) => {
+                .Returns<string, string>((token, ip) => 
+                {
                     if ((token == "058F39A9-420B-4F22-9689-47E99BD7E876" && ip == "192.168.0.1")
                     || (token == "DAB93155-3737-44DD-8AC1-C81D7A23B712" && ip == "192.168.1.1"))
                     {
@@ -170,11 +173,20 @@ namespace MathTicTac.Tests.Logic
                     .Returns(true);
 
             gameDaoMock.Setup(f
-                => f.GetGameState(It.Is<int>(x => x == 69)))
-                .Returns(MoqInit.worldId69);
+                => f.GetGameState(It.IsAny<int>()))
+                .Returns<int>(id => 
+                {
+                    if (id == 69)
+                    {
+                        return MoqInit.worldId69;
+                    }
+
+                    return null;
+                });
+
             gameDaoMock.Setup(f
-                => f.GetGameState(It.Is<int>(x => x != 69)))
-                .Returns<DetailedWorld>(null);
+                => f.Update(It.IsAny<DetailedWorld>()))
+                .Returns(true);
 
             #endregion
         }
