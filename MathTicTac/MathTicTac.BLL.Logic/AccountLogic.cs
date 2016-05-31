@@ -77,7 +77,9 @@ namespace MathTicTac.BLL.Logic
 				return ResponseResult.AccountDataInvalid;
 			}
 
-			if (Security.GetPassHash(password).SequenceEqual(accDao.GetUserPassword(userId)))
+            var tempPass = accDao.GetUserPassword(userId);
+
+            if (tempPass != null && Security.GetPassHash(password).SequenceEqual(tempPass))
 			{
 				string userToken = accDao.GetUserTokenById(userId);
 
