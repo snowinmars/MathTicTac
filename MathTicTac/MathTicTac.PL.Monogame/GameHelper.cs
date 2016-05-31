@@ -14,6 +14,27 @@
 	{
 		private bool turn;
 
+		public Texture2D CreateTexture(GraphicsDevice device, int width, int height, Color color)
+		{
+			//initialize a texture
+			Texture2D texture = new Texture2D(device, width, height);
+
+			//the array holds the color for each pixel in the texture
+			Color[] data = new Color[width * height];
+			Func<int, Color> paint = p => color;
+			for (int pixel = 0; pixel < data.Length; pixel++)
+			{
+				//the function applies the color according to the specified pixel
+				data[pixel] = paint?.Invoke(pixel) ?? default(Color);
+			}
+
+			//set the color
+			texture.SetData(data);
+
+			return texture;
+		}
+
+
 		public void Draw(CellViewModel cell, SpriteBatch bath)
 		{
 			switch (cell.State)
