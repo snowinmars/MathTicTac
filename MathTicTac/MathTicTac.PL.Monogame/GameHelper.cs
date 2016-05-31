@@ -8,13 +8,14 @@
 	using ServiceModels;
 	using System;
 	using System.Collections.Generic;
+	using System.Linq;
 	using ViewModels;
 
 	internal class GameHelper
 	{
 		private bool turn;
 
-		public Texture2D CreateTexture(GraphicsDevice device, int width, int height, Color color)
+		public Texture2D CreateTexture(GraphicsDevice device, int width, int height, Color color, byte transperity = byte.MaxValue)
 		{
 			Texture2D texture = new Texture2D(device, width, height);
 			Color[] data = new Color[width * height];
@@ -29,7 +30,7 @@
 			return texture;
 		}
 
-		public Texture2D CreateTextureWithBorder(GraphicsDevice device, int width, int height, Color textureColor, int borderThick, Color borderColor)
+		public Texture2D CreateTexture(GraphicsDevice device, int width, int height, Color textureColor, int borderThick, Color borderColor)
 		{
 			Texture2D texture = new Texture2D(device, width, height);
 
@@ -108,15 +109,16 @@
 			MonogameStock.crossCellHoverTexture = game.Content.Load<Texture2D>("Textures/CrossHover");
 			MonogameStock.crossCellPressedTexture = game.Content.Load<Texture2D>("Textures/CrossPressed");
 
-			MonogameStock.noneCellTexture = game.Content.Load<Texture2D>("Textures/None");
-			MonogameStock.cellLastTurnTexture = game.Content.Load<Texture2D>("Textures/CellLastTurn");
-
-			MonogameStock.borderAllCellTexture = game.Content.Load<Texture2D>("Textures/BorderCellAll");
-			MonogameStock.borderAllBigCellFocusTexture = game.Content.Load<Texture2D>("Textures/BorderBigCellAllFocus");
-			MonogameStock.borderAllBigCellTexture = game.Content.Load<Texture2D>("Textures/BorderBigCellAll");
-
 			MonogameStock.crossBigCellTexture = game.Content.Load<Texture2D>("Textures/CrossBigCell");
 			MonogameStock.zeroBigCellTexture = game.Content.Load<Texture2D>("Textures/ZeroBigCell");
+
+			MonogameStock.noneCellTexture = this.CreateTexture(game.GraphicsDevice, 40, 40, Color.White, 1, Color.Black);
+			MonogameStock.cellLastTurnTexture = this.CreateTexture(game.GraphicsDevice, 50, 50, Color.Orange, 64);
+
+			MonogameStock.borderAllCellTexture = this.CreateTexture(game.GraphicsDevice, 50, 50, Color.White, 1, Color.Black);
+			MonogameStock.borderAllBigCellFocusTexture = this.CreateTexture(game.GraphicsDevice, 160, 160, Color.White, 4, Color.SkyBlue);
+			MonogameStock.borderAllBigCellTexture = this.CreateTexture(game.GraphicsDevice, 160, 160, Color.White, 1, Color.Black);
+
 
 			MonogameStock.cellsCrossTextures = new Dictionary<VisibleState, Texture2D>
 			{
