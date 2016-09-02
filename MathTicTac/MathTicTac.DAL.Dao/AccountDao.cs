@@ -1,6 +1,7 @@
 ﻿using MathTicTac.DAL.Interfaces;
 using MathTicTac.DTO;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -43,10 +44,10 @@ namespace MathTicTac.DAL.Dao
 
 				using (var command = new SqlCommand(procedureName, connection))
 				{
-					command.CommandType = System.Data.CommandType.StoredProcedure;
+					command.CommandType = CommandType.StoredProcedure;
 
-					SqlParameter RetId = command.Parameters.Add("RetVal", SqlDbType.Int);
-					RetId.Direction = ParameterDirection.ReturnValue;
+					SqlParameter retId = command.Parameters.Add("RetVal", SqlDbType.Int);
+					retId.Direction = ParameterDirection.ReturnValue;
 
 					command.Parameters.AddWithValue("@UserName", item.Username);
 					command.Parameters.AddWithValue("@Password", password);
@@ -54,14 +55,14 @@ namespace MathTicTac.DAL.Dao
 					connection.Open();
 					command.ExecuteNonQuery();
 
-					item.Id = (int)RetId.Value;
+					item.Id = (int)retId.Value;
 				}
 			}
 
 			return item.Id != 0;
 		}
 
-		public void AddStatus(int id, MathTicTac.Enums.GameStatus result)
+		public void AddStatus(int id, Enums.GameStatus result)
 		{
 			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
 			{
@@ -90,10 +91,10 @@ namespace MathTicTac.DAL.Dao
 
 				using (var command = new SqlCommand(procedureName, connection))
 				{
-					command.CommandType = System.Data.CommandType.StoredProcedure;
+					command.CommandType = CommandType.StoredProcedure;
 
-					SqlParameter RetToken = command.Parameters.Add("@Token", SqlDbType.NVarChar);
-					RetToken.Direction = ParameterDirection.Output;
+					SqlParameter retToken = command.Parameters.Add("@Token", SqlDbType.NVarChar);
+					retToken.Direction = ParameterDirection.Output;
 
 					command.Parameters.AddWithValue("@UserID", id);
 					command.Parameters.AddWithValue("@IP", ip);
@@ -101,7 +102,7 @@ namespace MathTicTac.DAL.Dao
 					connection.Open();
 					command.ExecuteNonQuery();
 
-					result = (string)RetToken.Value;
+					result = (string)retToken.Value;
 				}
 			}
 
@@ -154,12 +155,9 @@ namespace MathTicTac.DAL.Dao
 				}
 			}
 
-			if (result.Id == 0)
-			{
-				return null;
-			}
-
-			return result;
+			return result.Id == 0 ?
+                    null : 
+                    result;
 		}
 
 		public int GetUserIdByIdentifier(string identifier)
@@ -243,7 +241,7 @@ namespace MathTicTac.DAL.Dao
 			return result;
 		}
 
-		public byte[] GetUserPassword(int id)
+		public IEnumerable<byte> GetUserPassword(int id)
 		{
 			byte[] result = null;
 
@@ -307,10 +305,10 @@ namespace MathTicTac.DAL.Dao
 
 				using (var command = new SqlCommand(procedureName, connection))
 				{
-					command.CommandType = System.Data.CommandType.StoredProcedure;
+					command.CommandType = CommandType.StoredProcedure;
 
-					SqlParameter RetId = command.Parameters.Add("RetVal", SqlDbType.Int);
-					RetId.Direction = ParameterDirection.ReturnValue;
+					SqlParameter retId = command.Parameters.Add("RetVal", SqlDbType.Int);
+					retId.Direction = ParameterDirection.ReturnValue;
 
 					command.Parameters.AddWithValue("@Token", token);
 					command.Parameters.AddWithValue("@IP", ip);
@@ -318,7 +316,7 @@ namespace MathTicTac.DAL.Dao
 					connection.Open();
 					command.ExecuteNonQuery();
 
-					result = (int)RetId.Value == 1;
+					result = (int)retId.Value == 1;
 				}
 			}
 
@@ -335,17 +333,17 @@ namespace MathTicTac.DAL.Dao
 
 				using (var command = new SqlCommand(procedureName, connection))
 				{
-					command.CommandType = System.Data.CommandType.StoredProcedure;
+					command.CommandType = CommandType.StoredProcedure;
 
-					SqlParameter RetVal = command.Parameters.Add("RetVal", SqlDbType.Int);
-					RetVal.Direction = ParameterDirection.Output;
+					SqlParameter retVal = command.Parameters.Add("RetVal", SqlDbType.Int);
+					retVal.Direction = ParameterDirection.Output;
 
 					command.Parameters.AddWithValue("@Token", token);
 
 					connection.Open();
 					command.ExecuteNonQuery();
 
-					result = (int)RetVal.Value == 1;
+					result = (int)retVal.Value == 1;
 				}
 			}
 

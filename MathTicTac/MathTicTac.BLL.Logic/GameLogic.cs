@@ -5,15 +5,17 @@ using MathTicTac.DTO;
 using MathTicTac.Enums;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace MathTicTac.BLL.Logic
 {
 	public class GameLogic : IGameLogic
 	{
-		private const int dimension = 3;
+		private const int Dimension = 3;
 
-		private IAccountDao accDao;
-		private IGameDao gameDao;
+		private readonly IAccountDao accDao;
+		private readonly IGameDao gameDao;
 
 		public GameLogic(IGameDao gameDao, IAccountDao accDao)
 		{
@@ -33,28 +35,27 @@ namespace MathTicTac.BLL.Logic
 				throw new ArgumentNullException();
 			}
 
-			if (Security.TokenIpPairIsValid(player1Token, player1Ip, accDao))
-			{
-				int player1Id = accDao.GetUserIdByToken(player1Token);
+		    if (!Security.TokenIpPairIsValid(player1Token, player1Ip, this.accDao))
+		    {
+		        return ResponseResult.TokenInvalid;
+		    }
 
-				int player2Id = accDao.GetUserIdByIdentifier(player2Identifier);
+		    int player1Id = this.accDao.GetUserIdByToken(player1Token);
+		    int player2Id = this.accDao.GetUserIdByIdentifier(player2Identifier);
 
-				DetailedWorld world = new DetailedWorld(dimension);
+		    DetailedWorld world = new DetailedWorld(GameLogic.Dimension)
+		    {
+		        ClientId = player1Id,
+		        EnemyId = player2Id,
+		        Status = GameStatus.Query
+		    };
 
-				world.ClientId = player1Id;
-				world.EnemyId = player2Id;
+		    if (!this.gameDao.Add(world))
+		    {
+		        return ResponseResult.None;
+		    }
 
-				world.Status = Enums.GameStatus.Query;
-
-                if (!gameDao.Add(world))
-                {
-                    return ResponseResult.None;
-                }
-
-				return ResponseResult.Ok;
-			}
-
-			return ResponseResult.TokenInvalid;
+		    return ResponseResult.Ok;
 		}
 
 		public ResponseResult GetAllActiveGames(string token, string ip, out IEnumerable<GameInfo> result)
@@ -64,25 +65,18 @@ namespace MathTicTac.BLL.Logic
 				throw new ArgumentNullException();
 			}
 
-			if (!Security.TokenIpPairIsValid(token, ip, accDao))
+			if (!Security.TokenIpPairIsValid(token, ip, this.accDao))
 			{
-                result = null;
+                result = null; // ?
 
                 return ResponseResult.TokenInvalid;
 			}
 
-			int userId = accDao.GetUserIdByToken(token);
+			int userId = this.accDao.GetUserIdByToken(token);
 
-			var gameList = gameDao.GetAllGames(userId);
+			var gameList = this.gameDao.GetAllGames(userId);
 
-			var resultList = new List<GameInfo>();
-
-			foreach (var game in gameList)
-			{
-				resultList.Add(Mechanic.ConvertGameInfo(game, userId, accDao));
-			}
-
-            result = resultList;
+		    result = gameList.Select(game => Mechanic.ConvertGameInfo(game, userId, this.accDao)).ToList();
 
 			return ResponseResult.Ok;
 		}
@@ -94,16 +88,16 @@ namespace MathTicTac.BLL.Logic
 				throw new ArgumentNullException();
 			}
 
-			if (!Security.TokenIpPairIsValid(token, ip, accDao))
+			if (!Security.TokenIpPairIsValid(token, ip, this.accDao))
 			{
                 result = null;
 
 				return ResponseResult.TokenInvalid;
 			}
 
-			int userId = accDao.GetUserIdByToken(token);
+			int userId = this.accDao.GetUserIdByToken(token);
 
-			var currentWorld = gameDao.GetGameState(gameId);
+			var currentWorld = this.gameDao.GetGameState(gameId);
 
 			if (userId != currentWorld.ClientId && userId != currentWorld.EnemyId)
 			{
@@ -118,151 +112,132 @@ namespace MathTicTac.BLL.Logic
         }
 
 		public ResponseResult MakeMove(Move move)
-		{
-			if (move == null)
-			{
-				throw new ArgumentNullException();
-			}
+        {
+            if (move == null)
+            {
+                throw new ArgumentNullException();
+            }
 
-			if (!Security.TokenIpPairIsValid(move.Token, move.IP, accDao))
-			{
-				return ResponseResult.TokenInvalid;
-			}
+            if (!Security.TokenIpPairIsValid(move.Token, move.IP, this.accDao))
+            {
+                return ResponseResult.TokenInvalid;
+            }
 
-			int userId = accDao.GetUserIdByToken(move.Token);
+            int userId = this.accDao.GetUserIdByToken(move.Token);
 
-			var currentWorld = gameDao.GetGameState(move.GameId);
+            var currentWorld = this.gameDao.GetGameState(move.GameId);
 
-			// Checking turn availability
-			if ((userId == currentWorld.ClientId &&
-			    currentWorld.Status != Enums.GameStatus.ClientTurn) ||
-			    (userId == currentWorld.EnemyId &&
-			    currentWorld.Status != Enums.GameStatus.EnemyTurn) ||
-			    (userId != currentWorld.ClientId && userId != currentWorld.EnemyId))
-			{
-				return ResponseResult.TurnUnavailiable;
-			}
+            if (GameLogic.IsTurnAvailable(userId, currentWorld))
+            {
+                return ResponseResult.TurnUnavailiable;
+            }
 
-			bool moveCoordsValid = false;
+            bool moveCoordsValid = false;
+            if (GameLogic.IsBigCellCoordinatesAvailable(move, currentWorld))
+            {
+                moveCoordsValid = true;
+            }
+            else
+            {
+                for (int x = 0; x < currentWorld.BigCells.GetLength(0); x++)
+                {
+                    for (int y = 0; y < currentWorld.BigCells.GetLength(1); y++)
+                    {
+                        if (!Mechanic.IsBigCellFilled(currentWorld.BigCells[x, y]) &&
+                            move.BigCellCoord.X == x && move.BigCellCoord.Y == y)
+                        {
+                            moveCoordsValid = true;
+                        }
+                    }
+                }
+            }
 
-			//Checking BigCell coordinates availability
-			if (!Mechanic.IsBigCellFilled(currentWorld.BigCells[currentWorld.LastCellMove.X, currentWorld.LastCellMove.Y]) &&
-			    move.BigCellCoord.X == currentWorld.LastCellMove.X && move.BigCellCoord.Y == currentWorld.LastCellMove.Y)
-			{
-				moveCoordsValid = true;
-			}
-			else
-			{
-				for (int x = 0; x < currentWorld.BigCells.GetLength(0); x++)
-				{
-					for (int y = 0; y < currentWorld.BigCells.GetLength(1); y++)
-					{
-						if (!Mechanic.IsBigCellFilled(currentWorld.BigCells[x, y]) &&
-						    move.BigCellCoord.X == x && move.BigCellCoord.Y == y)
-						{
-							moveCoordsValid = true;
-						}
-					}
-				}
-			}
+            if (!moveCoordsValid)
+            {
+                return ResponseResult.TurnUnavailiable;
+            }
 
-			if (!moveCoordsValid)
-			{
-				return ResponseResult.TurnUnavailiable;
-			}
+            if (GameLogic.IsCellCoordinatesAvailable(move, currentWorld))
+            {
+                return ResponseResult.TurnUnavailiable;
+            }
 
-			//Checking Cell coordinates availability
-			if (currentWorld.BigCells[move.BigCellCoord.X, move.BigCellCoord.Y].Cells[move.CellCoord.X, move.CellCoord.Y].State != Enums.State.None)
-			{
-				return ResponseResult.TurnUnavailiable;
-			}
+            // Making move and status updating
+            if (userId == currentWorld.ClientId)
+            {
+                currentWorld.BigCells[move.BigCellCoord.X, move.BigCellCoord.Y].Cells[move.CellCoord.X, move.CellCoord.Y].State = State.Client;
+                currentWorld.Status = GameStatus.EnemyTurn;
+            }
+            else if (userId == currentWorld.EnemyId)
+            {
+                currentWorld.BigCells[move.BigCellCoord.X, move.BigCellCoord.Y].Cells[move.CellCoord.X, move.CellCoord.Y].State = State.Enemy;
+                currentWorld.Status = GameStatus.ClientTurn;
+            }
+            else
+            {
+                return ResponseResult.AccountDataInvalid;
+            }
 
-			// Making move and status updating
-			if (userId == currentWorld.ClientId)
-			{
-				currentWorld.BigCells[move.BigCellCoord.X, move.BigCellCoord.Y].Cells[move.CellCoord.X, move.CellCoord.Y].State = Enums.State.Client;
-				currentWorld.Status = Enums.GameStatus.EnemyTurn;
-			}
-			else if (userId == currentWorld.EnemyId)
-			{
-				currentWorld.BigCells[move.BigCellCoord.X, move.BigCellCoord.Y].Cells[move.CellCoord.X, move.CellCoord.Y].State = Enums.State.Enemy;
-				currentWorld.Status = Enums.GameStatus.ClientTurn;
-			}
-			else
-			{
-				return ResponseResult.AccountDataInvalid;
-			}
+            //World result status updating
+            GameLogic.WorldResultStatusUpdating(currentWorld);
 
-			//World result status updating
-			foreach (var bigCell in currentWorld.BigCells)
-			{
-				if (bigCell.State == Enums.State.None)
-				{
-					var currentState = Mechanic.GetBigCellResult(bigCell);
+            State currentWorldState = Mechanic.GetWorldResult(currentWorld);
 
-					if (currentState != Enums.State.None)
-					{
-						bigCell.State = currentState;
-						break;
-					}
-				}
-			}
+            switch (currentWorldState)
+            {
+                // Extract method
+                case State.None:
+                    if (Mechanic.IsWorldFilled(currentWorld))
+                    {
+                        currentWorld.Status = GameStatus.Draw;
 
-			var currentWorldState = Mechanic.GetWorldResult(currentWorld);
+                        this.accDao.AddStatus(currentWorld.ClientId, GameStatus.Draw);
+                        this.accDao.AddStatus(currentWorld.EnemyId, GameStatus.Draw);
+                    }
+                    break;
 
-			switch (currentWorldState)
-			{
-				case Enums.State.None:
-					if (Mechanic.IsWorldFilled(currentWorld))
-					{
-						currentWorld.Status = Enums.GameStatus.Draw;
+                case State.Client:
+                    currentWorld.Status = GameStatus.Victory;
 
-						accDao.AddStatus(currentWorld.ClientId, Enums.GameStatus.Draw);
-						accDao.AddStatus(currentWorld.EnemyId, Enums.GameStatus.Draw);
-					}
-					break;
+                    this.accDao.AddStatus(currentWorld.ClientId, GameStatus.Victory);
+                    this.accDao.AddStatus(currentWorld.EnemyId, GameStatus.Defeat);
+                    break;
 
-				case Enums.State.Client:
-					currentWorld.Status = Enums.GameStatus.Victory;
+                case State.Enemy:
+                    currentWorld.Status = GameStatus.Defeat;
 
-					accDao.AddStatus(currentWorld.ClientId, Enums.GameStatus.Victory);
-					accDao.AddStatus(currentWorld.EnemyId, Enums.GameStatus.Defeat);
-					break;
+                    this.accDao.AddStatus(currentWorld.ClientId, GameStatus.Defeat);
+                    this.accDao.AddStatus(currentWorld.EnemyId, GameStatus.Victory);
+                    break;
 
-				case Enums.State.Enemy:
-					currentWorld.Status = Enums.GameStatus.Defeat;
+                default:
+                    throw new InvalidOperationException($"Enum {nameof(State)} is invalid");
+            }
 
-					accDao.AddStatus(currentWorld.ClientId, Enums.GameStatus.Defeat);
-					accDao.AddStatus(currentWorld.EnemyId, Enums.GameStatus.Victory);
-					break;
-
-				default:
-					throw new InvalidOperationException($"Enum {nameof(Enums.State)} is invalid");
-			}
-
-            if (gameDao.Update(currentWorld))
+            if (this.gameDao.Update(currentWorld))
             {
                 return ResponseResult.Ok;
             }
 
             return ResponseResult.None;
-		}
+        }
 
-		public ResponseResult RejectGame(string token, string ip, int gameId)
+        public ResponseResult RejectGame(string token, string ip, int gameId)
 		{
-			if (string.IsNullOrWhiteSpace(token) || string.IsNullOrWhiteSpace(ip) || gameId == 0)
+			if (string.IsNullOrWhiteSpace(token) ||
+                string.IsNullOrWhiteSpace(ip) ||
+                gameId == 0) // <= ?
 			{
 				throw new ArgumentNullException();
 			}
 
-			if (!Security.TokenIpPairIsValid(token, ip, accDao))
+			if (!Security.TokenIpPairIsValid(token, ip, this.accDao))
 			{
 				return ResponseResult.TokenInvalid;
 			}
 
-			int userId = accDao.GetUserIdByToken(token);
-
-			var currentWorld = gameDao.GetGameState(gameId);
+			int userId = this.accDao.GetUserIdByToken(token);
+            DetailedWorld currentWorld = this.gameDao.GetGameState(gameId);
 
 			if (userId != currentWorld.ClientId && userId != currentWorld.EnemyId)
 			{
@@ -271,40 +246,76 @@ namespace MathTicTac.BLL.Logic
 
 			switch (currentWorld.Status)
 			{
-				case Enums.GameStatus.Victory:
-				case Enums.GameStatus.Defeat:
-				case Enums.GameStatus.Draw:
-				case Enums.GameStatus.Rejected:
+				case GameStatus.Victory:
+				case GameStatus.Defeat:
+				case GameStatus.Draw:
+				case GameStatus.Rejected:
 					return ResponseResult.TurnUnavailiable;
 
-				case Enums.GameStatus.Query:
-					currentWorld.Status = Enums.GameStatus.Rejected;
+				case GameStatus.Query:
+					currentWorld.Status = GameStatus.Rejected;
 					return ResponseResult.Ok;
 
-				case Enums.GameStatus.ClientTurn:
-				case Enums.GameStatus.EnemyTurn:
+				case GameStatus.ClientTurn:
+				case GameStatus.EnemyTurn:
 					break;
 
-				case Enums.GameStatus.None:
+				case GameStatus.None:
 				default:
-					throw new InvalidOperationException($"Enum {nameof(Enums.GameStatus)} is invalid");
+					throw new InvalidOperationException($"Enum {nameof(GameStatus)} is invalid");
 			}
 
-			if (userId == currentWorld.ClientId)
-			{
-				currentWorld.Status = Enums.GameStatus.Defeat;
-			}
-			else
-			{
-				currentWorld.Status = Enums.GameStatus.Victory;
-			}
+			currentWorld.Status = userId == currentWorld.ClientId ?
+                                    GameStatus.Defeat : 
+                                    GameStatus.Victory;
 
-            if (gameDao.Update(currentWorld))
+            if (this.gameDao.Update(currentWorld))
             {
                 return ResponseResult.Ok;
             }
 
 			return ResponseResult.None;
 		}
-	}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void WorldResultStatusUpdating(DetailedWorld currentWorld)
+        {
+            foreach (var bigCell in currentWorld.BigCells)
+            {
+                if (bigCell.State == State.None)
+                {
+                    var currentState = Mechanic.GetBigCellResult(bigCell);
+
+                    if (currentState != State.None)
+                    {
+                        bigCell.State = currentState;
+                        break;
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool IsCellCoordinatesAvailable(Move move, DetailedWorld currentWorld)
+        {
+            return currentWorld.BigCells[move.BigCellCoord.X, move.BigCellCoord.Y].Cells[move.CellCoord.X, move.CellCoord.Y].State != State.None;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool IsBigCellCoordinatesAvailable(Move move, DetailedWorld currentWorld)
+        {
+            return !Mechanic.IsBigCellFilled(currentWorld.BigCells[currentWorld.LastCellMove.X, currentWorld.LastCellMove.Y]) &&
+                            move.BigCellCoord.X == currentWorld.LastCellMove.X && move.BigCellCoord.Y == currentWorld.LastCellMove.Y;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool IsTurnAvailable(int userId, DetailedWorld currentWorld)
+        {
+            return (userId == currentWorld.ClientId &&
+                            currentWorld.Status != GameStatus.ClientTurn) ||
+                            (userId == currentWorld.EnemyId &&
+                            currentWorld.Status != GameStatus.EnemyTurn) ||
+                            (userId != currentWorld.ClientId && userId != currentWorld.EnemyId);
+        }
+    }
 }

@@ -9,13 +9,15 @@ namespace MathTicTac.BLL.Interfaces
 
         ResponseResult Get(int id, string token, string ip, out Account account);
 
-        /// <summary>
-        /// Login user.
-        /// </summary>
-        /// <param name="identifier"></param>
-        /// <param name="password"></param>
-        /// <returns>User's token</returns>
-        ResponseResult Login(string identifier, string password, string ip, out string token);
+	    /// <summary>
+	    /// Login user.
+	    /// </summary>
+	    /// <param name="identifier"></param>
+	    /// <param name="password"></param>
+	    /// <param name="ip"></param>
+	    /// <param name="token"></param>
+	    /// <returns>User's token</returns>
+	    ResponseResult Login(string identifier, string password, string ip, out string token);
 
         ResponseResult Login(string token, string ip);
 

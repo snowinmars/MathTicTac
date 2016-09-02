@@ -1,5 +1,6 @@
 ﻿using MathTicTac.DAL.Interfaces;
 using System;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -7,29 +8,32 @@ namespace MathTicTac.BLL.Logic.Additional
 {
 	internal static class Security
 	{
-		internal static SHA512 shaM { get; private set; } = new SHA512Managed();
+	    private static SHA512 ShaM { get; } = new SHA512Managed();
 
 		internal static bool TokenIpPairIsValid(string token, string ip, IAccountDao accDao)
 		{
-			if (string.IsNullOrWhiteSpace(token) || string.IsNullOrWhiteSpace(ip))
+			if (string.IsNullOrWhiteSpace(token) ||
+                string.IsNullOrWhiteSpace(ip))
 			{
 				throw new ArgumentNullException();
 			}
 
 			DateTime? tokenDate = accDao.AcceptToken(token);
 
-			if (tokenDate != null && tokenDate.Value.AddDays(15) > DateTime.Now &&
+			if (tokenDate != null &&
+                tokenDate.Value.AddDays(15) > DateTime.Now &&
 			    accDao.IsTokenIpTrusted(token, ip))
 			{
 				accDao.UpdateTokenDate(token);
 				return true;
 			}
-			else if (tokenDate != null)
-			{
-				accDao.DeleteToken(token);
-			}
 
-			return false;
+            if (tokenDate != null)
+		    {
+		        accDao.DeleteToken(token);
+		    }
+
+		    return false;
 		}
 
 		internal static byte[] GetPassHash(string input)
@@ -39,7 +43,7 @@ namespace MathTicTac.BLL.Logic.Additional
 				throw new ArgumentNullException();
 			}
 
-			return Security.shaM.ComputeHash(input);
+			return Security.ShaM.ComputeHash(input);
 		}
 
 		private static bool IsHashesEquals(byte[] lhs, byte[] rhs)
@@ -54,15 +58,7 @@ namespace MathTicTac.BLL.Logic.Additional
 				return false;
 			}
 
-			for (int i = 0; i < lhs.Length; i++)
-			{
-				if (lhs[i] != rhs[i])
-				{
-					return false;
-				}
-			}
-
-			return true;
+		    return !lhs.Where((t, i) => t != rhs[i]).Any();
 		}
 
 		private static byte[] ComputeHash(this SHA512 shaM, string text)

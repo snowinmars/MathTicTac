@@ -1,6 +1,7 @@
 ﻿using MathTicTac.DTO;
 using MathTicTac.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace MathTicTac.DAL.Interfaces
 {
@@ -18,7 +19,7 @@ namespace MathTicTac.DAL.Interfaces
 
 		bool DeleteToken(string token);
 
-		byte[] GetUserPassword(int id);
+		IEnumerable<byte> GetUserPassword(int id);
 
 		int GetUserIdByIdentifier(string identifier);
 

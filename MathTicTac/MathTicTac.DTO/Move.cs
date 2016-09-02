@@ -12,11 +12,11 @@
 				string token,
 				int gameid,
 				Coord bigCellCoord,
-				Coord CellCoord)
+				Coord cellCoord)
 		{
 			this.Token = token;
 			this.GameId = gameid;
-			this.CellCoord = CellCoord;
+			this.CellCoord = cellCoord;
 			this.BigCellCoord = bigCellCoord;
 			this.IP = ip;
 		}

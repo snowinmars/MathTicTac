@@ -18,232 +18,227 @@ namespace MathTicTac.BLL.Logic.Additional
 			};
 
 			if (game.ClientId == userId)
-			{
-				switch (game.status)
-				{
-					case Enums.GameStatus.Query:
-						result.status = Enums.GameStatus.EnemyTurn;
-						break;
+            {
+                // Extract method
+                switch (game.status)
+                {
+                    case GameStatus.Query:
+                        result.status = GameStatus.EnemyTurn;
+                        break;
 
-					case Enums.GameStatus.Victory:
-					case Enums.GameStatus.Defeat:
-					case Enums.GameStatus.Draw:
-					case Enums.GameStatus.Rejected:
-					case Enums.GameStatus.ClientTurn:
-					case Enums.GameStatus.EnemyTurn:
-						result.status = game.status;
-						break;
+                    case GameStatus.Victory:
+                    case GameStatus.Defeat:
+                    case GameStatus.Draw:
+                    case GameStatus.Rejected:
+                    case GameStatus.ClientTurn:
+                    case GameStatus.EnemyTurn:
+                        result.status = game.status;
+                        break;
 
-					case Enums.GameStatus.None:
-					default:
-						throw new InvalidOperationException($"Enum {nameof(Enums.GameStatus)} is invalid");
-				}
+                    case GameStatus.None:
+                    default:
+                        throw new InvalidOperationException($"Enum {nameof(GameStatus)} is invalid");
+                }
 
-				result.OppositePlayerName = accDao.GetUserNameById(game.EnemyId);
-			}
-			else if (game.EnemyId == userId)
-			{
-				switch (game.status)
-				{
-					case Enums.GameStatus.Victory:
-						result.status = Enums.GameStatus.Defeat;
-						break;
+                result.OppositePlayerName = accDao.GetUserNameById(game.EnemyId);
+            }
+            else if (game.EnemyId == userId)
+            {
+                // Extract method
+                switch (game.status)
+                {
+                    case GameStatus.Victory:
+                        result.status = GameStatus.Defeat;
+                        break;
 
-					case Enums.GameStatus.Defeat:
-						result.status = Enums.GameStatus.Victory;
-						break;
+                    case GameStatus.Defeat:
+                        result.status = GameStatus.Victory;
+                        break;
 
-					case Enums.GameStatus.Query:
-					case Enums.GameStatus.Rejected:
-					case Enums.GameStatus.Draw:
-						result.status = game.status;
-						break;
+                    case GameStatus.Query:
+                    case GameStatus.Rejected:
+                    case GameStatus.Draw:
+                        result.status = game.status;
+                        break;
 
-					case Enums.GameStatus.ClientTurn:
-						result.status = Enums.GameStatus.EnemyTurn;
-						break;
+                    case GameStatus.ClientTurn:
+                        result.status = GameStatus.EnemyTurn;
+                        break;
 
-					case Enums.GameStatus.EnemyTurn:
-						result.status = Enums.GameStatus.ClientTurn;
-						break;
+                    case GameStatus.EnemyTurn:
+                        result.status = GameStatus.ClientTurn;
+                        break;
 
-					case Enums.GameStatus.None:
-					default:
-						throw new InvalidOperationException($"Enum {nameof(Enums.GameStatus)} is invalid");
-				}
+                    case GameStatus.None:
+                    default:
+                        throw new InvalidOperationException($"Enum {nameof(GameStatus)} is invalid");
+                }
 
-				result.OppositePlayerName = accDao.GetUserNameById(game.ClientId);
-			}
+                result.OppositePlayerName = accDao.GetUserNameById(game.ClientId);
+            }
 
-			return result;
+            return result;
 		}
 
-		internal static World ConvertWorld(DetailedWorld world, int userId)
-		{
-			if (world.ClientId == userId)
+        internal static World ConvertWorld(DetailedWorld world, int userId)
+        {
+            if (world.ClientId == userId)
 			{
-				World result = new World(world.BigCells);
-				result.Id = world.Id;
+                // Extract method
+                World result = new World(world.BigCells)
+			    {
+			        Id = world.Id,
+			        LastBigCellMove = world.LastBigCellMove,
+			        LastCellMove = world.LastCellMove
+			    };
 
-				result.LastBigCellMove = world.LastBigCellMove;
-				result.LastCellMove = world.LastCellMove;
-
-				switch (world.Status)
+			    switch (world.Status)
 				{
-					case Enums.GameStatus.Victory:
-					case Enums.GameStatus.Defeat:
-					case Enums.GameStatus.Draw:
-					case Enums.GameStatus.Rejected:
-					case Enums.GameStatus.ClientTurn:
-					case Enums.GameStatus.EnemyTurn:
+					case GameStatus.Victory:
+					case GameStatus.Defeat:
+					case GameStatus.Draw:
+					case GameStatus.Rejected:
+					case GameStatus.ClientTurn:
+					case GameStatus.EnemyTurn:
 						result.Status = world.Status;
 						break;
 
-					case Enums.GameStatus.Query:
-						result.Status = Enums.GameStatus.EnemyTurn;
+					case GameStatus.Query:
+						result.Status = GameStatus.EnemyTurn;
 						break;
 
-					case Enums.GameStatus.None:
+					case GameStatus.None:
 					default:
-						throw new InvalidOperationException($"Enum {nameof(Enums.GameStatus)} is invalid");
+						throw new InvalidOperationException($"Enum {nameof(GameStatus)} is invalid");
 				}
 
-				if (result.Status == Enums.GameStatus.ClientTurn)
-				{
-					if (!Mechanic.IsBigCellFilled(result.BigCells[result.LastCellMove.X, result.LastCellMove.Y]))
-					{
-						result.BigCells[result.LastCellMove.X, result.LastCellMove.Y].IsFocus = true;
-					}
-					else
-					{
-						foreach (var bigCell in result.BigCells)
-						{
-							if (!Mechanic.IsBigCellFilled(bigCell))
-							{
-								bigCell.IsFocus = true;
-							}
-						}
-					}
-				}
+			    if (result.Status != GameStatus.ClientTurn)
+			    {
+			        return result;
+			    }
 
-				return result;
+                Coord lastCellMove = result.LastCellMove;
+                if (!Mechanic.IsBigCellFilled(result.BigCells[lastCellMove.X, lastCellMove.Y]))
+			    {
+			        result.BigCells[lastCellMove.X, lastCellMove.Y].IsFocus = true;
+			    }
+			    else
+			    {
+			        foreach (var bigCell in result.BigCells)
+			        {
+			            if (!Mechanic.IsBigCellFilled(bigCell))
+			            {
+			                bigCell.IsFocus = true;
+			            }
+			        }
+			    }
+
+			    return result;
 			}
-			else if (world.EnemyId == userId)
-			{
-				World result = new World(world.BigCells);
-				result.Id = world.Id;
 
-				result.LastBigCellMove = world.LastBigCellMove;
-				result.LastCellMove = world.LastCellMove;
+            if (world.EnemyId == userId)
+            {
+                // Extract method
+                World result = new World(world.BigCells)
+                {
+                    Id = world.Id,
+                    LastBigCellMove = world.LastBigCellMove,
+                    LastCellMove = world.LastCellMove
+                };
 
-				switch (world.Status)
-				{
-					case Enums.GameStatus.Victory:
-						result.Status = Enums.GameStatus.Defeat;
-						break;
+                switch (world.Status)
+                {
+                    case GameStatus.Victory:
+                        result.Status = GameStatus.Defeat;
+                        break;
 
-					case Enums.GameStatus.Defeat:
-						result.Status = Enums.GameStatus.Victory;
-						break;
+                    case GameStatus.Defeat:
+                        result.Status = GameStatus.Victory;
+                        break;
 
-					case Enums.GameStatus.ClientTurn:
-						result.Status = Enums.GameStatus.EnemyTurn;
-						break;
+                    case GameStatus.ClientTurn:
+                        result.Status = GameStatus.EnemyTurn;
+                        break;
 
-					case Enums.GameStatus.EnemyTurn:
-						result.Status = Enums.GameStatus.ClientTurn;
-						break;
+                    case GameStatus.EnemyTurn:
+                        result.Status = GameStatus.ClientTurn;
+                        break;
 
-					case Enums.GameStatus.Draw:
-					case Enums.GameStatus.Rejected:
-					case Enums.GameStatus.Query:
-						result.Status = world.Status;
-						break;
+                    case GameStatus.Draw:
+                    case GameStatus.Rejected:
+                    case GameStatus.Query:
+                        result.Status = world.Status;
+                        break;
 
-					case Enums.GameStatus.None:
-					default:
-						throw new InvalidOperationException($"Enum {nameof(Enums.GameStatus)} is invalid");
-				}
+                    case GameStatus.None:
+                    default:
+                        throw new InvalidOperationException($"Enum {nameof(GameStatus)} is invalid");
+                }
 
-				Mechanic.InvertWorld(result.BigCells);
+                Mechanic.InvertWorld(result.BigCells);
 
-				if (result.Status == Enums.GameStatus.ClientTurn)
-				{
-					if (!Mechanic.IsBigCellFilled(result.BigCells[result.LastBigCellMove.X, result.LastBigCellMove.Y]))
-					{
-						result.BigCells[result.LastBigCellMove.X, result.LastBigCellMove.Y].IsFocus = true;
-					}
-					else
-					{
-						foreach (var bigCell in result.BigCells)
-						{
-							if (!Mechanic.IsBigCellFilled(bigCell))
-							{
-								bigCell.IsFocus = true;
-							}
-						}
-					}
-				}
+                if (result.Status != GameStatus.ClientTurn)
+                {
+                    return result;
+                }
 
-				return result;
-			}
-			else
-			{
-				throw new InvalidOperationException();
-			}
-		}
+                Coord lastBigCellMove = result.LastBigCellMove;
+                if (!Mechanic.IsBigCellFilled(result.BigCells[lastBigCellMove.X, lastBigCellMove.Y]))
+                {
+                    result.BigCells[lastBigCellMove.X, lastBigCellMove.Y].IsFocus = true;
+                }
+                else
+                {
+                    foreach (var bigCell in result.BigCells)
+                    {
+                        if (!Mechanic.IsBigCellFilled(bigCell))
+                        {
+                            bigCell.IsFocus = true;
+                        }
+                    }
+                }
 
-		internal static bool IsBigCellFilled(BigCell input)
+                return result;
+            }
+
+            throw new InvalidOperationException();
+        }
+
+	    internal static bool IsBigCellFilled(BigCell input)
 		{
-			int iterator = 0;
-
-			foreach (var cell in input.Cells)
-			{
-				if (cell.State != Enums.State.None)
-				{
-					iterator++;
-				}
-			}
-
-			return iterator == input.Cells.Length;
+	        return input.Cells
+                .Cast<Cell>()
+                .Count(cell => cell.State != State.None) == input.Cells.Length;
 		}
 
 		internal static bool IsWorldFilled(DetailedWorld input)
 		{
-			int iterator = 0;
-
-			foreach (var bigCell in input.BigCells)
-			{
-				if (bigCell.State != Enums.State.None)
-				{
-					iterator++;
-				}
-			}
-
-			return iterator == input.BigCells.Length;
+		    return input.BigCells
+                .Cast<BigCell>()
+                .Count(bigCell => bigCell.State != State.None) == input.BigCells.Length;
 		}
 
-		internal static void InvertWorld(BigCell[,] bigCells)
+	    private static void InvertWorld(BigCell[,] bigCells)
 		{
 			foreach (var bigCell in bigCells)
 			{
-				if (true)
+				if (true) // wu?
 				{
 					switch (bigCell.State)
 					{
-						case Enums.State.None:
+						case State.None:
 							break;
 
-						case Enums.State.Client:
-							bigCell.State = Enums.State.Enemy;
+						case State.Client:
+							bigCell.State = State.Enemy;
 							break;
 
-						case Enums.State.Enemy:
-							bigCell.State = Enums.State.Client;
+						case State.Enemy:
+							bigCell.State = State.Client;
 							break;
 
 						default:
-							throw new InvalidOperationException($"Enum {nameof(Enums.State)} is invalid");
+							throw new InvalidOperationException($"Enum {nameof(State)} is invalid");
 					}
 				}
 
@@ -251,19 +246,19 @@ namespace MathTicTac.BLL.Logic.Additional
 				{
 					switch (cell.State)
 					{
-						case Enums.State.None:
+						case State.None:
 							break;
 
-						case Enums.State.Client:
-							bigCell.State = Enums.State.Enemy;
+						case State.Client:
+							bigCell.State = State.Enemy;
 							break;
 
-						case Enums.State.Enemy:
-							bigCell.State = Enums.State.Client;
+						case State.Enemy:
+							bigCell.State = State.Client;
 							break;
 
 						default:
-							throw new InvalidOperationException($"Enum {nameof(Enums.State)} is invalid");
+							throw new InvalidOperationException($"Enum {nameof(State)} is invalid");
 					}
 				}
 			}
@@ -276,7 +271,7 @@ namespace MathTicTac.BLL.Logic.Additional
 			List<State> currentList3 = new List<State>();
 			List<State> currentList4 = new List<State>();
 
-			for (int i = 0; i < input.Cells.GetLength(0); i++)
+			for (int i = 0; i < input.Cells.GetLength(0); i++) // wu?
 			{
 				for (int j = 0; j < input.Cells.GetLength(0); j++)
 				{
@@ -291,12 +286,13 @@ namespace MathTicTac.BLL.Logic.Additional
 				{
 					return currentList1.First();
 				}
-				else if (Mechanic.IsVictoryRow(currentList2))
-				{
-					return currentList2.First();
-				}
 
-				currentList1.Clear();
+                if (Mechanic.IsVictoryRow(currentList2))
+			    {
+			        return currentList2.First();
+			    }
+
+			    currentList1.Clear();
 				currentList2.Clear();
 			}
 
@@ -304,12 +300,13 @@ namespace MathTicTac.BLL.Logic.Additional
 			{
 				return currentList3.First();
 			}
-			else if (Mechanic.IsVictoryRow(currentList4))
-			{
-				return currentList4.First();
-			}
 
-			return State.None;
+            if (Mechanic.IsVictoryRow(currentList4))
+		    {
+		        return currentList4.First();
+		    }
+
+		    return State.None;
 		}
 
 		internal static State GetWorldResult(DetailedWorld input)
@@ -334,40 +331,30 @@ namespace MathTicTac.BLL.Logic.Additional
 				{
 					return currentList1.First();
 				}
-				else if (Mechanic.IsVictoryRow(currentList2))
-				{
-					return currentList2.First();
-				}
+
+                if (Mechanic.IsVictoryRow(currentList2))
+			    {
+			        return currentList2.First();
+			    }
 			}
 
 			if (Mechanic.IsVictoryRow(currentList3))
 			{
 				return currentList3.First();
 			}
-			else if (Mechanic.IsVictoryRow(currentList4))
-			{
-				return currentList4.First();
-			}
 
-			return State.None;
+            if (Mechanic.IsVictoryRow(currentList4))
+		    {
+		        return currentList4.First();
+		    }
+
+		    return State.None;
 		}
 
-		internal static bool IsVictoryRow(IEnumerable<State> input)
+	    private static bool IsVictoryRow(IEnumerable<State> input)
 		{
 			State testState = input.First();
-
-			if (testState != State.None)
-			{
-				foreach (var state in input)
-				{
-					if (state != testState)
-					{
-						return false;
-					}
-				}
-			}
-
-			return true;
+			return testState == State.None || input.All(state => state == testState);
 		}
-	}
+    }
 }
