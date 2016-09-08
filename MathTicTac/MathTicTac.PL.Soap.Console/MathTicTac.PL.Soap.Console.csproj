@@ -4,16 +4,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ABCE9384-41D3-4740-8983-24718D25A1A8}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{17C6576F-D27A-4779-AC05-2A61FAAC8CBD}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MathTicTac.BLL.Logic</RootNamespace>
-    <AssemblyName>MathTicTac.BLL.Logic</AssemblyName>
+    <RootNamespace>MathTicTac.PL.Soap.Console</RootNamespace>
+    <AssemblyName>MathTicTac.PL.Soap.Console</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,6 +26,7 @@
     <CodeAnalysisRuleSet>..\MathTicTac.PL.Monogame\MathTicTac.PL.Monogame.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -44,29 +47,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountLogic.cs" />
-    <Compile Include="Additional\Mechanic.cs" />
-    <Compile Include="Additional\Security.cs" />
-    <Compile Include="GameLogic.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MathTicTac.BLL.Interfaces\MathTicTac.BLL.Interfaces.csproj">
-      <Project>{E0620BE8-080B-4D9B-9B79-044E169227C7}</Project>
-      <Name>MathTicTac.BLL.Interfaces</Name>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MathTicTac.PL.Soap.BindingLib\MathTicTac.PL.Soap.BindingLib.csproj">
+      <Project>{10076e87-ace9-4379-88a8-7b928d0b23c4}</Project>
+      <Name>MathTicTac.PL.Soap.BindingLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MathTicTac.DAL.Interfaces\MathTicTac.DAL.Interfaces.csproj">
-      <Project>{272BD081-FFC9-49D5-BE30-0E7250B67977}</Project>
-      <Name>MathTicTac.DAL.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MathTicTac.DTO\MathTicTac.DTO.csproj">
-      <Project>{d81617da-c924-4bd6-aa2c-5055231d0c9d}</Project>
-      <Name>MathTicTac.DTO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MathTicTac.Enums\MathTicTac.Enums.csproj">
-      <Project>{827E3A2B-E2E5-45E9-AC91-33FBC5004F8A}</Project>
-      <Name>MathTicTac.Enums</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

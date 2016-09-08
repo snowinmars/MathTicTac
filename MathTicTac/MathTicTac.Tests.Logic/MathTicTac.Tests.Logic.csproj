@@ -96,6 +96,10 @@
       <Project>{abce9384-41d3-4740-8983-24718d25a1a8}</Project>
       <Name>MathTicTac.BLL.Logic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MathTicTac.DAL.Dao\MathTicTac.DAL.Dao.csproj">
+      <Project>{8f3422a0-3a97-4009-ab19-db03aa8b38b5}</Project>
+      <Name>MathTicTac.DAL.Dao</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MathTicTac.DAL.Interfaces\MathTicTac.DAL.Interfaces.csproj">
       <Project>{272bd081-ffc9-49d5-be30-0e7250b67977}</Project>
       <Name>MathTicTac.DAL.Interfaces</Name>

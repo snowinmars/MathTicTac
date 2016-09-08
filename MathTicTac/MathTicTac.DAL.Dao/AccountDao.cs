@@ -1,6 +1,7 @@
 ﻿using MathTicTac.DAL.Interfaces;
 using MathTicTac.DTO;
 using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -12,7 +13,7 @@ namespace MathTicTac.DAL.Dao
 		{
 			DateTime? result = null;
 
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string query = "SELECT [TimeOfLastAccess] FROM [Token] WHERE Token = @Token";
 
@@ -37,7 +38,7 @@ namespace MathTicTac.DAL.Dao
 
 		public bool Add(Account item, byte[] password)
 		{
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string procedureName = "AddUser";
 
@@ -63,7 +64,7 @@ namespace MathTicTac.DAL.Dao
 
 		public void AddStatus(int id, MathTicTac.Enums.GameStatus result)
 		{
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string procedureName = "AddStatusToAccount";
 
@@ -84,7 +85,7 @@ namespace MathTicTac.DAL.Dao
 		{
 			string result;
 
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string procedureName = "CreateToken";
 
@@ -110,7 +111,7 @@ namespace MathTicTac.DAL.Dao
 
 		public bool DeleteToken(string token)
 		{
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string query = "DELETE FROM [Tokens] WHERE [Token] = @Token";
 
@@ -130,7 +131,7 @@ namespace MathTicTac.DAL.Dao
 		{
 			Account result = new Account();
 
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string query = "SELECT [Id], [Name], [GamesWon], [GamesLose], [GamesDraw] FROM [Accounts] WHERE Id = @ID";
 
@@ -166,7 +167,7 @@ namespace MathTicTac.DAL.Dao
 		{
 			int result = 0;
 
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string query = "SELECT [Id] FROM [Accounts] WHERE [Name] = @Identifier";
 
@@ -193,7 +194,7 @@ namespace MathTicTac.DAL.Dao
 		{
 			int result = 0;
 
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string query = "SELECT [UserId] FROM [Tokens] WHERE [Token] = @Token";
 
@@ -220,7 +221,7 @@ namespace MathTicTac.DAL.Dao
 		{
 			string result = null;
 
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string query = "SELECT [Name] FROM [Accounts] WHERE [Id] = @ID";
 
@@ -247,7 +248,7 @@ namespace MathTicTac.DAL.Dao
 		{
 			byte[] result = null;
 
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string query = "SELECT [Password] FROM [Accounts] WHERE [Id] = @ID";
 
@@ -274,7 +275,7 @@ namespace MathTicTac.DAL.Dao
 		{
 			string result = null;
 
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string query = "SELECT [Token] FROM [Tokens] WHERE [UserId] = @ID";
 
@@ -301,7 +302,7 @@ namespace MathTicTac.DAL.Dao
 		{
 			bool result = false;
 
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string procedureName = "IsTokenIpTrusted";
 
@@ -329,7 +330,7 @@ namespace MathTicTac.DAL.Dao
 		{
 			bool result = false;
 
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string procedureName = "UpdateTokenDate";
 

@@ -5,6 +5,7 @@ using MathTicTac.DTO;
 using MathTicTac.Enums;
 using System;
 using System.Linq;
+using System.ServiceModel;
 
 namespace MathTicTac.BLL.Logic
 {

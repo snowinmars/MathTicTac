@@ -2,6 +2,7 @@
 using MathTicTac.DTO;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
@@ -12,7 +13,7 @@ namespace MathTicTac.DAL.Dao
 	{
 		public bool Add(DetailedWorld item)
 		{
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				string stateString = GameDao.CreateStateString(item);
 
@@ -47,7 +48,7 @@ namespace MathTicTac.DAL.Dao
 
 			DetailedGameInfo currentInfo = new DetailedGameInfo();
 
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string procedureName = "GetGameInfosByUserId";
 
@@ -118,7 +119,7 @@ namespace MathTicTac.DAL.Dao
 		{
 			DetailedWorld result = null;
 
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string query = "SELECT Id, ClientId, EnemyId, NumberOfDimensions, StatusId, TimeOfCreation, States, LastMove FROM [GameWorldsStates] WHERE Id = @Id";
 
@@ -147,7 +148,7 @@ namespace MathTicTac.DAL.Dao
 
 		public bool Update(DetailedWorld gameWorld)
 		{
-			using (SqlConnection connection = new SqlConnection(SqlConfig.ConnectionString))
+			using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString))
 			{
 				const string procedureName = "UpdateGameState";
 

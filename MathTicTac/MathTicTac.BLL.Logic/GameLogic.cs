@@ -5,10 +5,11 @@ using MathTicTac.DTO;
 using MathTicTac.Enums;
 using System;
 using System.Collections.Generic;
+using System.ServiceModel;
 
 namespace MathTicTac.BLL.Logic
 {
-	public class GameLogic : IGameLogic
+    public class GameLogic : IGameLogic
 	{
 		private const int dimension = 3;
 
