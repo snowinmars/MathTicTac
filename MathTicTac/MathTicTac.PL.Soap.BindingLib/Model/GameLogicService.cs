@@ -26,31 +26,41 @@ namespace MathTicTac.PL.Soap.BindingLib.Model
 		    return this.gameLogic.Create(player1Token, player1Ip, player2Identifier);
 		}
 
-		public ResponseResult GetAllActiveGames(string token, string ip, out IEnumerable<GameInfoSM> result)
+		public TypedResponce<List<GameInfoSM>> GetAllActiveGames(string token, string ip)
 		{
             IEnumerable<GameInfo> tempRes = new List<GameInfo>();
 
 		    var curRes = this.gameLogic.GetAllActiveGames(token, ip, out tempRes);
 
-            result = new List<GameInfoSM>();
+            var tempResList = new List<GameInfoSM>();
 
 		    foreach (var item in tempRes)
 		    {
-		        ((List<GameInfoSM>) result).Add(this.GameInfoBind(item));
+		        ((List<GameInfoSM>)tempResList).Add(this.GameInfoBind(item));
             }
 
-            return curRes;
+            var result = new TypedResponce<List<GameInfoSM>>()
+            {
+                Value = tempResList,
+                Responce = curRes
+            };
+
+		    return result;
 		}
 
-		public ResponseResult GetCurrentWorld(string token, string ip, int gameId, out WorldSM result)
+		public TypedResponce<WorldSM> GetCurrentWorld(string token, string ip, int gameId)
 		{
             var tempRes = new World();
 
             var curRes = this.gameLogic.GetCurrentWorld(token, ip, gameId, out tempRes);
 
-		    result = this.WorldBind(tempRes);
+		    var result = new TypedResponce<WorldSM>()
+		    {
+		        Value = this.WorldBind(tempRes),
+                Responce = curRes
+            };
 
-		    return curRes;
+		    return result;
 		}
 
 		public ResponseResult MakeMove(MoveSM move)

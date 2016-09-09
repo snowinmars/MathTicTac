@@ -18,9 +18,9 @@ namespace MathTicTac.PL.Soap.BindingLib.Interfaces
         ResponseResult Create(string player1Token, string player1Ip, string player2Identifier);
 
         [OperationContract]
-        ResponseResult GetCurrentWorld(string token, string ip, int gameId, out WorldSM result);
+        TypedResponce<WorldSM> GetCurrentWorld(string token, string ip, int gameId);
 
         [OperationContract]
-        ResponseResult GetAllActiveGames(string token, string ip, out IEnumerable<GameInfoSM> result);
+        TypedResponce<List<GameInfoSM>> GetAllActiveGames(string token, string ip);
 	}
 }

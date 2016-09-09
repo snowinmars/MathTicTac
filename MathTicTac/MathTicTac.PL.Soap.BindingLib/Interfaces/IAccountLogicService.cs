@@ -8,18 +8,18 @@ namespace MathTicTac.BLL.Interfaces
 	public interface IAccountLogicService
 	{
         [OperationContract]
-		ResponseResult Add(AccountSM item, string password);
+		ResponseResult Add(string name, string password);
 
         [OperationContract]
-        ResponseResult Get(int id, string token, string ip, out AccountSM account);
+        TypedResponce<AccountSM> Get(int id, string token);
         
         [OperationContract(Name = "LoginById")]
-        ResponseResult Login(string identifier, string password, string ip, out string token);
+        TypedResponce<string> Login(string identifier, string password);
 
         [OperationContract(Name = "LoginByToken")]
-        ResponseResult Login(string token, string ip);
+        ResponseResult Login(string token);
 
         [OperationContract]
-        ResponseResult Logout(string token, string ip);
+        ResponseResult Logout(string token);
 	}
 }

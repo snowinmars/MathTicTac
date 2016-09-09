@@ -45,7 +45,9 @@
     <Compile Include="Interfaces\IAccountLogicService.cs" />
     <Compile Include="Interfaces\IGameLogicService.cs" />
     <Compile Include="Model\AccountLogicService.cs" />
+    <Compile Include="Model\Logging.cs" />
     <Compile Include="Model\GameLogicService.cs" />
+    <Compile Include="ServiceModels\TypedResponce.cs" />
     <Compile Include="ServiceModels\AccountSM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceModels\GameInfoSM.cs" />

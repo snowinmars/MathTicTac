@@ -48,6 +48,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathTicTac.PL.Soap.Console"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathTicTac.PL.Soap.BindingLib", "MathTicTac.PL.Soap.BindingLib\MathTicTac.PL.Soap.BindingLib.csproj", "{10076E87-ACE9-4379-88A8-7B928D0B23C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathTicTac.PL.Soap.TestClient", "MathTicTac.PL.Soap.TestClient\MathTicTac.PL.Soap.TestClient.csproj", "{6981ABF2-DD4A-4424-A835-CCAD727AA94B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -175,6 +177,14 @@ Global
 		{10076E87-ACE9-4379-88A8-7B928D0B23C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{10076E87-ACE9-4379-88A8-7B928D0B23C4}.Release|x86.ActiveCfg = Release|Any CPU
 		{10076E87-ACE9-4379-88A8-7B928D0B23C4}.Release|x86.Build.0 = Release|Any CPU
+		{6981ABF2-DD4A-4424-A835-CCAD727AA94B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6981ABF2-DD4A-4424-A835-CCAD727AA94B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6981ABF2-DD4A-4424-A835-CCAD727AA94B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6981ABF2-DD4A-4424-A835-CCAD727AA94B}.Debug|x86.Build.0 = Debug|Any CPU
+		{6981ABF2-DD4A-4424-A835-CCAD727AA94B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6981ABF2-DD4A-4424-A835-CCAD727AA94B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6981ABF2-DD4A-4424-A835-CCAD727AA94B}.Release|x86.ActiveCfg = Release|Any CPU
+		{6981ABF2-DD4A-4424-A835-CCAD727AA94B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -195,5 +205,6 @@ Global
 		{311588AC-3C20-4E09-B265-3F3CE436617D} = {778BF61F-12FC-4911-AE01-D5B89C3F806E}
 		{17C6576F-D27A-4779-AC05-2A61FAAC8CBD} = {311588AC-3C20-4E09-B265-3F3CE436617D}
 		{10076E87-ACE9-4379-88A8-7B928D0B23C4} = {311588AC-3C20-4E09-B265-3F3CE436617D}
+		{6981ABF2-DD4A-4424-A835-CCAD727AA94B} = {311588AC-3C20-4E09-B265-3F3CE436617D}
 	EndGlobalSection
 EndGlobal

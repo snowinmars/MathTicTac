@@ -93,7 +93,7 @@ namespace MathTicTac.DAL.Dao
 				{
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 
-					SqlParameter RetToken = command.Parameters.Add("@Token", SqlDbType.NVarChar);
+					SqlParameter RetToken = command.Parameters.Add("@Token", SqlDbType.UniqueIdentifier);
 					RetToken.Direction = ParameterDirection.Output;
 
 					command.Parameters.AddWithValue("@UserID", id);
@@ -102,7 +102,7 @@ namespace MathTicTac.DAL.Dao
 					connection.Open();
 					command.ExecuteNonQuery();
 
-					result = (string)RetToken.Value;
+					result = RetToken.Value.ToString();
 				}
 			}
 
